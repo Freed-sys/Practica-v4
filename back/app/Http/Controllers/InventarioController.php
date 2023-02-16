@@ -60,11 +60,6 @@ class InventarioController extends Controller
     }
 
 
-    public function update(Request $request, Inventario $inventario)
-    {
-        //
-    }
-
 
     public function borrar($id, Request $request)
     {
