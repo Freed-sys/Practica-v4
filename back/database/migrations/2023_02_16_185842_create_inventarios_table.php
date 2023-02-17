@@ -20,6 +20,11 @@ class CreateInventariosTable extends Migration
             $table->integer('cant_mat');
             $table->integer('precio_unitario');
             $table->timestamps();
+
+
+            $table->foreign('tipo_mat')->references('abreviatura')->on('umedidas');
+
+
         });
     }
 
