@@ -6,6 +6,7 @@ use App\Models\Inventario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class InventarioController extends Controller
 {
    
@@ -42,34 +43,21 @@ class InventarioController extends Controller
     /*editar item*/
 
 
-    public function edit(Request $request)
-    {
-        $inventario = Inventario::find($request->id);
-
-    if (!$inventario) {
-        return response()->json(['message' => 'No se encontro el inventario'], 404);
-    }
-
-    $inventario->nombre_mat = $request->input('nombre_mat');
-    $inventario->tipo_mat = $request->input('tipo_mat');
-    $inventario->cant_mat = $request->input('cant_mat');
-    $inventario->precio_unitario = $request->input('precio_unitario');
+    public function editar($id, Request $request)
+{
+    $inventario = Inventario::findOrFail($id);
+    $inventario->fill($request->all());
     $inventario->save();
-
-    return response()->json(['message' => 'Inventario actualizado con exito'], 200);
-    }
+    return response()->json('Elemento actualizado correctamente');
+}
 
 
 
     public function borrar($id, Request $request)
-    {
-        $inventario = Inventario::find($id);
+{
+    $inventario = Inventario::findOrFail($id);
+    $inventario->delete();
+    return response()->json('Elemento eliminado correctamente');
+}
 
-        if (!$inventario) {
-            return response()->json(['message' => 'No se encontró el inventario'], 404);
-        }
-    
-        $inventario->delete();
-        return response()->json(['message' => 'Elemento de inventario eliminado correctamente'], 200);
-    }
 }
