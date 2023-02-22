@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Umedida;
+use App\Models\umedidas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -25,16 +25,18 @@ class UmedidaController extends Controller
      */
     public function create(Request $request)
     {
-        $umedida = new Umedida();
-        $umedida->nombre = $request['nombre'];
-        $umedida->abreviatura = $request['abreviatura'];
-
+        $umedida = new umedidas();
+        $umedida = umedidas::create([
+            'nombre' => $request['nombre'],
+             'abreviatura' => $request['abreviatura'],
+         ]);
+        return response()->json('Elemento creado correctamente');
 
     }
 
     public function listaDropdown()
     {
-        $umedidas = Umedida::all();
+        $umedidas = umedidas::all();
         $options = [];
         foreach ($umedidas as $umedida) {
             $options[] = [

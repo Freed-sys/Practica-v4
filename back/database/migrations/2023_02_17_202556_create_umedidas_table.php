@@ -14,7 +14,7 @@ class CreateUmedidasTable extends Migration
     public function up()
     {
         Schema::create('umedidas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('abreviatura');
             $table->timestamps();

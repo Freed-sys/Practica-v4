@@ -14,15 +14,15 @@ class CreateInventariosTable extends Migration
     public function up()
     {
         Schema::create('inventarios', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nombre_mat');
-            $table->string('tipo_mat');
+            $table->unsignedBigInteger('tipo_mat');
             $table->integer('cant_mat');
             $table->integer('precio_unitario');
             $table->timestamps();
 
 
-            $table->foreign('tipo_mat')->references('abreviatura')->on('umedidas');
+            $table->foreign('tipo_mat')->references('id')->on('umedidas');
 
 
         });
