@@ -14,8 +14,7 @@ class CreateClientesTable extends Migration
     public function up()
     {
 
-    
-
+      
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('rut_cliente');
@@ -25,7 +24,7 @@ class CreateClientesTable extends Migration
             $table->unsignedBigInteger('direccion_cliente');
             $table->string('telefono_cliente');
 
-            $table->foreign('direccion_cliente')->references('id')->on('direcciones');           
+           
         });
 
     }
