@@ -14,13 +14,7 @@ class CreateClientesTable extends Migration
     public function up()
     {
 
-        Schema::create('ordenTrabajo', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('valor');
-            $table->string('tipo_casa');
-            $table->string('material'); //esta será la id de la tabla material, debe ser has many
-            $table->timestamps();
-        });
+    
 
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -31,9 +25,7 @@ class CreateClientesTable extends Migration
             $table->unsignedBigInteger('direccion_cliente');
             $table->string('telefono_cliente');
 
-            $table->foreign('direccion_cliente')->references('id')->on('direcciones');
-            $table->foreign('codigo_orden')->references('id')->on('ordenTrabajo');
-           
+            $table->foreign('direccion_cliente')->references('id')->on('direcciones');           
         });
 
     }
@@ -46,6 +38,6 @@ class CreateClientesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('clientes');
-        Schema::dropIfExists('ordenTrabajo');
+
     }
 }

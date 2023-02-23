@@ -23,4 +23,8 @@ class inventarios extends Model
     public function umedida(){
         return $this->belongsTo(Umedidas::class, 'tipo_mat', 'id');
     }
+
+    public function material(){
+        return $this->hasMany(Material::class, 'id', 'cod_material');
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMaterialesTable extends Migration
+class CreateOrdenTrabajoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateMaterialesTable extends Migration
      */
     public function up()
     {
-        Schema::create('materiales', function (Blueprint $table) {
+        Schema::create('ordenTrabajo', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('cod_material');
-            $table->bigInteger('cantidad_material');
+            $table->integer('valor');
+            $table->unsignedBigInteger('tipo_casa');
             $table->timestamps();
 
+            $table->foreign('tipo_casa')->references('id')->on('variantes');
 
-            $table->foreign('cod_material')->references('id')->on('inventarios');
+
+
         });
     }
 
@@ -31,6 +33,6 @@ class CreateMaterialesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materiales');
+        Schema::dropIfExists('ordenTrabajo');
     }
 }

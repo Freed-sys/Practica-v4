@@ -14,14 +14,11 @@ class ordenTrabajo extends Model
     public $timestamps = false;
     protected $fillable = [
         'valor',
-        'tipo_casa',
-        'material'
+        'tipo_casa', //variante id 
     ];
 
-   public function cliente(){
-    return $this->hasMany(clientes::class, 'id','codigo_orden');
-   } 
-   public function variante(){
-    return $this->belongsTo(variantes::class, 'id','tipo_casa');
-   } 
+    public function variante(){
+        return $this->belongsTo(variantes::class, 'tipo_casa', 'id' );
+    }
+
 }
