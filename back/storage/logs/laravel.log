@@ -1602,7 +1602,6 @@ Did you mean one of these?
 #31 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #32 {main}
 "} 
-<<<<<<< HEAD
 [2023-02-23 19:27:25] local.ERROR: SQLSTATE[HY000]: General error: 1005 Can't create table `casas`.`clientes` (errno: 150 "Foreign key constraint is incorrectly formed") (SQL: alter table `clientes` add constraint `clientes_cod_orden_foreign` foreign key (`cod_orden`) references `ordenTrabajo` (`id`)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: HY000): SQLSTATE[HY000]: General error: 1005 Can't create table `casas`.`clientes` (errno: 150 \"Foreign key constraint is incorrectly formed\") (SQL: alter table `clientes` add constraint `clientes_cod_orden_foreign` foreign key (`cod_orden`) references `ordenTrabajo` (`id`)) at C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:712)
 [stacktrace]
 #0 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(672): Illuminate\\Database\\Connection->runQueryCallback('alter table `cl...', Array, Object(Closure))
@@ -3535,5 +3534,3 @@ Did you mean one of these?
 #42 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #43 {main}
 "} 
-=======
->>>>>>> parent of 3cc6997 (Orden Trabajo y clientes)
