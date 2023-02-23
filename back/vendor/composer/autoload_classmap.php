@@ -8,15 +8,17 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Http\\Controllers\\ClienteController' => $baseDir . '/app/Http/Controllers/ClienteController.php',
     'App\\Http\\Controllers\\ComunasController' => $baseDir . '/app/Http/Controllers/ComunasController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DireccionesController' => $baseDir . '/app/Http/Controllers/DireccionesController.php',
     'App\\Http\\Controllers\\InventarioController' => $baseDir . '/app/Http/Controllers/InventarioController.php',
     'App\\Http\\Controllers\\RegionController' => $baseDir . '/app/Http/Controllers/RegionController.php',
     'App\\Http\\Controllers\\UmedidaController' => $baseDir . '/app/Http/Controllers/UmedidaController.php',
+<<<<<<< HEAD
     'App\\Http\\Controllers\\VarianteController' => $baseDir . '/app/Http/Controllers/VarianteController.php',
     'App\\Http\\Controllers\\ordenTrabajoController' => $baseDir . '/app/Http/Controllers/ordenTrabajoController.php',
+=======
+>>>>>>> parent of 3cc6997 (Orden Trabajo y clientes)
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -27,10 +29,8 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
-    'App\\Models\\clientes' => $baseDir . '/app/Models/clientes.php',
     'App\\Models\\comunas' => $baseDir . '/app/Models/comunas.php',
     'App\\Models\\inventarios' => $baseDir . '/app/Models/inventarios.php',
-    'App\\Models\\ordenTrabajo' => $baseDir . '/app/Models/ordenTrabajo.php',
     'App\\Models\\region' => $baseDir . '/app/Models/region.php',
     'App\\Models\\umedidas' => $baseDir . '/app/Models/umedidas.php',
     'App\\Models\\variantes' => $baseDir . '/app/Models/variantes.php',

@@ -13,6 +13,7 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
+<<<<<<< HEAD
 
     
 
@@ -28,6 +29,12 @@ class CreateClientesTable extends Migration
             $table->foreign('direccion_cliente')->references('id')->on('direcciones');           
         });
 
+=======
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+>>>>>>> parent of 3cc6997 (Orden Trabajo y clientes)
     }
 
     /**
@@ -38,6 +45,9 @@ class CreateClientesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('clientes');
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 3cc6997 (Orden Trabajo y clientes)
     }
 }
