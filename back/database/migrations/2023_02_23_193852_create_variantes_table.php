@@ -14,7 +14,14 @@ class CreateVariantesTable extends Migration
     public function up()
     {
         Schema::create('variantes', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('nombre_variante');
+            $table->string('desc_variante');
+            $table->bigInteger('largo_variante');
+            $table->bigInteger('ancho_variante');
+            $table->unsignedBigInteger('material');
+            $table->bigInteger('valor');
+
             $table->timestamps();
         });
     }

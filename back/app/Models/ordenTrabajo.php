@@ -21,4 +21,7 @@ class ordenTrabajo extends Model
    public function cliente(){
     return $this->hasMany(clientes::class, 'id','codigo_orden');
    } 
+   public function variante(){
+    return $this->belongsTo(variantes::class, 'id','tipo_casa');
+   } 
 }
