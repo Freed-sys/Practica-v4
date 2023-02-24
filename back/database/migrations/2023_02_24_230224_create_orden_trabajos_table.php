@@ -13,19 +13,26 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function up()
     {
+
+        Schema::create('estados', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('ordenTrabajos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('valor');
             $table->unsignedBigInteger('casa');
             $table->unsignedBigInteger('material');
-            $table->string('estado');
+            $table->unsignedBigInteger('estado');
             $table->timestamps();
 
 
             $table->foreign('valor')->references('id')->on('variantes');
             $table->foreign('material')->references('id')->on('materiales');
-
-
+            $table->foreign('estado')->references('id')->on('estados');
+          
     
         });
     }
@@ -37,6 +44,8 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('estados');
         Schema::dropIfExists('ordenTrabajos');
+        
     }
 }

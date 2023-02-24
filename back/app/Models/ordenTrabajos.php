@@ -28,4 +28,8 @@ class ordenTrabajos extends Model
     public function material(){
         return $this->belongsTo(materiales::class, 'material', 'id');
     }
+
+    public function estado(){
+        return $this->belongsTo(estados::class, 'estado', 'id');
+    }
 }
