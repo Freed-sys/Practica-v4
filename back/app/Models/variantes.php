@@ -26,6 +26,8 @@ class variantes extends Model
         return $this->belongsTo(materiales::class, 'material', 'id');
     }
 
- 
+ public function orden(){
+    return $this->hasOne(ordenTrabajos::class, 'id', 'valor');
+ }
 
 }

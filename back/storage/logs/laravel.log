@@ -1387,3 +1387,19 @@
 #16 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #17 {main}
 "} 
+[2023-02-24 23:21:35] local.ERROR: There are no commands defined in the "migraate" namespace.
+
+Did you mean this?
+    migrate {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"migraate\" namespace.
+
+Did you mean this?
+    migrate at C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Application.php:650)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Application.php(701): Symfony\\Component\\Console\\Application->findNamespace('migraate')
+#1 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Application.php(259): Symfony\\Component\\Console\\Application->find('migraate:fresh')
+#2 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 

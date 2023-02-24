@@ -26,5 +26,7 @@ class material extends Model
         return $this->hasMany(variantes::class, 'id', 'material');
     }
 
-   
+   public function orden(){
+        return $this->hasMany(ordenTrabajos::class, 'id', 'material'); 
+   }
 }
