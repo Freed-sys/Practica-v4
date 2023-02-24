@@ -22,12 +22,4 @@ class clientes extends Model
         'telefono_cliente'
     ];
 
-    public function direccion(){
-        return $this->belongsTo(direcciones::class, 'direccion_cliente', 'id');   
-    }
-
-    public function orden(){
-        return $this->belongsTo(ordenTrabajo::class, 'codigo_orden', 'id');
-    }
-
 }
