@@ -503,17 +503,15 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\ClienteController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClienteController.php',
         'App\\Http\\Controllers\\ComunasController' => __DIR__ . '/../..' . '/app/Http/Controllers/ComunasController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DireccionesController' => __DIR__ . '/../..' . '/app/Http/Controllers/DireccionesController.php',
         'App\\Http\\Controllers\\InventarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/InventarioController.php',
         'App\\Http\\Controllers\\RegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegionController.php',
         'App\\Http\\Controllers\\UmedidaController' => __DIR__ . '/../..' . '/app/Http/Controllers/UmedidaController.php',
-<<<<<<< HEAD
         'App\\Http\\Controllers\\VarianteController' => __DIR__ . '/../..' . '/app/Http/Controllers/VarianteController.php',
         'App\\Http\\Controllers\\ordenTrabajoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ordenTrabajoController.php',
-=======
->>>>>>> parent of 3cc6997 (Orden Trabajo y clientes)
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -524,8 +522,10 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\clientes' => __DIR__ . '/../..' . '/app/Models/clientes.php',
         'App\\Models\\comunas' => __DIR__ . '/../..' . '/app/Models/comunas.php',
         'App\\Models\\inventarios' => __DIR__ . '/../..' . '/app/Models/inventarios.php',
+        'App\\Models\\ordenTrabajo' => __DIR__ . '/../..' . '/app/Models/ordenTrabajo.php',
         'App\\Models\\region' => __DIR__ . '/../..' . '/app/Models/region.php',
         'App\\Models\\umedidas' => __DIR__ . '/../..' . '/app/Models/umedidas.php',
         'App\\Models\\variantes' => __DIR__ . '/../..' . '/app/Models/variantes.php',
