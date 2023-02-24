@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class material extends Model
 {
     use HasFactory;
-    protected $table = 'material';
+    protected $table = 'materiales';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = false;
@@ -22,6 +22,9 @@ class material extends Model
     public function inventario() {
         return $this->belongsTo(inventarios::class, 'cod_material', 'id');  
     }     
-    
+    public function variante(){
+        return $this->hasMany(variantes::class, 'id', 'material');
+    }
+
    
 }

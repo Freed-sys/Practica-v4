@@ -22,7 +22,9 @@ class variantes extends Model
         'valor'
     ];
 
-
+    public function materiales(){
+        return $this->belongsTo(materiales::class, 'material', 'id');
+    }
 
  
 
