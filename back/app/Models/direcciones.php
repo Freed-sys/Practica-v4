@@ -21,4 +21,8 @@ class Direcciones extends Model
     public function region(){
         return $this->belongsTo(region::class, 'id_reg', 'id');
     }
+
+    public function cliente(){
+        return $this->belongsToMany(cliente::class, 'id', 'direccion_cliente');
+    }
 }
