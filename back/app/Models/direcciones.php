@@ -25,4 +25,7 @@ class Direcciones extends Model
     public function cliente(){
         return $this->belongsToMany(cliente::class, 'id', 'direccion_cliente');
     }
+    public function trabajadores(){
+        return $this->belongsToMany(trabajadores::class, 'id', 'direccion_tra'); 
+    }
 }

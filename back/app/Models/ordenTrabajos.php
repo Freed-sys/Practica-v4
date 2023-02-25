@@ -13,7 +13,7 @@ class ordenTrabajos extends Model
     public $incrementing = true;
     public $timestamps = false;
 
-    public $fillable=[
+    protected $fillable=[
         'valor', //foranea de variante
         'casa', //foranea de casa
         'material', //foranea de material
@@ -31,5 +31,9 @@ class ordenTrabajos extends Model
 
     public function estado(){
         return $this->belongsTo(estados::class, 'estado', 'id');
+    }
+
+    public function trabajo(){
+        return $this->hasOne(trabajadores::class, 'id', 'obra');
     }
 }
