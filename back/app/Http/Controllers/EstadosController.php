@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cliente;
+use App\Models\estados;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class EstadosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function show(cliente $cliente)
+    public function show(estados $estados)
     {
         //
     }
@@ -53,10 +53,10 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function edit(cliente $cliente)
+    public function edit(estados $estados)
     {
         //
     }
@@ -65,10 +65,10 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cliente $cliente)
+    public function update(Request $request, estados $estados)
     {
         //
     }
@@ -76,10 +76,10 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\estados  $estados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cliente $cliente)
+    public function destroy(estados $estados)
     {
         //
     }
