@@ -22,12 +22,16 @@ class variantes extends Model
         'valor'
     ];
 
-    public function materiales(){
+public function materiales(){
         return $this->belongsTo(materiales::class, 'material', 'id');
     }
 
  public function orden(){
     return $this->hasOne(ordenTrabajos::class, 'id', 'valor');
+ }
+
+ public function casa(){
+    return $this->hasOne(casas::class, 'id', 'tipo');
  }
 
 }

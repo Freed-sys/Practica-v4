@@ -14,8 +14,12 @@ class CreateCasasTable extends Migration
     public function up()
     {
         Schema::create('casas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('tipo');
+            $table->string('observaciones');
             $table->timestamps();
+
+            $table->foreign('tipo')->references('id')->on('variantes');
         });
     }
 

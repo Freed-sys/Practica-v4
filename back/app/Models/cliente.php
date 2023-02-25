@@ -22,7 +22,7 @@ class cliente extends Model
     ];
 
 public function direccion(){
-    return $this->belongsTo(direcciones::class, 'direccion_cliente', 'id' );
+    return $this->belongsToMany(direcciones::class, 'direccion_cliente', 'id' );
 }
 
 }
