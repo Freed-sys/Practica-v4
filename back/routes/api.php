@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\UmedidaController;
-
+use App\Http\Controllers\CasasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,7 @@ Route::post('/inventario/editar/{id}', [InventarioController::class, 'editar']);
 Route::post('/inventario/borrar/{id}', [InventarioController::class, 'borrar']);
 Route::post('/crearUni',[UmedidaController::class, 'create']);
 Route::post('/listarUni',[UmedidaController::class, 'listaDropdown']);
+Route::get('/listarCasa', [ CasasController::class, 'getCasaslList']);
 
 
 

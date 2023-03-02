@@ -13,9 +13,16 @@ class CasasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function getCasaslList(){
+        try{
+            $casass = casas::orderBy('id', 'DESC')->get();
+            return response()->json(casass);
+
+        }
+        catch(Exception $e){
+
+            Log::error($e);
+        }
     }
 
     /**
