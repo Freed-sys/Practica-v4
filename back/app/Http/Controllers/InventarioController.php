@@ -32,7 +32,7 @@ class InventarioController extends Controller
    {
            $medida= umedidas::where('id', $request->tipo_mat)->select('id')->first();
            //return $medida;
-           $inventario = inventarios::create([
+           inventarios::create([
               'nombre_mat' => $request['nombre_mat'],
                'tipo_mat' => $medida['id'],
                'cant_mat' => $request['cant_mat'],
