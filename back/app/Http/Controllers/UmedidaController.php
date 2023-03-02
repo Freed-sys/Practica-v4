@@ -25,8 +25,7 @@ class UmedidaController extends Controller
      */
     public function create(Request $request)
     {
-        $umedida = new umedidas();
-        $umedida = umedidas::create([
+       umedidas::create([
             'nombre' => $request['nombre'],
              'abreviatura' => $request['abreviatura'],
          ]);

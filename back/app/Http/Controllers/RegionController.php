@@ -8,79 +8,44 @@ use Illuminate\Http\Request;
 
 class RegionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create(Request $request)
     {
-        //
+       region::create([
+            'nombre_region' => $request['nombre_region'],
+
+         ]);
+        return response()->json('Elemento creado correctamente');
+
+    }
+    public function editar($id, Request $request)
+    {
+        $region = region::findOrFail($id);
+        $region->fill($request->all());
+        $region->save();
+        return response()->json('Elemento actualizado correctamente');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+
+    public function borrar($id)
     {
-        //
+        $region  = region::findOrFail($id);
+        $region->delete();
+        return response()->json('Elemento eliminado correctamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function listaDropdown()
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\region  $region
-     * @return \Illuminate\Http\Response
-     */
-    public function show(region $region)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\region  $region
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(region $region)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\region  $region
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, region $region)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\region  $region
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(region $region)
-    {
-        //
+        $regiones = region::all();
+        $options = [];
+        foreach ($regiones as $region) {
+            $options[] = [
+                'value' => $region->id,
+                'label' => $region->nombre_region,
+            ];
+        }
+        return response()->json([
+            'options' => $options,
+        ]);
     }
 }

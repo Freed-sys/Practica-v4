@@ -10,6 +10,7 @@ use App\Http\Controllers\CasasController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\ordenTrabajosController;
+use App\Http\Controllers\RegionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,10 @@ Route::post('/direccion/borrar/{id}', [DireccionesController::class, 'borrar']);
 Route::post('/listarEstado',[EstadosController::class, 'listaDropdown']);
 Route::post('/crearEst', [EstadosController::class, 'crearItem']);
 Route::post('/crearOrden',[ordenTrabajosController::class, 'crearOrden']);
+Route::get('/mostrarOrden', [ordenTrabajosController::class, 'getOrdenList']);
 Route::post('/ordenTra/editar/{id}', [ordenTrabajosController::class, 'editar']);
 Route::post('/ordenTra/borrar/{id}', [ordenTrabajosController::class, 'borrar']);
+Route::post('/crearRegion', [RegionController::class, 'create']);
+Route::post('/region/editar/{id}', [RegionController::class, 'editar']);
+Route::post('/region/borrar/{id}', [RegionController::class, 'borrar']);
+Route::post('/listarRegion',[RegionController::class, 'listaDropdown']);

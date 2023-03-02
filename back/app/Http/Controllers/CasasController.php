@@ -16,15 +16,12 @@ class CasasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getCasaslList(){
-        try{
+    
             $materialls = casas::orderBy('id', 'DESC')->get();
             return response()->json($materialls);
 
-        }
-        catch(Exception $e){
-
-            Log::error($e);
-        }
+        
+     
     }
 
   /** Crear Casa */

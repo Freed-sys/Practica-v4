@@ -65,5 +65,15 @@ class ordenTrabajosController extends Controller
         $orden->delete();
         return response()->json('Elemento eliminado correctamente');
     }
+
+    public function getOrdenList(){
+    
+        $materialls = ordenTrabajos::orderBy('id', 'DESC')->get();
+        return response()->json($materialls);
+
+    
+ 
+}
+
  
 }
