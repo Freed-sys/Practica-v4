@@ -40,4 +40,8 @@ class ordenTrabajos extends Model
     public function cliente(){
         return $this->hasMany(cliente::class, 'id', 'cod_orden');
     }
+
+    public function casa(){
+        return $this->belongsTo(casas::class, 'casa', 'id');
+    }
 }

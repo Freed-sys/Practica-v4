@@ -21,4 +21,9 @@ class casas extends Model
     public function variante(){
         return $this->belongsTo(variantes::class, 'tipo', 'id');
     }
+
+
+    public function ordenTrabajo(){
+        return $this->hasMany(casas::class, 'id', 'casa');
+    }
 }

@@ -32,6 +32,7 @@ class CreateOrdenTrabajosTable extends Migration
             $table->foreign('valor')->references('id')->on('variantes');
             $table->foreign('material')->references('id')->on('materiales');
             $table->foreign('estado')->references('id')->on('estados');
+            $table->foreign('casa')->references('id')->on('casas');
           
     
         });
