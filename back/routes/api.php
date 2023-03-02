@@ -11,6 +11,7 @@ use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\ordenTrabajosController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\TrabajadorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,7 @@ Route::post('/crearRegion', [RegionController::class, 'create']);
 Route::post('/region/editar/{id}', [RegionController::class, 'editar']);
 Route::post('/region/borrar/{id}', [RegionController::class, 'borrar']);
 Route::post('/listarRegion',[RegionController::class, 'listaDropdown']);
+Route::get('/mostrarTra', [TrabajadorController::class, 'getTrabajadoresList']);
+Route::post('/crearTra',[TrabajadorController::class, 'crearTra']);
+Route::post('/tra/editar/{id}', [TrabajadorController::class, 'editar']);
+Route::post('/tra/borrar/{id}', [TrabajadorController::class, 'borrar']);
