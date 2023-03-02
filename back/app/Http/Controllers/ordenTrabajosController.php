@@ -32,7 +32,7 @@ class ordenTrabajosController extends Controller
             return response()->json(['error' => 'Material no encontrado'], 404);
          }
      
-         cliente::create([
+         ordenTrabajos::create([
              'rut_cliente' => $request['rut_cliente'],
              'nombre_ciente' => $request['nombre_cliente'],
              'apellidos_cliente' => $request['apellidos_cliente'],

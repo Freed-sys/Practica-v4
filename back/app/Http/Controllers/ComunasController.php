@@ -24,7 +24,7 @@ class ComunasController extends Controller
             return response()->json(['error' => 'Region not found'], 404);
         }
     
-        Region::create([
+        comunas::create([
             'nombre_ciudad' => $request['nombre_ciudad'],
             'cod_region' => $region->id,
         ]);
