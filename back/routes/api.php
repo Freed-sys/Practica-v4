@@ -38,4 +38,5 @@ Route::post('/cliente/editar/{id}', [ClienteController::class, 'editar']);
 Route::post('/cliente/borrar/{id}', [ClienteController::class, 'borar']);
 Route::get('/mostarComuna', [ComunasController::class, 'getComunaslList']);
 Route::post('/listarComuna',[ComunasController::class, 'listaDropdown']);
-
+Route::post('/comunas/editar/{id}', [ComunasController::class, 'editar']);
+Route::post('/comunas/borrar/{id}', [ComunasController::class, 'borrar']);

@@ -48,48 +48,5 @@ class UmedidaController extends Controller
             'options' => $options,
         ]);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Umedida $umedida)
-    {
-        //
-    }
+   
 }
