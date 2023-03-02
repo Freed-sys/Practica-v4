@@ -14,13 +14,13 @@ class material extends Model
     public $timestamps = false;
 
     public $fillable = [
-        'cod_material',
+
         'cantidad_material'
     ];
 
 
     public function inventario() {
-        return $this->hasMany(inventarios::class, 'cod_material', 'id');  
+        return $this->hasMany(inventarios::class, 'id', 'cod_material');  
     }     
     public function variante(){
         return $this->hasMany(variantes::class, 'id', 'material');

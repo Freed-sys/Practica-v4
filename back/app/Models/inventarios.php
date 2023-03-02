@@ -16,15 +16,16 @@ class inventarios extends Model
     protected $fillable = [
         'nombre_mat',
         'tipo_mat',
+        'unidad_mat',
         'cant_mat',
+
         'precio_unitario',
     ];
 
     public function umedida(){
-        return $this->belongsTo(Umedidas::class, 'tipo_mat', 'id');
+        return $this->belongsTo(Umedidas::class, 'unidad_mat', 'id');
     }
-
     public function material(){
-        return $this->hasMany(Material::class, 'id', 'cod_material');
+        return $this->belongsTo(Material::class, 'tipo_mat', 'id');
     }
 }
