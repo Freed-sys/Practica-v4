@@ -15,7 +15,8 @@ class material extends Model
 
     public $fillable = [
         'nombre_material',
-        'cantidad_material'
+        'cantidad_material',
+        'u_medida',
     ];
 
 
@@ -29,4 +30,8 @@ class material extends Model
    public function orden(){
         return $this->hasMany(ordenTrabajos::class, 'id', 'material'); 
    }
+   public function umedida(){
+        return $this->belongsTo(umedidas::class, 'u_medida', 'id');
+   }
+
 }

@@ -18,4 +18,7 @@ class umedidas extends Model
     public function callInventario(){
         return $this->hasMany(Inventarios::class, 'id', 'tipo_mat');
     }
+    public function material(){
+        return $this->hasMany(materiales::class, 'id', 'u_medida');
+    }
 }

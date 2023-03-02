@@ -18,6 +18,7 @@ class CreateInventariosTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre_material');
             $table->bigInteger('cantidad_material');
+            $table->unsignedBigInteger('u_medida');
             $table->timestamps();
 
 
