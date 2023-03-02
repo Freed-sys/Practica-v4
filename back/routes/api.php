@@ -9,6 +9,7 @@ use App\Http\Controllers\UmedidaController;
 use App\Http\Controllers\CasasController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\EstadosController;
+use App\Http\Controllers\ordenTrabajosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,6 @@ Route::post('/direccion/editar/{id}', [DireccionesController::class, 'editar']);
 Route::post('/direccion/borrar/{id}', [DireccionesController::class, 'borrar']);
 Route::post('/listarEstado',[EstadosController::class, 'listaDropdown']);
 Route::post('/crearEst', [EstadosController::class, 'crearItem']);
+Route::post('/crearOrden',[ordenTrabajosController::class, 'crearOrden']);
+Route::post('/ordenTra/editar/{id}', [ordenTrabajosController::class, 'editar']);
+Route::post('/ordenTra/borrar/{id}', [ordenTrabajosController::class, 'borrar']);
