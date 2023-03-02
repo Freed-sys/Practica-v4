@@ -8,6 +8,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UmedidaController;
 use App\Http\Controllers\CasasController;
 use App\Http\Controllers\DireccionesController;
+use App\Http\Controllers\EstadosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,5 @@ Route::post('/comunas/borrar/{id}', [ComunasController::class, 'borrar']);
 Route::get('/mostrarDirec', [DireccionesController::class, 'getDireccioneslList']); 
 Route::post('/direccion/editar/{id}', [DireccionesController::class, 'editar']);
 Route::post('/direccion/borrar/{id}', [DireccionesController::class, 'borrar']);
+Route::post('/listarEstado',[EstadosController::class, 'listaDropdown']);
+Route::post('/crearEst', [EstadosController::class, 'crearItem']);

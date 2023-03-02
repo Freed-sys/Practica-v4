@@ -18,15 +18,12 @@ class InventarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getMateriallList(){
-        try{
+
             $materialls = inventarios::orderBy('id', 'DESC')->get();
             return response()->json($materialls);
 
-        }
-        catch(Exception $e){
+        
 
-            Log::error($e);
-        }
     }
 
    /*crear item*/
