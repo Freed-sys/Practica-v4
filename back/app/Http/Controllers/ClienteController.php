@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cliente;
 use App\Models\direcciones;
+use App\Models\ordenTrabajos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,71 +24,40 @@ class ClienteController extends Controller
 
     public function crearCliente(Request $request)
     {
-        $direccion= direcciones::where('id', $request->tipo)->select('id')->get();
+        $direccion= direcciones::where('id', $request->direccion_cliente)->select('id')->get();
+        $orden= ordenTrabajos::where('id', $request->cod_orden)->select('id')->get();
         //return $medida;
-        $casa = casas::create([
-           'desc_casa' => $request['desc_casa'],
-            'tipo' => $variante['id'],
-            'observaciones' => $request['observaciones'],
+        $cliente = cliente::create([
+            'rut_cliente' => $request['rut_cliente'],
+            'nombre_ciente' => $request['nombre_cliente'],
+            'apellidos_cliente' => $request['apellidos_cliente'],
+            'direccion_cliente' => $direccion['id'],
+            'telefono_cliente' => $request['telefono_cliente'],
+            'cod_orden' => $orden['id']
 
         ]);
         return response()->json(["mensaje"=>'Elemento creado correctamente ']);
     
  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+     /*editar item*/
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(cliente $cliente)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(cliente $cliente)
-    {
-        //
-    }
+     public function editar($id, Request $request)
+     {
+         $cliente = cliente::findOrFail($id);
+         $cliente->fill($request->all());
+         $cliente->save();
+         return response()->json('Elemento actualizado correctamente');
+     }
+ 
+   
+ 
+     public function borrar($id, Request $request)
+     {
+         $cliente = cliente::findOrFail($id);
+         $cliente->delete();
+         return response()->json('Elemento eliminado correctamente');
+     }
+     
 }

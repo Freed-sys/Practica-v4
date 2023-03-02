@@ -21,6 +21,8 @@ class CreateInventariosTable extends Migration
             $table->unsignedBigInteger('u_medida');
             $table->timestamps();
 
+            $table->foreign('u_medida')->references('id')->on('umedidas');
+
 
 
         });

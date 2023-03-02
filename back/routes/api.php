@@ -32,5 +32,8 @@ Route::post('crearCasa',[CasasController::class, 'crearCasa']);
 Route::post('/casas/editar{id}',[CasasController::class, 'editar']);
 Route::post('/casas/borrar/{id}',[CasasController::class, 'borrar']);
 Route::get('/listarCliente', [ClienteController::class, 'getClienteslList']);
+Route::post('/crearCliente', [ClienteController::class, 'crearCliente']);
+Route::post('/cliente/editar/{id}', [ClienteController::class, 'editar']);
+Route::post('/cliente/borrar/{id}', [ClienteController::class, 'borar']);
 
 
