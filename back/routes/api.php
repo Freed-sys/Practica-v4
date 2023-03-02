@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ComunasController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UmedidaController;
@@ -35,5 +36,6 @@ Route::get('/listarCliente', [ClienteController::class, 'getClienteslList']);
 Route::post('/crearCliente', [ClienteController::class, 'crearCliente']);
 Route::post('/cliente/editar/{id}', [ClienteController::class, 'editar']);
 Route::post('/cliente/borrar/{id}', [ClienteController::class, 'borar']);
-
+Route::get('/mostarComuna', [ComunasController::class, 'getComunaslList']);
+Route::post('/listarComuna',[ComunasController::class, 'listaDropdown']);
 

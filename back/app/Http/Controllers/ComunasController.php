@@ -8,79 +8,48 @@ use Illuminate\Http\Request;
 
 class ComunasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getComunaslList()
     {
-        //
+        try {
+            $materialls = comunas::orderBy('id', 'DESC')->get();
+            return response()->json($materialls);
+        } catch (Exception $e) {
+
+            Log::error($e);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function listaDropdown()
     {
-        //
+        $comunas = comunas::all();
+        $options = [];
+        foreach ($comunas as $comuna) {
+            $options[] = [
+                'value' => $comuna->id,
+                'label' => $comuna->nombre_ciudad,
+            ];
+        }
+        return response()->json([
+            'options' => $options,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    /*editar item*/
+
+
+    public function editar($id, Request $request)
     {
-        //
+        $comuna = comunas::findOrFail($id);
+        $comuna->fill($request->all());
+        $comuna->save();
+        return response()->json('Elemento actualizado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\comunas  $comunas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(comunas $comunas)
+    public function borrar($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\comunas  $comunas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(comunas $comunas)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\comunas  $comunas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, comunas $comunas)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\comunas  $comunas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(comunas $comunas)
-    {
-        //
+        $comuna = comunas::findOrFail($id);
+        $comuna->delete();
+        return response()->json('Elemento eliminado correctamente');
     }
 }
