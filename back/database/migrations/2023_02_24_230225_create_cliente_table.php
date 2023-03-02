@@ -24,6 +24,7 @@ class CreateClienteTable extends Migration
             $table->timestamps();
 
             $table->foreign('direccion_cliente')->references('id')->on('direcciones');
+            $table->foreign('cod_orden')->references('id')->on('ordenTrabajos');
 
         });
     }

@@ -3,30 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\cliente;
+use App\Models\direcciones;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function getClienteslList(){
+        try{
+            $materialls = cliente::orderBy('id', 'DESC')->get();
+            return response()->json($materialls);
+
+        }
+        catch(Exception $e){
+
+            Log::error($e);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function crearCliente(Request $request)
     {
-        //
-    }
+        $direccion= direcciones::where('id', $request->tipo)->select('id')->get();
+        //return $medida;
+        $casa = casas::create([
+           'desc_casa' => $request['desc_casa'],
+            'tipo' => $variante['id'],
+            'observaciones' => $request['observaciones'],
+
+        ]);
+        return response()->json(["mensaje"=>'Elemento creado correctamente ']);
+    
+ }
 
     /**
      * Store a newly created resource in storage.

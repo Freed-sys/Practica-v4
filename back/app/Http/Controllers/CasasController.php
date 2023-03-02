@@ -31,7 +31,7 @@ class CasasController extends Controller
 
     public function crearCasa(Request $request)
     {
-        $variante= variantes::where('id', $request->tipo)->select('id')->first();
+        $variante= variantes::where('id', $request->tipo)->select('id')->get();
         //return $medida;
         $casa = casas::create([
            'desc_casa' => $request['desc_casa'],

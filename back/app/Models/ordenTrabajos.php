@@ -36,4 +36,8 @@ class ordenTrabajos extends Model
     public function trabajo(){
         return $this->hasOne(trabajadores::class, 'id', 'obra');
     }
+
+    public function cliente(){
+        return $this->hasMany(cliente::class, 'id', 'cod_orden');
+    }
 }
