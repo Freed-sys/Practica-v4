@@ -26,7 +26,7 @@ class CreateUmedidasTable extends Migration
             $table->string('observaciones');
             $table->timestamps();
 
-           // $table->foreign('tipo')->references('id')->on('variantes');
+            $table->foreign('tipo')->references('id')->on('variantes');
         });
     }
 
