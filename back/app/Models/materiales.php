@@ -14,7 +14,7 @@ class material extends Model
     public $timestamps = false;
 
     public $fillable = [
-
+        'nombre_material',
         'cantidad_material'
     ];
 

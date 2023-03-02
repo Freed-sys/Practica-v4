@@ -16,6 +16,7 @@ class CreateInventariosTable extends Migration
 
         Schema::create('materiales', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nombre_material');
             $table->bigInteger('cantidad_material');
             $table->timestamps();
 
