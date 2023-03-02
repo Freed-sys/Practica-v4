@@ -8,79 +8,26 @@ use Illuminate\Http\Request;
 
 class DireccionesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getDireccioneslList()
     {
-        //
+    
+            $materialls = direcciones::orderBy('id', 'DESC')->get();
+            return response()->json($materialls);
+    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function editar($id, Request $request)
     {
-        //
+        $direccion = direcciones::findOrFail($id);
+        $direccion->fill($request->all());
+        $direccion->save();
+        return response()->json('Elemento actualizado correctamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function borrar($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\direcciones  $direcciones
-     * @return \Illuminate\Http\Response
-     */
-    public function show(direcciones $direcciones)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\direcciones  $direcciones
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(direcciones $direcciones)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\direcciones  $direcciones
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, direcciones $direcciones)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\direcciones  $direcciones
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(direcciones $direcciones)
-    {
-        //
+        $direccion = direcciones::findOrFail($id);
+        $direccion->delete();
+        return response()->json('Elemento eliminado correctamente');
     }
 }

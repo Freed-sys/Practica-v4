@@ -10,13 +10,11 @@ class ComunasController extends Controller
 {
     public function getComunaslList()
     {
-        try {
+
             $materialls = comunas::orderBy('id', 'DESC')->get();
             return response()->json($materialls);
-        } catch (Exception $e) {
 
-            Log::error($e);
-        }
+
     }
 
     public function listaDropdown()
