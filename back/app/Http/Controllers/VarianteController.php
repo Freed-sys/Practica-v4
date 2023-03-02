@@ -4,83 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\variantes;
 use App\Http\Controllers\Controller;
+use App\Models\material;
 use Illuminate\Http\Request;
 
 class VarianteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function crearVari(Request $request)
     {
-        //
+        $materiales = material::where('id', $request->obra)->select('id')->first();
+        if (!$materiales) {
+            // handle the case where the direccion is not found
+            return response()->json(['error' => 'Material no encontrado'], 404);
+        }
+        variantes::create([
+            'nombre_variante' => $request['nombre_variante'],
+            'desc_variante' => $request['desc_variante'],
+            'largo_variante' => $request['largo_variante'],
+            'ancho_variante' => $request['ancho_variante'],
+            'material' => $materiales->id, //material será otra tabla
+            'valor' => $request['valor']
+        ]);
+
+        // return a success response
+        return response()->json(['mensaje' => 'Elemento creado correctamente']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function editar($id, Request $request)
     {
-        //
+        $orden = variantes::findOrFail($id);
+        $orden->fill($request->all());
+        $orden->save();
+        return response()->json('Elemento actualizado correctamente');
+    }
+    public function borrar($id)
+    {
+        $orden  = variantes::findOrFail($id);
+        $orden->delete();
+        return response()->json('Elemento eliminado correctamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getVariantesList()
     {
-        //
+
+        $materialls = variantes::orderBy('id', 'DESC')->get();
+        return response()->json($materialls);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\variantes  $variantes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(variantes $variantes)
+    public function listaDropdown()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\variantes  $variantes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(variantes $variantes)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\variantes  $variantes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, variantes $variantes)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\variantes  $variantes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(variantes $variantes)
-    {
-        //
+        $variantes = variantes::all();
+        $options = [];
+        foreach ($variantes as $variante) {
+            $options[] = [
+                'value' => $variante->id,
+                'label' => $variante->nombre_variante,
+            ];
+        }
+        return response()->json([
+            'options' => $options,
+        ]);
     }
 }

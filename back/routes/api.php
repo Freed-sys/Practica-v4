@@ -12,6 +12,7 @@ use App\Http\Controllers\EstadosController;
 use App\Http\Controllers\ordenTrabajosController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TrabajadorController;
+use App\Http\Controllers\VarianteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +65,8 @@ Route::get('/mostrarTra', [TrabajadorController::class, 'getTrabajadoresList']);
 Route::post('/crearTra',[TrabajadorController::class, 'crearTra']);
 Route::post('/tra/editar/{id}', [TrabajadorController::class, 'editar']);
 Route::post('/tra/borrar/{id}', [TrabajadorController::class, 'borrar']);
+Route::post('/crearVari', [VarianteController::class, 'crearVari']);
+Route::post('/var/editar/{id}', [VarianteController::class, 'editar']);
+Route::post('/var/borrar/{id}', [VarianteController::class, 'borrar']);
+Route::get('/mostrarVar', [VarianteController::class, 'getVariantesList']);
+Route::post('/listarVariantes',[VarianteController::class, 'listaDropdown']);

@@ -26,7 +26,7 @@ class TrabajadorController extends Controller
 
 
 
-        ordenTrabajos::create([
+        trabajadores::create([
             'rut_tra' => $request['rut_tra'],
             'nombre_tra' => $request['nombre_tra'],
             'apellidos_tra' => $request['apellidos_tra'],
