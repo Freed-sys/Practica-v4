@@ -20,7 +20,7 @@ class material extends Model
 
 
     public function inventario() {
-        return $this->belongsTo(inventarios::class, 'cod_material', 'id');  
+        return $this->hasMany(inventarios::class, 'cod_material', 'id');  
     }     
     public function variante(){
         return $this->hasMany(variantes::class, 'id', 'material');
