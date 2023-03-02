@@ -43,6 +43,7 @@ Route::get('/mostarComuna', [ComunasController::class, 'getComunaslList']);
 Route::post('/listarComuna',[ComunasController::class, 'listaDropdown']);
 Route::post('/comunas/editar/{id}', [ComunasController::class, 'editar']);
 Route::post('/comunas/borrar/{id}', [ComunasController::class, 'borrar']);
+Route::post('/crearDirec', [DireccionesController::class, 'crearDireccion']);
 Route::get('/mostrarDirec', [DireccionesController::class, 'getDireccioneslList']); 
 Route::post('/direccion/editar/{id}', [DireccionesController::class, 'editar']);
 Route::post('/direccion/borrar/{id}', [DireccionesController::class, 'borrar']);
