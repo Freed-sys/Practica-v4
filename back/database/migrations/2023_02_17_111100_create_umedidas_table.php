@@ -20,14 +20,7 @@ class CreateUmedidasTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('casas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('tipo');
-            $table->string('observaciones');
-            $table->timestamps();
-
-            $table->foreign('tipo')->references('id')->on('variantes');
-        });
+ 
     }
 
     /**
@@ -38,6 +31,6 @@ class CreateUmedidasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('umedidas');
-        Schema::dropIfExists('casas');
+
     }
 }

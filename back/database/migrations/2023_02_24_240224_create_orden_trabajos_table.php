@@ -13,6 +13,14 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function up()
     {
+        Schema::create('casas', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('tipo');
+            $table->string('observaciones');
+            $table->timestamps();
+
+            $table->foreign('tipo')->references('id')->on('variantes');
+        });
 
         Schema::create('estados', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -45,6 +53,7 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('casas');
         Schema::dropIfExists('estados');
         Schema::dropIfExists('ordenTrabajos');
         
