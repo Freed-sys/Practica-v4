@@ -48,5 +48,6 @@ class UmedidaController extends Controller
             'options' => $options,
         ]);
     }
+    
    
 }
