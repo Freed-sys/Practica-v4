@@ -38,6 +38,7 @@ Route::get('/listarCliente', [ClienteController::class, 'getClienteslList']);
 Route::post('/crearCliente', [ClienteController::class, 'crearCliente']);
 Route::post('/cliente/editar/{id}', [ClienteController::class, 'editar']);
 Route::post('/cliente/borrar/{id}', [ClienteController::class, 'borar']);
+Route::post('/crearComuna', [ComunasController::class, 'crearComuna']);
 Route::get('/mostarComuna', [ComunasController::class, 'getComunaslList']);
 Route::post('/listarComuna',[ComunasController::class, 'listaDropdown']);
 Route::post('/comunas/editar/{id}', [ComunasController::class, 'editar']);
