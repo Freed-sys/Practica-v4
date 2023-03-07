@@ -7,6 +7,7 @@ use App\Models\umedidas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Log;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -19,9 +20,13 @@ class InventarioController extends Controller
      */
     public function getMateriallList(){
 
-            $materialls = inventarios::orderBy('id', 'DESC')->get();
-            return response()->json($materialls);
-
+        $materialList = DB::table('inventarios')
+        ->join('materiales', 'inventarios.tipo_mat', '=', 'materiales.id')
+        ->join('umedidas', 'inventarios.unidad_mat', '=', 'umedidas.id')
+        ->select('inventarios.nombre_mat','materiales.nombre_material as tipo_mat', 'inventarios.cant_mat', 'umedidas.abreviatura as unidad_mat', 'inventarios.precio_unitario')
+        ->get();
+    
+    return response()->json($materialList);
         
 
     }

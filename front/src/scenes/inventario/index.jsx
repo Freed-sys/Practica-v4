@@ -7,6 +7,8 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import Form from "../formMaterial";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "../global/App.css";
 
 
@@ -18,6 +20,21 @@ const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
+  const [inventario, setInventario] = useState([]);
+
+
+  useEffect(() => {
+    axios.post('http://localhost:8000/api/mostrarInv')
+      .then((response) => {
+        const inventariosConIds = response.data.map((inv, index) => ({...inv, id: index + 1}));
+        setInventario(inventariosConIds);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -25,28 +42,45 @@ const Inventario = () => {
       headerName: "Nombre Material",
       flex: 1,
       cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}>{params.row.nombre_mat}</Typography>
+      ),
     },
     {
       field: "tipo_mat",
       headerName: "Tipo Material",
+      flex: 1,
       cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}>{params.row.tipo_mat}</Typography>
+      ),
     },
     {
       field: "cant_mat",
-      headerName: "Cantidad ",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      headerName: "Cantidad Material",
+      flex: 1,
+      cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}>{params.row.cant_mat}</Typography>
+      ),
     },
     {
-      field: "precio",
-      headerName: "Precio Unitario",
-      flex:1,
+      field: "unidad_mat",
+      headerName: "Unidad de Medida",
+      flex: 1,
+      cellCLassName: "name-column--cell",
       renderCell: (params) => (
-        <Typography color={colors.brown[400]}>
-            ${params.row.precio}
-        </Typography>
-      )
+        <Typography color={colors.brown[400]}>{params.row.unidad_mat}</Typography>
+      ),
+    },
+    {
+      field: "precio_unitario",
+      headerName: "Precio",
+      flex: 1,
+      cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}> $ {params.row.precio_unitario}</Typography>
+      ),
     },
   ];
 
@@ -80,7 +114,7 @@ const Inventario = () => {
         }}
         
         >
-        <DataGrid rows={mockDataTeam} columns={columns} components={{Toolbar: GridToolbar}}/>
+        <DataGrid rows={inventario} columns={columns} components={{Toolbar: GridToolbar}}/>
       </Box>    
       <div className="Boton">
       <Button type="submit" color="secondary" variant="contained">

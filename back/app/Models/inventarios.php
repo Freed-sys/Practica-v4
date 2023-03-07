@@ -15,8 +15,8 @@ class inventarios extends Model
 
     protected $fillable = [
         'nombre_mat',
-        'tipo_mat',
-        'unidad_mat',
+        'tipo_mat', //foranea de Material
+        'unidad_mat', //foreanea de Umedidas
         'cant_mat',
 
         'precio_unitario',
