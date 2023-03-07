@@ -17,7 +17,7 @@ class ordenTrabajos extends Model
         'valor', //foranea de variante
         'casa', //foranea de casa
         'material', //foranea de material
-        'estado',
+        'estado', //estado
     ];
 
 
