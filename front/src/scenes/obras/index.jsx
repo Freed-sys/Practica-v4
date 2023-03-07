@@ -6,6 +6,8 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Form from "../formMaterial";
 import "../global/App.css";
 
@@ -18,52 +20,49 @@ const Obras = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
+  const [obra, setObra] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/mostrarOrden')
+      .then((response) => {
+        setObra(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+
+
   const columns = [
     { field: "id", headerName: "Código Orden" },
     {
-      field: "nombre_mat",
-      headerName: "Código Casa",
+      field: "valor",
+      headerName: "Valor Casa",
       flex: 1,
       cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}>
+           $ {params.row.valor} 
+        </Typography>
+      )
     },
     {
-      field: "tipo_mat",
-      headerName: "Tipo Casa",
-      cellCLassName: "name-column--cell",
-    },
-    {
-      field: "cant_mat",
-      headerName: "Dimensiones Casa",
+      field: "material",
+      headerName: "Material",
       type: "number",
       headerAlign: "left",
       align: "left",
-      renderCell: (params) => (
-        <Typography color={colors.brown[400]}>
-            {params.row.precio} mt²
-        </Typography>
-      )
+      
     },
     {
-        field: "En Proceso",
+        field: "estado",
         headerName: "Estado Obra",
         cellCLassName: "name-column--cell",
       },
-    {
-      field: "precio",
-      headerName: "Valor Casa",
-      flex:1,
-      renderCell: (params) => (
-        <Typography color={colors.brown[400]}>
-            ${params.row.precio}
-        </Typography>
-      )
-    },
-    {
-        field: "En Proceso",
-        headerName: "Observaciones",
-        cellCLassName: "name-column--cell",
-        headerAlign: "left",
-      },
+
+
   ];
 
   return (
@@ -96,7 +95,7 @@ const Obras = () => {
         }}
         
         >
-        <DataGrid rows={mockDataTeam} columns={columns} components={{Toolbar: GridToolbar}}/>
+        <DataGrid rows={obra} columns={columns} components={{Toolbar: GridToolbar}}/>
       </Box>    
       <div className="Boton">
       <Button type="submit" color="secondary" variant="contained">

@@ -58,8 +58,11 @@ class TrabajadorController extends Controller
 
     public function getTrabajadoresList()
     {
-
-        $materialls = trabajadores::orderBy('id', 'DESC')->get();
-        return response()->json($materialls);
+        $trabajadores = trabajadores::join('direcciones', 'trabajadores.direccion_tra', '=', 'direcciones.id')
+            ->select('trabajadores.*', 'direcciones.calle as direccion_tra')
+            ->orderBy('id', 'DESC')
+            ->get();
+    
+        return response()->json($trabajadores);
     }
 }

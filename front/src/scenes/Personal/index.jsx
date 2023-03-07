@@ -2,24 +2,37 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataPerson } from "../../data/dataPersonEx";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 
 
 {
-  /*estamos rellenando con datos falsos, rellenar con listarMaterial y función map */
+  /*estamos rellenando con datos falsos, rellenar con listarMaterial y función ma
+  p */
 }
 
 const Personal = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [personal, setPersonal] = useState([]);
+
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/mostrarTra')
+      .then((response) => {
+        setPersonal(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
-      field: "rut_tra",
+      field: "rut_trabajadores",
       headerName: "Rut Trabajador",
       flex: 1,
       cellCLassName: "name-column--cell",
@@ -37,26 +50,19 @@ const Personal = () => {
       cellCLassName: "name-column--cell",
     },
     {
-      field: "area_tra",
-      headerName: "Área de trabajo",
+      field: "obra",
+      headerName: "Obra activas",
       flex: 1,
       cellCLassName: "name-column--cell",
     },
       {
-        field: "obra",
-        headerName: "Obra activa",
-        flex: 1,
-        cellCLassName: "name-column--cell",
-        /*este será un id de la tabla obra */
-      },
-      {
-        field: "dir_tra",
+        field: "direccion_tra",
         headerName: "Dirección Trabajador",
         flex: 1,
         cellCLassName: "name-column--cell",
       },
       {
-        field: "tele_tra",
+        field: "tel_tra",
         headerName: "Teléfono Trabajador",
         type: "number",
         headerAlign: "left",
@@ -100,7 +106,7 @@ const Personal = () => {
         }}
         
         >
-        <DataGrid rows={mockDataPerson} columns={columns} components={{Toolbar: GridToolbar}} />
+        <DataGrid rows={personal} columns={columns} components={{Toolbar: GridToolbar}} />
       </Box>
     </Box>
   );
