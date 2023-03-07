@@ -26,7 +26,8 @@ const Obras = () => {
   useEffect(() => {
     axios.get('http://localhost:8000/api/mostrarOrden')
       .then((response) => {
-        setObra(response.data);
+        const obrasConIds = response.data.map((obra, index) => ({...obra, id: index + 1}));
+        setObra(obrasConIds);
       })
       .catch((error) => {
         console.error(error);
@@ -37,31 +38,44 @@ const Obras = () => {
 
   const columns = [
     { field: "id", headerName: "Código Orden" },
-    {
-      field: "valor",
-      headerName: "Valor Casa",
-      flex: 1,
-      cellCLassName: "name-column--cell",
-      renderCell: (params) => (
-        <Typography color={colors.brown[400]}>
-           $ {params.row.valor} 
-        </Typography>
-      )
-    },
-    {
-      field: "material",
-      headerName: "Material",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      
-    },
-    {
-        field: "estado",
-        headerName: "Estado Obra",
-        cellCLassName: "name-column--cell",
-      },
-
+  {
+    field: "valor",
+    headerName: "Valor Casa",
+    flex: 1,
+    cellClassName: "name-column--cell",
+    renderCell: (params) => (
+      <Typography color={colors.brown[400]}>$ {params.row.valor}</Typography>
+    ),
+  },
+  {
+    field: "casa",
+    headerName: "Tipo Casa",
+    flex: 1,
+    cellClassName: "name-column--cell",
+    renderCell: (params) => (
+      <Typography color={colors.brown[400]}> Tipo {params.row.tipo}</Typography>
+    ),
+  },
+  {
+    field: "material",
+    headerName: "Material",
+    flex: 1,
+    cellClassName: "name-column--cell",
+    renderCell: (params) => (
+      <Typography color={colors.brown[400]}>
+        {params.row.nombre_material}
+      </Typography>
+    ),
+  },
+  {
+    field: "estado",
+    headerName: "Estado Obra",
+    flex: 1,
+    cellClassName: "name-column--cell",
+    renderCell: (params) => (
+      <Typography color={colors.brown[400]}>{params.row.name}</Typography>
+    ),
+  },
 
   ];
 

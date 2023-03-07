@@ -9,6 +9,7 @@ use App\Models\casas;
 use App\Http\Controllers\Controller;
 use App\Models\estados;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ordenTrabajosController extends Controller
 {
@@ -68,8 +69,15 @@ class ordenTrabajosController extends Controller
 
     public function getOrdenList(){
     
-        $materialls = ordenTrabajos::orderBy('id', 'DESC')->get();
-        return response()->json($materialls);
+        $ordenes = DB::table('OrdenTrabajos')
+                ->join('variantes', 'OrdenTrabajos.valor', '=', 'variantes.id')
+                ->join('casas', 'OrdenTrabajos.casa', '=', 'casas.id')
+                ->join('materiales', 'OrdenTrabajos.material', '=', 'materiales.id')
+                ->join('estados', 'OrdenTrabajos.estado', '=', 'estados.id')
+                ->select('variantes.valor', 'casas.tipo', 'materiales.nombre_material', 'estados.name')
+                ->get();
+
+    return $ordenes;
 
     
  
