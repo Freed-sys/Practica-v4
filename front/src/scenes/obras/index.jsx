@@ -53,7 +53,7 @@ const Obras = () => {
     flex: 1,
     cellClassName: "name-column--cell",
     renderCell: (params) => (
-      <Typography color={colors.brown[400]}> Tipo {params.row.tipo}</Typography>
+      <Typography color={colors.brown[400]}>{params.row.tipo}</Typography>
     ),
   },
   {
