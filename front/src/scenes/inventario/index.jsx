@@ -26,14 +26,25 @@ const Inventario = () => {
       .post("http://localhost:8000/api/mostrarInv")
       .then((response) => {
         if (Array.isArray(response.data)) {
-          setInventario(response.data);
-          setTotal(
-            response.data.reduce(
-              (accumulator, currentValue) =>
-                accumulator + currentValue.precio_unitario,
-              0
-            )
+          const inventario = response.data;
+          const total = inventario.reduce(
+            (accumulator, currentValue) =>
+              accumulator + currentValue.precio_unitario * currentValue.cant_mat,
+            0
           );
+          setInventario([
+            ...inventario,
+            {
+              id: "total",
+              nombre_mat: "",
+              tipo_mat: "",
+              cant_mat: "",
+              unidad_mat: "",
+              precio_unitario: "",
+              total: total,
+            },
+          ]);
+          setTotal(total);
         }
       })
       .catch((error) => {
@@ -93,9 +104,12 @@ const Inventario = () => {
       headerName: "Total",
       flex: 1,
       cellClassName: "name-column--cell",
-      renderCell: () => (
-        <Typography color={colors.brown[400]}>$ {total}</Typography>
-      ),
+      renderCell: (params) =>
+        params.row.id === "total" ? (
+          <Typography color={colors.brown[400]}>
+            $ {params.row.total}
+          </Typography>
+        ) : null,
     },
 
   ];
