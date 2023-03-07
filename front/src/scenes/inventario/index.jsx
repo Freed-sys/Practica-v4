@@ -1,10 +1,6 @@
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid, GridToolbar} from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/dataExample";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import Form from "../formMaterial";
 import axios from "axios";
@@ -22,13 +18,23 @@ const Inventario = () => {
 
 
   const [inventario, setInventario] = useState([]);
+  const [total, setTotal] = useState(0);
 
 
   useEffect(() => {
-    axios.post('http://localhost:8000/api/mostrarInv')
+    axios
+      .post("http://localhost:8000/api/mostrarInv")
       .then((response) => {
-        const inventariosConIds = response.data.map((inv, index) => ({...inv, id: index + 1}));
-        setInventario(inventariosConIds);
+        if (Array.isArray(response.data)) {
+          setInventario(response.data);
+          setTotal(
+            response.data.reduce(
+              (accumulator, currentValue) =>
+                accumulator + currentValue.precio_unitario,
+              0
+            )
+          );
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -36,7 +42,6 @@ const Inventario = () => {
   }, []);
 
   const columns = [
-    { field: "id", headerName: "ID" },
     {
       field: "nombre_mat",
       headerName: "Nombre Material",
@@ -55,15 +60,7 @@ const Inventario = () => {
         <Typography color={colors.brown[400]}>{params.row.tipo_mat}</Typography>
       ),
     },
-    {
-      field: "cant_mat",
-      headerName: "Cantidad Material",
-      flex: 1,
-      cellCLassName: "name-column--cell",
-      renderCell: (params) => (
-        <Typography color={colors.brown[400]}>{params.row.cant_mat}</Typography>
-      ),
-    },
+   
     {
       field: "unidad_mat",
       headerName: "Unidad de Medida",
@@ -71,6 +68,15 @@ const Inventario = () => {
       cellCLassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[400]}>{params.row.unidad_mat}</Typography>
+      ),
+    },
+    {
+      field: "cant_mat",
+      headerName: "Cantidad Material",
+      flex: 1,
+      cellCLassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.brown[400]}>{params.row.cant_mat}</Typography>
       ),
     },
     {
@@ -82,6 +88,16 @@ const Inventario = () => {
         <Typography color={colors.brown[400]}> $ {params.row.precio_unitario}</Typography>
       ),
     },
+    {
+      field: "total",
+      headerName: "Total",
+      flex: 1,
+      cellClassName: "name-column--cell",
+      renderCell: () => (
+        <Typography color={colors.brown[400]}>$ {total}</Typography>
+      ),
+    },
+
   ];
 
   return (
@@ -114,7 +130,8 @@ const Inventario = () => {
         }}
         
         >
-        <DataGrid rows={inventario} columns={columns} components={{Toolbar: GridToolbar}}/>
+       <DataGrid rows={inventario} columns={columns} components={{Toolbar: GridToolbar}} getRowId={(row) => row.nombre_mat} />
+
       </Box>    
       <div className="Boton">
       <Button type="submit" color="secondary" variant="contained">
