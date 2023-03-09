@@ -22,6 +22,10 @@ const FormUM = () => {
         console.log(error);
       });
   };
+
+
+
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -29,9 +33,9 @@ const FormUM = () => {
     resetForm({ values: initialValues });
   };
 
-  {
+  
     /*acá comienza el form */
-  }
+  
   return (
     <div className="FormMat">
       <Header
@@ -92,7 +96,7 @@ const FormUM = () => {
               <Box display="flex" justifyContent="end" mt="20px">
               <Button
   type="submit"
-  color="secondary"
+  color="success"
   variant="contained"
   disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
 >
@@ -100,7 +104,7 @@ const FormUM = () => {
 </Button>
                 <Button
                   type="button"
-                  color="primary"
+                  color="error"
                   variant="contained"
                   onClick={() => handleResetForm(resetForm)}
                   sx={{ marginLeft: "10px" }}
