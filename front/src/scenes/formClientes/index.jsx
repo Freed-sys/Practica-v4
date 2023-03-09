@@ -1,5 +1,12 @@
-
-import { Box, Button, Dialog, DialogTitle, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogTitle,
+  TextField,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -11,6 +18,29 @@ import axios from "axios";
 const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [estados, setEstados] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/mostrarDirec")
+      .then((response) => {
+        setOptions(response.data.options);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/listarOrdenes")
+      .then((response) => {
+        setEstados(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleFormSubmit = (values) => {
     axios
@@ -24,9 +54,6 @@ const FormCli = () => {
       });
   };
 
-
-
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -34,15 +61,11 @@ const FormCli = () => {
     resetForm({ values: initialValues });
   };
 
-  
-    /*acá comienza el form */
-  
+  /*acá comienza el form */
+
   return (
     <div className="FormMat">
-      <Header
-        title="Crear Cliente"
-        subtitle="Crear un nuevo Cliente"
-      />
+      <Header title="Crear Cliente" subtitle="Crear un nuevo Cliente" />
       <div className="Formulario">
         <Formik
           onSubmit={handleFormSubmit}
@@ -93,7 +116,7 @@ const FormCli = () => {
                   helperText={touched.nombre_cliente && errors.nombre_cliente}
                   sx={{ gridColumn: "span 2" }}
                 />
-                 <TextField
+                <TextField
                   fullWidth
                   variant="filled"
                   type="text"
@@ -102,20 +125,55 @@ const FormCli = () => {
                   onChange={handleChange}
                   value={values.apellidos_cliente}
                   name="apellidos_cliente"
-                  error={!!touched.apellidos_cliente && !!errors.apellidos_cliente}
-                  helperText={touched.apellidos_cliente && errors.apellidos_cliente}
+                  error={
+                    !!touched.apellidos_cliente && !!errors.apellidos_cliente
+                  }
+                  helperText={
+                    touched.apellidos_cliente && errors.apellidos_cliente
+                  }
                   sx={{ gridColumn: "span 2" }}
                 />
+                <Select
+                  label="Dirección"
+                  value={values.direccion}
+                  name="direccion"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={!!touched.direccion && !!errors.direccion}
+                  helperText={touched.direccion && errors.direccion}
+                  sx={{ gridColumn: "span 4" }}
+                >
+                  {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Teléfono Cliente"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.telefono_cliente}
+                  name="telefono_cliente"
+                  error={!!touched.telefono_cliente && !!errors.telefono_cliente}
+                  helperText={touched.telefono_cliente && errors.telefono_cliente}
+                  sx={{ gridColumn: "span 2" }}
+                />
+              
+                
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
-              <Button
-  type="submit"
-  color="success"
-  variant="contained"
-  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
->
-  Crear Material
-</Button>
+                <Button
+                  type="submit"
+                  color="success"
+                  variant="contained"
+                  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
+                >
+                  Crear Material
+                </Button>
                 <Button
                   type="button"
                   color="error"

@@ -77,10 +77,26 @@ class ordenTrabajosController extends Controller
                 ->select('variantes.valor', 'casas.tipo', 'materiales.nombre_material', 'estados.name')
                 ->get();
 
-    return $ordenes;
-
-    
+    return $ordenes;   
  
+}
+public function ordenDropdown(){
+
+    $ordenes = ordenTrabajos::join('estados', 'ordenTrabajos.estado', '=', 'estados.id')
+        ->select('ordenTrabajos.id', 'estados.name')
+        ->get();
+
+    $options = [];
+    foreach ($ordenes as $orden) {
+        $options[] = [
+            'value' => $orden->id,
+            'label' => $orden->id.' '.$orden->name,
+        ];
+    }
+
+    return response()->json([
+        'options' => $options,
+    ]);
 }
 
  
