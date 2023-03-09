@@ -90,9 +90,14 @@ const FormUM = () => {
                 />
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
-                <Button type="submit" color="secondary" variant="contained">
-                  Crear Material
-                </Button>
+              <Button
+  type="submit"
+  color="secondary"
+  variant="contained"
+  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
+>
+  Crear Material
+</Button>
                 <Button
                   type="button"
                   color="primary"
