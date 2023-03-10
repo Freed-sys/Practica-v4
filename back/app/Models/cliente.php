@@ -15,15 +15,20 @@ class cliente extends Model
     protected $fillable = [
         'rut_cliente',
         'nombre_ciente',
-        'apellidos_cliente',
+        'apellidos_cliente',    
         'direccion_cliente',
+        'region_id', //foranea de region 
         'telefono_cliente',
         'cod_orden',
     ];
 
 public function orden(){
-    return $this->belongsToMany(ordenTrabajo::class, 'cod_orden', 'id' );
+    return $this->belongsTo(ordenTrabajo::class, 'cod_orden', 'id' );
 
+}
+
+public function region(){
+    return $this->belongsTo(Region::class, 'region_id', 'id' );
 }
 
 }

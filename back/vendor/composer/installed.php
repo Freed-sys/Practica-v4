@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0e5b5b2cc5b2eabd1a2a6b48e8b829b6c8b02ff9',
+        'reference' => '57592b847bdd29036c1faa3898d53ce9c5da4f37',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -39,15 +39,6 @@
             'replaced' => array(
                 0 => '*',
             ),
-        ),
-        'davidvegacl/laravel-chile' => array(
-            'pretty_version' => '1.2.9',
-            'version' => '1.2.9.0',
-            'reference' => 'e1374ea33352a962214a281267cf5c8f006448bf',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../davidvegacl/laravel-chile',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'dflydev/dot-access-data' => array(
             'pretty_version' => 'v3.0.2',
@@ -406,7 +397,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0e5b5b2cc5b2eabd1a2a6b48e8b829b6c8b02ff9',
+            'reference' => '57592b847bdd29036c1faa3898d53ce9c5da4f37',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

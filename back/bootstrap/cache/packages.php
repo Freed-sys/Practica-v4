@@ -1,11 +1,4 @@
 <?php return array (
-  'davidvegacl/laravel-chile' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'DavidVegaCl\\LaravelChile\\LaravelChileServiceProvider',
-    ),
-  ),
   'facade/ignition' => 
   array (
     'providers' => 

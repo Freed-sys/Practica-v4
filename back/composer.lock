@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60ccbab60163be836edb995195c02e0e",
+    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -121,47 +121,6 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
-        },
-        {
-            "name": "davidvegacl/laravel-chile",
-            "version": "1.2.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/davidvegacl/laravel-chile.git",
-                "reference": "e1374ea33352a962214a281267cf5c8f006448bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/davidvegacl/laravel-chile/zipball/e1374ea33352a962214a281267cf5c8f006448bf",
-                "reference": "e1374ea33352a962214a281267cf5c8f006448bf",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "DavidVegaCl\\LaravelChile\\LaravelChileServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DavidVegaCl\\LaravelChile\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "David Vega",
-                    "email": "david@izarus.cl"
-                }
-            ],
-            "description": "Rut, Regiones, Comunas y otros utilitarios para proyectos en Chile para Laravel",
-            "support": {
-                "issues": "https://github.com/davidvegacl/laravel-chile/issues",
-                "source": "https://github.com/davidvegacl/laravel-chile/tree/1.2.9"
-            },
-            "time": "2021-07-08T06:22:50+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

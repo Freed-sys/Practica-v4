@@ -19,13 +19,16 @@ class CreateClienteTable extends Migration
             $table->string('nombre_cliente');
             $table->string('apellidos_cliente');
             $table->string('direccion_cliente');
+            $table->unsignedBigInteger('region_id');
             $table->bigInteger('telefono_cliente');
             $table->unsignedBigInteger('cod_orden');
+            
+            
             $table->timestamps();
 
-          
+            $table->foreign('region_id')->references('id')->on('regiones');
             $table->foreign('cod_orden')->references('id')->on('ordenTrabajos');
-
+    
         });
     }
 
