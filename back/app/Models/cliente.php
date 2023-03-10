@@ -21,9 +21,7 @@ class cliente extends Model
         'cod_orden',
     ];
 
-public function direccion(){
-    return $this->belongsToMany(direcciones::class, 'direccion_cliente', 'id' );
-}
+
 
 public function orden(){
     return $this->belongsToMany(ordenTrabajo::class, 'cod_orden', 'id' );

@@ -25,8 +25,4 @@ class trabajadores extends Model
         return $this->belongsTo(ordenTrabajos::class, 'obra', 'id');
     }
 
-    public function direccion(){
-        return $this->belongsToMany(direcciones::class, 'direccion_tra', 'id');
-    }
-
 }

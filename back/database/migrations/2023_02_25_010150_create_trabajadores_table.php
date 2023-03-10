@@ -19,12 +19,12 @@ class CreateTrabajadoresTable extends Migration
             $table->string('nombre_tra');
             $table->string('apellidos_tra');
             $table->unsignedBigInteger('obra');
-            $table->unsignedBigInteger('direccion_tra');
+            $table->string('direccion_tra');
             $table->bigInteger('tel_tra');
             $table->timestamps();
 
             $table->foreign('obra')->references('id')->on('ordenTrabajos');
-            $table->foreign('direccion_tra')->references('id')->on('direcciones');
+          
 
 
             
