@@ -14,6 +14,7 @@ import { tokens } from "./theme";
 import "./scenes/global/App.css";
 import Obras from "./scenes/obras";
 import Clientes from "./scenes/clientes";
+import FormCli from "./scenes/formClientes";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -36,6 +37,7 @@ function App() {
             <Route path="/obras" element={<Obras />} />
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/materialNew" element={<FormUM />} />
+            <Route path="/cliente/new" element={<FormCli />} />
             
           </Routes>
         </div>

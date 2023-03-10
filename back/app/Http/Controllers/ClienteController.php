@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\cliente;
-use App\Models\direcciones;
+use App\Models\Region;
 use App\Models\ordenTrabajos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,33 +19,33 @@ class ClienteController extends Controller
 
     public function crearCliente(Request $request)
     {
-        $direccion = direcciones::where('id', $request->direccion_cliente)->select('id')->first();
-        if (!$direccion) {
-            // handle the case where the direccion is not found
-            return response()->json(['error' => 'Direccion no encontrada'], 404);
-        }
-    
-        $orden = ordenTrabajos::where('id', $request->cod_orden)->select('id')->first();
-        if (!$orden) {
-            // handle the case where the orden is not found
-            return response()->json(['error' => 'Orden no encontrada'], 404);
-        }
-    
-        cliente::create([
-            'rut_cliente' => $request['rut_cliente'],
-            'nombre_ciente' => $request['nombre_cliente'],
-            'apellidos_cliente' => $request['apellidos_cliente'],
-            'direccion_cliente' => $direccion->id,
-            'telefono_cliente' => $request['telefono_cliente'],
-            'cod_orden' => $orden->id
+        $validatedData = $request->validate([
+            'rut_cliente' => 'required|string',
+            'nombre_cliente' => 'required|string',
+            'apellidos_cliente' => 'required|string',
+            'region_id' => 'required|exists:regiones,id',
+            'direccion_cliente' => 'required|string',
+            'telefono_cliente' => 'required|string',
+            'cod_orden' => 'required|exists:ordenTrabajos,id',
         ]);
     
-        // return a success response
-        return response()->json(['mensaje' => 'Elemento creado correctamente']);
+        $cliente = new Cliente;
+        $cliente->rut_cliente = $validatedData['rut_cliente'];
+        $cliente->nombre_cliente = $validatedData['nombre_cliente'];
+        $cliente->apellidos_cliente = $validatedData['apellidos_cliente'];
+        $cliente->region_id = $validatedData['region_id'];
+        $cliente->direccion_cliente = $validatedData['direccion_cliente'];
+        $cliente->telefono_cliente = $validatedData['telefono_cliente'];
+        $cliente->cod_orden = $validatedData['cod_orden'];
+        $cliente->save();
+    
+        return response()->json([
+            'message' => 'Cliente creado correctamente',
+            'cliente' => $cliente,
+        ], 201);
     }
-
     /*editar item*/
-
+    
 
     public function editar($id, Request $request)
     {

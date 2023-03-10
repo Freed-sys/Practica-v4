@@ -1,5 +1,5 @@
 
-import { Box, Button, Dialog, DialogTitle, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogTitle, TextField, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -11,6 +11,30 @@ import axios from "axios";
 const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
+  const [regiones, setRegiones] = useState([]);
+  const [orden, setOrden] = useState([]);
+
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/mostrarOrden")
+    .then(response => {
+      setOrden(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    })
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/listarRegion")
+      .then((response) => {
+        setRegiones(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleFormSubmit = (values) => {
     axios
@@ -106,6 +130,70 @@ const FormCli = () => {
                   helperText={touched.apellidos_cliente && errors.apellidos_cliente}
                   sx={{ gridColumn: "span 2" }}
                 />
+  <TextField
+              fullWidth
+              select
+              variant="filled"
+              label="Región"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.id_region}
+              name="id_region"
+              error={!!touched.id_region && !!errors.id_region}
+              helperText={touched.id_region && errors.id_region}
+              sx={{ gridColumn: "span 2" }}
+            >
+              {regiones.map((region) => (
+                <MenuItem key={region.id} value={region.id}>
+                  {region.nombre}
+                </MenuItem>
+              ))}
+            </TextField>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Dirección Cliente"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.direccion_cliente}
+                  name="direccion_cliente"
+                  error={!!touched.direccion_cliente && !!errors.direccion_cliente}
+                  helperText={touched.direccion_cliente && errors.direccion_cliente}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Teléfono Cliente"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.telefono_cliente}
+                  name="telefono_cliente"
+                  error={!!touched.telefono_cliente && !!errors.telefono_cliente}
+                  helperText={touched.telefono_cliente && errors.telefono_cliente}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+              fullWidth
+              select
+              variant="filled"
+              label="Orden Activa"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={setOrden}
+              name="cod_orden"
+              error={!!touched.cod_orden && !!errors.cod_orden}
+              helperText={touched.cod_orden && errors.cod_orden}
+              sx={{ gridColumn: "span 4" }}
+            >
+              {regiones.map((ordenTrabajos) => (
+                <MenuItem key={ordenTrabajos.id} value={ordenTrabajos.id}>
+                  {ordenTrabajos.id}
+                </MenuItem>
+              ))}
+            </TextField>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
               <Button

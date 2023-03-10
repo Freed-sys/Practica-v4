@@ -18,8 +18,9 @@ class CreateClienteTable extends Migration
             $table->string('rut_cliente');
             $table->string('nombre_cliente');
             $table->string('apellidos_cliente');
-            $table->string('direccion_cliente');
             $table->unsignedBigInteger('region_id');
+            $table->string('direccion_cliente');
+    
             $table->bigInteger('telefono_cliente');
             $table->unsignedBigInteger('cod_orden');
             

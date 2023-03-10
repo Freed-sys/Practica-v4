@@ -13,9 +13,10 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getRegiones()
     {
-        //
+        $regiones = Region::select('id', 'nombre')->get();
+        return response()->json($regiones);
     }
 
     /**

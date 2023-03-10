@@ -14,10 +14,10 @@ class cliente extends Model
     public $timestamps = false;
     protected $fillable = [
         'rut_cliente',
-        'nombre_ciente',
+        'nombre_cliente',
         'apellidos_cliente',    
-        'direccion_cliente',
         'region_id', //foranea de region 
+        'direccion_cliente',
         'telefono_cliente',
         'cod_orden',
     ];
