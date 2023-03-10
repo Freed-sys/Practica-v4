@@ -6383,6 +6383,7 @@ Did you mean this?
 #37 C:\\xampp\\htdocs\\Practica-v4\\back\\server.php(21): require_once('C:\\\\xampp\\\\htdocs...')
 #38 {main}
 "} 
+<<<<<<< HEAD
 [2023-03-09 18:42:20] local.ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'numero_calle' in 'field list' (SQL: select `calle`, `numero_calle` from `direcciones` order by `calle` asc, `numero_calle` asc) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S22): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'numero_calle' in 'field list' (SQL: select `calle`, `numero_calle` from `direcciones` order by `calle` asc, `numero_calle` asc) at C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:712)
 [stacktrace]
 #0 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(672): Illuminate\\Database\\Connection->runQueryCallback('select `calle`,...', Array, Object(Closure))
@@ -7481,3 +7482,5 @@ Did you mean this?
 #22 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #23 {main}
 "} 
+=======
+>>>>>>> parent of 0e5b5b2 (dropdowns y formularios)

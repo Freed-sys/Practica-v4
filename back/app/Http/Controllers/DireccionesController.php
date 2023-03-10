@@ -6,25 +6,16 @@ use App\Models\direcciones;
 use App\Models\Region;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DireccionesController extends Controller
 {
-    public function getDireccionesList()
-{
-    $direcciones = direcciones::all();
-    $options = [];
-    foreach ($direcciones as $direccion) {
-        $options[] = [
-            'value' => $direccion->id,
-            'label' => $direccion->calle . ' ' . $direccion->num_calle,
-        ];
+    public function getDireccioneslList()
+    {
+    
+            $materialls = direcciones::orderBy('id', 'DESC')->get();
+            return response()->json($materialls);
+    
     }
-    return response()->json([
-        'options' => $options,
-    ]);
-
-}
 
     public function editar($id, Request $request)
     {
@@ -53,7 +44,7 @@ class DireccionesController extends Controller
             'comuna' => $request['comuna'],
             'id_reg' => $region->id, 
             'nombre_calle' => $request['nombre_calle'],
-            'num_calle' => $request['num_calle'],
+            'numero_calle' => $request['numero_calle'],
         ]);
     
         // return a success response
