@@ -19,13 +19,8 @@ class cliente extends Model
         'region_id', //foranea de region 
         'direccion_cliente',
         'telefono_cliente',
-        'cod_orden',
     ];
 
-public function orden(){
-    return $this->belongsTo(ordenTrabajo::class, 'cod_orden', 'id' );
-
-}
 
 public function region(){
     return $this->belongsTo(Region::class, 'region_id', 'id' );

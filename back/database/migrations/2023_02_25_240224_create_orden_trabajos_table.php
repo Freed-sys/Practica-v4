@@ -30,13 +30,14 @@ class CreateOrdenTrabajosTable extends Migration
 
         Schema::create('ordenTrabajos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('cliente');
             $table->unsignedBigInteger('valor');
             $table->unsignedBigInteger('casa');
             $table->unsignedBigInteger('material');
             $table->unsignedBigInteger('estado');
             $table->timestamps();
 
-
+            $table->foreign('cliente')->references('id')->on('cliente');
             $table->foreign('valor')->references('id')->on('variantes');
             $table->foreign('material')->references('id')->on('materiales');
             $table->foreign('estado')->references('id')->on('estados');

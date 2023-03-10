@@ -20,15 +20,13 @@ class CreateClienteTable extends Migration
             $table->string('apellidos_cliente');
             $table->unsignedBigInteger('region_id');
             $table->string('direccion_cliente');
-    
             $table->bigInteger('telefono_cliente');
-            $table->unsignedBigInteger('cod_orden');
             
             
             $table->timestamps();
 
             $table->foreign('region_id')->references('id')->on('regiones');
-            $table->foreign('cod_orden')->references('id')->on('ordenTrabajos');
+        
     
         });
     }

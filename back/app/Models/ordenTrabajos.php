@@ -14,12 +14,17 @@ class ordenTrabajos extends Model
     public $timestamps = false;
 
     protected $fillable=[
+        'cliente', //foranea de cliente
         'valor', //foranea de variante
         'casa', //foranea de casa
         'material', //foranea de material
         'estado', //estado
     ];
 
+    public function clientes(){
+        return $this->belongsTo(cliente::class, 'cliente', 'id');
+
+    }
 
     public function valor(){
         return $this->belongsTo(variantes::class, 'valor', 'id');

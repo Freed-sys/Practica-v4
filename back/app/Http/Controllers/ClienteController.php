@@ -26,7 +26,6 @@ class ClienteController extends Controller
             'region_id' => 'required|exists:regiones,id',
             'direccion_cliente' => 'required|string',
             'telefono_cliente' => 'required|string',
-            'cod_orden' => 'required|exists:ordenTrabajos,id',
         ]);
     
         $cliente = new Cliente;
@@ -36,7 +35,6 @@ class ClienteController extends Controller
         $cliente->region_id = $validatedData['region_id'];
         $cliente->direccion_cliente = $validatedData['direccion_cliente'];
         $cliente->telefono_cliente = $validatedData['telefono_cliente'];
-        $cliente->cod_orden = $validatedData['cod_orden'];
         $cliente->save();
     
         return response()->json([

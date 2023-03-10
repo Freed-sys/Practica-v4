@@ -12,18 +12,7 @@ const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
   const [regiones, setRegiones] = useState([]);
-  const [orden, setOrden] = useState([]);
 
-
-  useEffect(() => {
-    axios.get("http://localhost:8000/api/mostrarOrden")
-    .then(response => {
-      setOrden(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    })
-  }, []);
 
   useEffect(() => {
     axios
@@ -175,25 +164,6 @@ const FormCli = () => {
                   helperText={touched.telefono_cliente && errors.telefono_cliente}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <TextField
-              fullWidth
-              select
-              variant="filled"
-              label="Orden Activa"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={setOrden}
-              name="cod_orden"
-              error={!!touched.cod_orden && !!errors.cod_orden}
-              helperText={touched.cod_orden && errors.cod_orden}
-              sx={{ gridColumn: "span 4" }}
-            >
-              {regiones.map((ordenTrabajos) => (
-                <MenuItem key={ordenTrabajos.id} value={ordenTrabajos.id}>
-                  {ordenTrabajos.id}
-                </MenuItem>
-              ))}
-            </TextField>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
               <Button
@@ -202,7 +172,7 @@ const FormCli = () => {
   variant="contained"
   disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
 >
-  Crear Material
+  Crear Cliente
 </Button>
                 <Button
                   type="button"
@@ -226,12 +196,21 @@ const FormCli = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  nombre: yup.string().required("campo requerido"),
-  abreviatura: yup.string().required("campo requerido"),
+  rut_cliente: yup.string().required("campo requerido"),
+  nombre_cliente: yup.string().required("campo requerido"),
+  apellidos_cliente: yup.string().required("campo requerido"),
+  region_id: yup.string().required("campo requerido"),
+  direccion_cliente: yup.string().required("campo requerido"),
+  telefono_cliente: yup.string().required("campo requerido"),
 });
 const initialValues = {
-  nombre: "",
-  abreviatura: "",
+  rut_cliente: "",
+  nombre_cliente: "",
+  apellidos_cliente: "",
+  region_id: "",
+  direccion_cliente: "",
+  telefono_cliente: "",
+  
 };
 
 export default FormCli;
