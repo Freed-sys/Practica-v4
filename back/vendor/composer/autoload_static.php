@@ -154,6 +154,7 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
             'Doctrine\\Common\\Lexer\\' => 22,
             'Dflydev\\DotAccessData\\' => 22,
             'DeepCopy\\' => 9,
+            'DavidVegaCl\\LaravelChile\\' => 25,
             'Database\\Seeders\\' => 17,
             'Database\\Factories\\' => 19,
         ),
@@ -460,6 +461,10 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+        'DavidVegaCl\\LaravelChile\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src',
+        ),
         'Database\\Seeders\\' => 
         array (
             0 => __DIR__ . '/../..' . '/database/seeders',
@@ -503,6 +508,7 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\CasasController' => __DIR__ . '/../..' . '/app/Http/Controllers/CasasController.php',
         'App\\Http\\Controllers\\ClienteController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClienteController.php',
         'App\\Http\\Controllers\\ComunasController' => __DIR__ . '/../..' . '/app/Http/Controllers/ComunasController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -524,6 +530,7 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\casas' => __DIR__ . '/../..' . '/app/Models/casas.php',
         'App\\Models\\cliente' => __DIR__ . '/../..' . '/app/Models/cliente.php',
         'App\\Models\\comunas' => __DIR__ . '/../..' . '/app/Models/comunas.php',
         'App\\Models\\estados' => __DIR__ . '/../..' . '/app/Models/estados.php',
@@ -652,6 +659,13 @@ class ComposerStaticInit2f391e02279adfafb9c7f6df8f4e6742
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'DavidVegaCl\\LaravelChile\\Console\\Commands\\RegionesComunasSeeder' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Console/Commands/RegionesComunasSeeder.php',
+        'DavidVegaCl\\LaravelChile\\Facades\\Rut' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Facades/Rut.php',
+        'DavidVegaCl\\LaravelChile\\LaravelChileServiceProvider' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/LaravelChileServiceProvider.php',
+        'DavidVegaCl\\LaravelChile\\Models\\Comuna' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Models/Comuna.php',
+        'DavidVegaCl\\LaravelChile\\Models\\Provincia' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Models/Provincia.php',
+        'DavidVegaCl\\LaravelChile\\Models\\Region' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Models/Region.php',
+        'DavidVegaCl\\LaravelChile\\Rut' => __DIR__ . '/..' . '/davidvegacl/laravel-chile/src/Rut.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',

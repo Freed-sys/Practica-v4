@@ -7,7 +7,6 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import Personal from "./scenes/Personal";
 import Form from "./scenes/formMaterial";
 import FormUM from "./scenes/formUmedida";
-import FormCli from "./scenes/formClientes";
 import Dashboard from "./scenes/dashboard";
 import Sidebarr from "./scenes/global/Sidebar";
 import "././scenes/global/App.css";
@@ -37,7 +36,7 @@ function App() {
             <Route path="/obras" element={<Obras />} />
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/materialNew" element={<FormUM />} />
-            <Route path="/clientes/new" element={<FormCli />} />
+            
           </Routes>
         </div>
       </div>

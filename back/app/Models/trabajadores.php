@@ -26,7 +26,7 @@ class trabajadores extends Model
     }
 
     public function direccion(){
-        return $this->belongsToMany(direcciones::class, 'direccion_tra', 'id');
+        return $this->hasMany(direcciones::class, 'direccion_tra', 'id');
     }
 
 }

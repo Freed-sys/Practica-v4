@@ -16,7 +16,9 @@ class Direcciones extends Model
         'comuna',
         'id_reg',
         'nombre_calle',
-        'numero_calle'
+        'numero_calle',
+        'cliente_id',
+        'trabajador_id'
     ];
     public function region(){
         return $this->belongsTo(region::class, 'id_reg', 'id');

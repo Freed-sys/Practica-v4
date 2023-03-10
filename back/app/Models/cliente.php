@@ -22,7 +22,7 @@ class cliente extends Model
     ];
 
 public function direccion(){
-    return $this->belongsToMany(direcciones::class, 'direccion_cliente', 'id' );
+    return $this->hasOne(direcciones::class, 'direccion_cliente', 'id' );
 }
 
 public function orden(){
