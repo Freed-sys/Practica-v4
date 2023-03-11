@@ -13,6 +13,7 @@ import Header from "../../components/Header";
 import "../global/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { validate as validateRut } from "validar-rut";
 
 const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -161,7 +162,7 @@ const FormCli = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Teléfono Cliente"
+                  label="Teléfono (+569)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.telefono_cliente}
@@ -212,6 +213,13 @@ const checkoutSchema = yup.object().shape({
   region_id: yup.string().required("campo requerido"),
   direccion_cliente: yup.string().required("campo requerido"),
   telefono_cliente: yup.string().required("campo requerido"),
+  telefono_cliente: yup
+    .string()
+    .required("El teléfono es requerido")
+    .matches(
+      /^\+?56(\s?)(0?9)(\s?)[9876543]\d{7}$/,
+      "Ingresa un número de teléfono válido"
+    ),
 });
 const initialValues = {
   rut_cliente: "",
