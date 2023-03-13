@@ -14,30 +14,17 @@ class CreateInventariosTable extends Migration
     public function up()
     {
 
-        Schema::create('materiales', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nombre_material');
-            $table->bigInteger('cantidad_material');
-            $table->unsignedBigInteger('u_medida');
-            $table->timestamps();
-
-            $table->foreign('u_medida')->references('id')->on('umedidas');
-
-
-
-        });
 
         Schema::create('inventarios', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre_mat');
-            $table->unsignedBigInteger('tipo_mat');
-            $table->unsignedBigInteger('unidad_mat');
+            $table->string('tipo_mat');
             $table->integer('cant_mat');
+            $table->unsignedBigInteger('unidad_mat');
             $table->integer('precio_unitario');
             $table->timestamps();
 
 
-            $table->foreign('tipo_mat')->references('id')->on('materiales');
             $table->foreign('unidad_mat')->references('id')->on('umedidas');
 
 
@@ -51,7 +38,6 @@ class CreateInventariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materiales');
         Schema::dropIfExists('inventarios');
     }
 }

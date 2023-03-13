@@ -1,16 +1,26 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogTitle, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import "../global/App.css";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [open, setOpen] = useState(false);
 
   const handleFormSubmit = (values) => {
-    console.log(values);
+    axios
+      .post("http://localhost:8000/api/crearMaterial", values)
+      .then((response) => {
+        console.log(response.data);
+        setOpen(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   {
     /*acá comienza el form */

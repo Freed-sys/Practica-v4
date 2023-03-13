@@ -15,17 +15,21 @@ class inventarios extends Model
 
     protected $fillable = [
         'nombre_mat',
-        'tipo_mat', //foranea de Material
+        'tipo_mat', 
         'unidad_mat', //foreanea de Umedidas
         'cant_mat',
 
         'precio_unitario',
     ];
 
+
+    public function variante(){
+        return $this->hasMany(variantes::class, 'id', 'material');
+    }
     public function umedida(){
         return $this->belongsTo(Umedidas::class, 'unidad_mat', 'id');
     }
-    public function material(){
-        return $this->belongsTo(Material::class, 'tipo_mat', 'id');
-    }
+    public function orden(){
+        return $this->hasMany(ordenTrabajos::class, 'id', 'material'); 
+   }
 }

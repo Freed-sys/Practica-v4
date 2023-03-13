@@ -15,10 +15,9 @@ class umedidas extends Model
     
 
     protected $fillable = ['nombre', 'abreviatura'];
-    public function callInventario(){
-        return $this->hasMany(Inventarios::class, 'id', 'tipo_mat');
-    }
+
+
     public function material(){
-        return $this->hasMany(materiales::class, 'id', 'u_medida');
+        return $this->hasMany(inventarios::class, 'id', 'unidad_mat');
     }
 }

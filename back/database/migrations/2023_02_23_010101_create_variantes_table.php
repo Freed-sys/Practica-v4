@@ -27,7 +27,7 @@ class CreateVariantesTable extends Migration
             $table->bigInteger('valor');
             $table->timestamps();
 
-            $table->foreign('material')->references('id')->on('materiales');
+            $table->foreign('material')->references('id')->on('inventarios');
         });
     }
 
