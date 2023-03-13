@@ -2,7 +2,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid, GridToolbar} from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import Form from "../formMaterial";
+import Form from "../formInventario";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../global/App.css";

@@ -10,6 +10,19 @@ import axios from "axios";
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
+  const [umedida, setUmedida] = useState([]);
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/listarUni")
+      .then((response) => {
+        setUmedida(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleFormSubmit = (values) => {
     axios
@@ -69,6 +82,19 @@ const Form = () => {
                 variant="filled"
                 type="text"
                 label="Tipo Material"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.tipo_mat}
+                name="tipo_mat"
+                error={!!touched.tipo_mat && !!errors.tipo_mat}
+                helperText={touched.tipo_mat && errors.tipo_mat}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Unidad Material"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.tipo_mat}

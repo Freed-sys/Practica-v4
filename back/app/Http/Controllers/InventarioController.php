@@ -21,9 +21,8 @@ class InventarioController extends Controller
     public function getMateriallList(){
 
         $materialList = DB::table('inventarios')
-        ->join('materiales', 'inventarios.tipo_mat', '=', 'materiales.id')
         ->join('umedidas', 'inventarios.unidad_mat', '=', 'umedidas.id')
-        ->select('inventarios.nombre_mat','materiales.nombre_material as tipo_mat', 'inventarios.cant_mat', 'umedidas.abreviatura as unidad_mat', 'inventarios.precio_unitario')
+        ->select('inventarios.nombre_mat','inventarios.tipo_mat','umedidas.abreviatura as unidad_mat', 'inventarios.cant_mat', 'inventarios.precio_unitario')
         ->get();
     
     return response()->json($materialList);
@@ -35,11 +34,12 @@ class InventarioController extends Controller
      
    public function crearItem(Request $request)
    {
-           $medida= umedidas::where('id', $request->tipo_mat)->select('id')->first();
+           $medida= umedidas::where('id', $request->unidad_mat)->select('id')->first();
            //return $medida;
            inventarios::create([
               'nombre_mat' => $request['nombre_mat'],
-               'tipo_mat' => $medida['id'],
+               'tipo_mat' => $request['tipo_mat'],
+               'unidad_mat' => $medida->id,
                'cant_mat' => $request['cant_mat'],
                'precio_unitario' => $request['precio_unitario']
            ]);

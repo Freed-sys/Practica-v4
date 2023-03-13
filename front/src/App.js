@@ -5,7 +5,7 @@ import Inventario from "./scenes/inventario";
 import { Routes, Route } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import Personal from "./scenes/Personal";
-import Form from "./scenes/formMaterial";
+import Form from "./scenes/formInventario";
 import FormUM from "./scenes/formUmedida";
 import Dashboard from "./scenes/dashboard";
 import Sidebarr from "./scenes/global/Sidebar";

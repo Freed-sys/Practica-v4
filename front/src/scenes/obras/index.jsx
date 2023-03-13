@@ -8,7 +8,7 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Form from "../formMaterial";
+import Form from "../formInventario";
 import "../global/App.css";
 
 
