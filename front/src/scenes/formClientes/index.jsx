@@ -209,6 +209,23 @@ const FormCli = () => {
                   }
                   sx={{ gridColumn: "span 2" }}
                 />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.email}
+                  name="email"
+                  error={
+                    !!touched.email && !!errors.email
+                  }
+                  helperText={
+                    touched.email && errors.email
+                  }
+                  sx={{ gridColumn: "span 4" }}
+                />
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button
@@ -249,6 +266,7 @@ const checkoutSchema = yup.object().shape({
   direccion_cliente: yup.string().required("campo requerido"),
   num_casa: yup.string().required("campo requerido"),
   telefono_cliente: yup.string().required("campo requerido"),
+  email: yup.string().required("campo requerido"),
   telefono_cliente: yup
     .string()
     .required("El teléfono es requerido")
@@ -271,6 +289,7 @@ const initialValues = {
   direccion_cliente: "",
   num_casa: "",
   telefono_cliente: "",
+  email: "",
 };
 
 export default FormCli;

@@ -28,6 +28,7 @@ class ClienteController extends Controller
             'direccion_cliente' => 'required|string',
             'num_casa' => 'required|string',
             'telefono_cliente' => 'required|string',
+            'email' => 'required|email',
         ]);
     
         $cliente = new Cliente;
@@ -39,6 +40,7 @@ class ClienteController extends Controller
         $cliente->direccion_cliente = $validatedData['direccion_cliente'];
         $cliente->num_casa = $validatedData['num_casa'];
         $cliente->telefono_cliente = $validatedData['telefono_cliente'];
+        $cliente->email = $validatedData['email'];
         $cliente->save();
     
         return response()->json([

@@ -21,6 +21,7 @@ class cliente extends Model
         'direccion_cliente',
         'num_casa',
         'telefono_cliente',
+        'email'
     ];
 
 

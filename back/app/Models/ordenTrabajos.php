@@ -19,6 +19,7 @@ class ordenTrabajos extends Model
         'casa', //foranea de casa
         'material', //foranea de material
         'estado', //estado
+        'id_trabajador', //foranea de trabajador
     ];
 
     public function clientes(){
@@ -39,7 +40,7 @@ class ordenTrabajos extends Model
     }
 
     public function trabajo(){
-        return $this->hasOne(trabajadores::class, 'id', 'obra');
+        return $this->belongsTo(trabajadores::class, 'id_trabajador', 'id');
     }
 
     public function cliente(){
