@@ -39,8 +39,8 @@ class InventarioController extends Controller
            inventarios::create([
               'nombre_mat' => $request['nombre_mat'],
                'tipo_mat' => $request['tipo_mat'],
-               'unidad_mat' => $medida->id,
                'cant_mat' => $request['cant_mat'],
+               'unidad_mat' => $medida->id,
                'precio_unitario' => $request['precio_unitario']
            ]);
            return response()->json(["mensaje"=>'Elemento creado correctamente ']);

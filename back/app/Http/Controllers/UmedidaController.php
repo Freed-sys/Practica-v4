@@ -35,17 +35,8 @@ class UmedidaController extends Controller
 
     public function listaDropdown()
     {
-        $umedidas = umedidas::all();
-        $options = [];
-        foreach ($umedidas as $umedida) {
-            $options[] = [
-                'value' => $umedida->id,
-                'label' => $umedida->nombre,
-            ];
-        }
-        return response()->json([
-            'options' => $options,
-        ]);
+        $regiones = umedidas::select('id', 'nombre')->get();
+        return response()->json($regiones);
     }
     
    
