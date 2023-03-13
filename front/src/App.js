@@ -15,6 +15,7 @@ import "./scenes/global/App.css";
 import Obras from "./scenes/obras";
 import Clientes from "./scenes/clientes";
 import FormCli from "./scenes/formClientes";
+import FormTra from "./scenes/formTrabajadores";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -38,6 +39,7 @@ function App() {
             <Route path="/clientes" element={<Clientes />} />
             <Route path="/materialNew" element={<FormUM />} />
             <Route path="/cliente/new" element={<FormCli />} />
+            <Route path="/trabajador/new" element={<FormTra />} />
             
           </Routes>
         </div>

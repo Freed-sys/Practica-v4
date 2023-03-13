@@ -12,31 +12,34 @@ class TrabajadorController extends Controller
 {
     public function crearTra(Request $request)
     {
-        $orden = ordenTrabajos::where('id', $request->obra)->select('id')->first();
-        if (!$orden) {
-            // handle the case where the direccion is not found
-            return response()->json(['error' => 'Obra no encontrada'], 404);
-        }
-
-        $direccion = Direcciones::where('id', $request->direccion_tra)->select('id')->first();
-        if (!$direccion) {
-            // handle the case where the orden is not found
-            return response()->json(['error' => 'Direccion no encontrado'], 404);
-        }
-
-
-
-        trabajadores::create([
-            'rut_tra' => $request['rut_tra'],
-            'nombre_tra' => $request['nombre_tra'],
-            'apellidos_tra' => $request['apellidos_tra'],
-            'obra' => $orden->id,
-            'direccion_tra' => $direccion->id,
-            'tel_tra' => $request['tel_tra'],
+        $validatedData = $request->validate([
+            'rut_tra' => 'required|string',
+            'nombre_tra' => 'required|string',
+            'apellidos_tra' => 'required|string',
+            'region_id' => 'required|exists:regiones,id',
+            'comuna' => 'required|string',
+            'direccion_tra' => 'required|string',
+            'num_calle' => 'required|string',
+            'tel_tra' => 'required|string',
+            'email' => 'required|email',
         ]);
-
-        // return a success response
-        return response()->json(['mensaje' => 'Elemento creado correctamente']);
+    
+        $cliente = new trabajadores();
+        $cliente->rut_tra = $validatedData['rut_tra'];
+        $cliente->nombre_tra = $validatedData['nombre_tra'];
+        $cliente->apellidos_tra = $validatedData['apellidos_tra'];
+        $cliente->region_id = $validatedData['region_id'];
+        $cliente->comuna = $validatedData['comuna'];
+        $cliente->direccion_tra = $validatedData['direccion_tra'];
+        $cliente->num_calle = $validatedData['num_calle'];
+        $cliente->tel_tra = $validatedData['tel_tra'];
+        $cliente->email = $validatedData['email'];
+        $cliente->save();
+    
+        return response()->json([
+            'message' => 'Ta entero de weno oe',
+            'cliente' => $cliente,
+        ], 201);
     }
 
     public function editar($id, Request $request)
@@ -58,8 +61,8 @@ class TrabajadorController extends Controller
 
     public function getTrabajadoresList()
     {
-        $trabajadores = trabajadores::join('direcciones', 'trabajadores.direccion_tra', '=', 'direcciones.id')
-            ->select('trabajadores.*', 'direcciones.calle as direccion_tra')
+        $trabajadores = trabajadores::join('regiones', 'trabajadores.region_id', '=', 'regiones.id')
+            ->select('trabajadores.*', 'regiones.nombre as region_id')
             ->orderBy('id', 'DESC')
             ->get();
     

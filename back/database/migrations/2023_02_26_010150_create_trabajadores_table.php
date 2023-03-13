@@ -15,15 +15,18 @@ class CreateTrabajadoresTable extends Migration
     {
         Schema::create('trabajadores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('rut_trabajadores');
+            $table->string('rut_tra');
             $table->string('nombre_tra');
             $table->string('apellidos_tra');
-            $table->unsignedBigInteger('obra');
+            $table->unsignedBigInteger('region_id');
+            $table->string('comuna');
             $table->string('direccion_tra');
+            $table->unsignedBigInteger('num_calle');
             $table->bigInteger('tel_tra');
+            $table->string('email');
             $table->timestamps();
 
-            $table->foreign('obra')->references('id')->on('ordenTrabajos');
+            $table->foreign('region_id')->references('id')->on('regiones');
           
 
 

@@ -49,7 +49,7 @@ Route::post('/ordenTra/editar/{id}', [ordenTrabajosController::class, 'editar'])
 Route::post('/ordenTra/borrar/{id}', [ordenTrabajosController::class, 'borrar']);
 Route::get('/listarRegion',[RegionController::class, 'getRegiones']);
 Route::get('/mostrarTra', [TrabajadorController::class, 'getTrabajadoresList']);
-Route::post('/crearTra',[TrabajadorController::class, 'crearTra']);
+Route::post('/creaTrabajo' , [TrabajadorController::class, 'crearTra']);
 Route::post('/tra/editar/{id}', [TrabajadorController::class, 'editar']);
 Route::post('/tra/borrar/{id}', [TrabajadorController::class, 'borrar']);
 Route::post('/crearVari', [VarianteController::class, 'crearVari']);
