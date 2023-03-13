@@ -17,7 +17,9 @@ class cliente extends Model
         'nombre_cliente',
         'apellidos_cliente',    
         'region_id', //foranea de region 
+        'comuna',
         'direccion_cliente',
+        'num_casa',
         'telefono_cliente',
     ];
 

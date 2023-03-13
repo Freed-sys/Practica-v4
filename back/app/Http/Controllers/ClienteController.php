@@ -24,7 +24,9 @@ class ClienteController extends Controller
             'nombre_cliente' => 'required|string',
             'apellidos_cliente' => 'required|string',
             'region_id' => 'required|exists:regiones,id',
+            'comuna' => 'required|string',
             'direccion_cliente' => 'required|string',
+            'num_casa' => 'required|string',
             'telefono_cliente' => 'required|string',
         ]);
     
@@ -33,7 +35,9 @@ class ClienteController extends Controller
         $cliente->nombre_cliente = $validatedData['nombre_cliente'];
         $cliente->apellidos_cliente = $validatedData['apellidos_cliente'];
         $cliente->region_id = $validatedData['region_id'];
+        $cliente->comuna = $validatedData['comuna'];
         $cliente->direccion_cliente = $validatedData['direccion_cliente'];
+        $cliente->num_casa = $validatedData['num_casa'];
         $cliente->telefono_cliente = $validatedData['telefono_cliente'];
         $cliente->save();
     

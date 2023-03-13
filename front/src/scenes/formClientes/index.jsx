@@ -83,7 +83,7 @@ const FormCli = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Rut Cliente"
+                  label="Rut Cliente (Sin puntos, con guión)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.rut_cliente}
@@ -145,6 +145,23 @@ const FormCli = () => {
                   fullWidth
                   variant="filled"
                   type="text"
+                  label="Comuna"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.comuna}
+                  name="comuna"
+                  error={
+                    !!touched.comuna && !!errors.comuna
+                  }
+                  helperText={
+                    touched.comuna && errors.comuna
+                  }
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
                   label="Dirección Cliente"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -155,6 +172,23 @@ const FormCli = () => {
                   }
                   helperText={
                     touched.direccion_cliente && errors.direccion_cliente
+                  }
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Número Casa"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.num_casa}
+                  name="num_casa"
+                  error={
+                    !!touched.num_casa && !!errors.num_casa
+                  }
+                  helperText={
+                    touched.num_casa && errors.num_casa
                   }
                   sx={{ gridColumn: "span 2" }}
                 />
@@ -211,7 +245,9 @@ const checkoutSchema = yup.object().shape({
   nombre_cliente: yup.string().required("campo requerido"),
   apellidos_cliente: yup.string().required("campo requerido"),
   region_id: yup.string().required("campo requerido"),
+  comuna: yup.string().required("campo requerido"),
   direccion_cliente: yup.string().required("campo requerido"),
+  num_casa: yup.string().required("campo requerido"),
   telefono_cliente: yup.string().required("campo requerido"),
   telefono_cliente: yup
     .string()
@@ -220,13 +256,20 @@ const checkoutSchema = yup.object().shape({
       /^\+?56(\s?)(0?9)(\s?)[9876543]\d{7}$/,
       "Ingresa un número de teléfono válido"
     ),
+    rut_cliente: yup
+      //analizar la validación del rut
+      .string()
+      .matches(/^[0-9]+-[0-9kK]{1}$/, "Se requiere un Rut Válido, sin puntos.")
+      .required("Se requiere un Rut"),
 });
 const initialValues = {
   rut_cliente: "",
   nombre_cliente: "",
   apellidos_cliente: "",
   region_id: "",
+  comuna: "",
   direccion_cliente: "",
+  num_casa: "",
   telefono_cliente: "",
 };
 
