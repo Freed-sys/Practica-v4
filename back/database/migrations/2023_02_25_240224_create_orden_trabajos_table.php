@@ -32,7 +32,6 @@ class CreateOrdenTrabajosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('cliente');
             $table->unsignedBigInteger('valor');
-            $table->unsignedBigInteger('casa');
             $table->unsignedBigInteger('material');
             $table->unsignedBigInteger('estado');
             $table->timestamps();
@@ -41,7 +40,7 @@ class CreateOrdenTrabajosTable extends Migration
             $table->foreign('valor')->references('id')->on('variantes');
             $table->foreign('material')->references('id')->on('inventarios');
             $table->foreign('estado')->references('id')->on('estados');
-            $table->foreign('casa')->references('id')->on('casas');
+  
           
     
         });

@@ -19,19 +19,17 @@ class variantes extends Model
         'largo_variante',
         'ancho_variante',
         'material', //material será otra tabla
-        'valor'
+        'valor',
+        'observaciones' 
     ];
 
 public function materiales(){
-        return $this->belongsTo(materiales::class, 'material', 'id');
+        return $this->belongsTo(inventarios::class, 'material', 'id');
     }
 
  public function orden(){
-    return $this->hasOne(ordenTrabajos::class, 'id', 'valor');
+    return $this->hasMany(ordenTrabajos::class, 'id', 'valor');
  }
 
- public function casa(){
-    return $this->hasOne(casas::class, 'id', 'tipo');
- }
 
 }

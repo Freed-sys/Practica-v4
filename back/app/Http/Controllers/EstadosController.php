@@ -11,17 +11,8 @@ class EstadosController extends Controller
  
     public function listaDropdown()
     {
-        $estados = estados::all();
-        $options = [];
-        foreach ($estados as $estado) {
-            $options[] = [
-                'value' => $estado->id,
-                'label' => $estado->name,
-            ];
-        }
-        return response()->json([
-            'options' => $options,
-        ]);
+        $regiones = estados::select('id', 'name')->get();
+        return response()->json($regiones);
     }
 
     public function crearItem(Request $request)
