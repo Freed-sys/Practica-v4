@@ -57,5 +57,5 @@ Route::post('/crearVari', [VarianteController::class, 'crearVari']);
 Route::post('/var/editar/{id}', [VarianteController::class, 'editar']);
 Route::post('/var/borrar/{id}', [VarianteController::class, 'borrar']);
 Route::get('/mostrarVar', [VarianteController::class, 'getVariantesList']);
-Route::post('/listarVariantes',[VarianteController::class, 'listaDropdown']);
+Route::get('/listarVariantes',[VarianteController::class, 'listaDropdown']);
 Route::post('/crearMaterial', [MaterialController::class, 'create']);

@@ -31,11 +31,6 @@ class ordenTrabajosController extends Controller
             return response()->json(['error' => 'Variante no encontrada'], 404);
         }
 
-        $casa = casas::where('id', $request->casa)->select('id')->first();
-        if (!$casa) {
-            // handle the case where the orden is not found
-            return response()->json(['error' => 'Tipo no encontrado'], 404);
-        }
 
         $material = inventarios::where('id', $request->material)->select('id')->first();
         if (!$material) {
@@ -50,7 +45,6 @@ class ordenTrabajosController extends Controller
         ordenTrabajos::create([
             'cliente' => $cliente->id, 
             'valor' => $variante->id, //foranea de variante
-            'casa' => $casa->id, //foranea de casa
             'material' => $material->id, //foranea de material
             'estado' => $estado->id, //foranea de estado
         ]);

@@ -28,7 +28,7 @@ public function materiales(){
     }
 
  public function orden(){
-    return $this->hasMany(ordenTrabajos::class, 'id', 'valor');
+    return $this->hasMany(ordenTrabajos::class, 'id', 'nombre_variante');
  }
 
 

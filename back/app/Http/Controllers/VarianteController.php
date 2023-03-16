@@ -54,16 +54,7 @@ class VarianteController extends Controller
 
     public function listaDropdown()
     {
-        $variantes = variantes::all();
-        $options = [];
-        foreach ($variantes as $variante) {
-            $options[] = [
-                'value' => $variante->id,
-                'label' => $variante->nombre_variante,
-            ];
-        }
-        return response()->json([
-            'options' => $options,
-        ]);
+        $regiones = variantes::select('id', 'nombre_variante')->get();
+        return response()->json($regiones);
     }
 }
