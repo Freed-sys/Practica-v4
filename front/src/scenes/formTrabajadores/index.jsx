@@ -57,7 +57,7 @@ import {
         <Header title="Crear Trabajador" subtitle="Crear un nuevo Trabajador" />
         <div className="Formulario">
           <Formik
-            onSubmit = {() => handleFormSubmit}
+            onSubmit = {handleFormSubmit}
             initialValues={initialValues}
             validationSchema={checkoutSchema}
           >

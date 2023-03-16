@@ -70,11 +70,10 @@ const FormObra = () => {
       });
   }, []);
 
-  const handleSelectedMaterialesChange = (event) => {
-    setSelectedMateriales(event.target.value);
-  };
-
   const handleFormSubmit = (values) => {
+    console.log(values);
+    values.materiales = selectedMateriales;
+    console.log(selectedMateriales);
     axios
       .post("http://localhost:8000/api/crearOrden", values)
       .then((response) => {
@@ -89,6 +88,11 @@ const FormObra = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleSelectedMaterialesChange = (event) => {
+    setSelectedMateriales(event.target.value)
+    console.log(event.target.value);
+  };
+
   const handleResetForm = (resetForm) => {
     resetForm({ values: initialValues });
   };
@@ -103,7 +107,7 @@ const FormObra = () => {
       />
       <div className="Formulario">
         <Formik
-          onSubmit={() => handleFormSubmit}
+          onSubmit={handleFormSubmit}
           initialValues={initialValues}
           validationSchema={checkoutSchema}
         >
@@ -187,11 +191,6 @@ const FormObra = () => {
                 >
                   {materiales.map((material, indice) => (
                     <MenuItem key={indice} value={material.nombre_mat}>
-                      <Checkbox
-                        checked={selectedMateriales.includes(
-                          material.nombre_mat
-                        )}
-                      />
                       <ListItemText primary={material.nombre_mat} />
                     </MenuItem>
                   ))}
@@ -225,9 +224,9 @@ const FormObra = () => {
                   type="submit"
                   color="success"
                   variant="contained"
-                //  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
+         //         disabled={Object.keys(errors).length !== 0}
                 >
-                  Crear Trabajador
+                  Crear Orden
                 </Button>
                 <Button
                   type="button"
@@ -253,13 +252,13 @@ const FormObra = () => {
 const checkoutSchema = yup.object().shape({
   cliente: yup.string().required("campo requerido"),
   variante: yup.string().required("campo requerido"),
-  material: yup.string().required("campo requerido"),
+  selectedMateriales: yup.string().required("campo requerido"),
   estado: yup.string().required("campo requerido"),
 });
 const initialValues = {
   cliente: "",
   variante: "",
-  material: "",
+  selectedMateriales: "",
   estado: "",
 };
 
