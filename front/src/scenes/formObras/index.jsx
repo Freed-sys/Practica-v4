@@ -8,8 +8,9 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Skeleton,
 } from "@mui/material";
-import { ListItemText } from '@material-ui/core';
+import { ListItemText } from "@material-ui/core";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -102,7 +103,7 @@ const FormObra = () => {
       />
       <div className="Formulario">
         <Formik
-          onSubmit={handleFormSubmit}
+          onSubmit={() => handleFormSubmit}
           initialValues={initialValues}
           validationSchema={checkoutSchema}
         >
@@ -124,29 +125,27 @@ const FormObra = () => {
                   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
-                <TextField
-                  fullWidth
-                  select
-                  variant="filled"
-                  label="Cliente"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.cliente || ""}
-                  name="cliente"
-                  error={!!touched.cliente && !!errors.cliente}
-                  helperText={touched.cliente && errors.cliente}
-                  sx={{ gridColumn: "span 2" }}
-                >
-                  {clientes.map(
-                    (
-                      cliente //los parámetros en singular
-                    ) => (
-                      <MenuItem key={cliente.id} value={cliente.id}>
+                {clientes == [] ? null : (
+                  <TextField
+                    fullWidth
+                    select
+                    variant="filled"
+                    label="Cliente"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.cliente}
+                    name="cliente"
+                    error={!!touched.cliente && !!errors.cliente}
+                    helperText={touched.cliente && errors.cliente}
+                    sx={{ gridColumn: "span 2" }}
+                  >
+                    {clientes.map((cliente) => (
+                      <MenuItem key={cliente.id} value={cliente.nombre_cliente}>
                         {cliente.nombre_cliente}
                       </MenuItem>
-                    )
-                  )}
-                </TextField>
+                    ))}
+                  </TextField>
+                )}
                 <TextField
                   fullWidth
                   select
@@ -174,6 +173,33 @@ const FormObra = () => {
                   fullWidth
                   select
                   variant="filled"
+                  label="Materiales"
+                  value={selectedMateriales}
+                  onChange={handleSelectedMaterialesChange}
+                  name="materiales"
+                  error={!!touched.materiales && !!errors.materiales}
+                  helperText={touched.materiales && errors.materiales}
+                  sx={{ gridColumn: "span 2" }}
+                  SelectProps={{
+                    multiple: true,
+                    renderValue: (selected) => selected.join(", "),
+                  }}
+                >
+                  {materiales.map((material, indice) => (
+                    <MenuItem key={indice} value={material.nombre_mat}>
+                      <Checkbox
+                        checked={selectedMateriales.includes(
+                          material.nombre_mat
+                        )}
+                      />
+                      <ListItemText primary={material.nombre_mat} />
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  select
+                  variant="filled"
                   label="Estado"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -183,44 +209,25 @@ const FormObra = () => {
                   helperText={touched.estado && errors.estado}
                   sx={{ gridColumn: "span 2" }}
                 >
-                  {estados.map((estado) => (
-                    <MenuItem key={estado.id} value={estado.id}>
-                      {estado.name}
-                    </MenuItem>
-                  ))}
+                  {estados.map(
+                    (
+                      estado //los parámetros en singular
+                    ) => (
+                      <MenuItem key={estado.id} value={estado.id}>
+                        {estado.name}
+                      </MenuItem>
+                    )
+                  )}
                 </TextField>
-                <TextField
-  fullWidth
-  select
-  variant="filled"
-  label="Materiales"
-  value={selectedMateriales}
-  onChange={handleSelectedMaterialesChange}
-  name="materiales"
-  error={!!touched.materiales && !!errors.materiales}
-  helperText={touched.materiales && errors.materiales}
-  sx={{ gridColumn: "span 2" }}
-  SelectProps={{
-    multiple: true,
-    renderValue: (selected) => selected.join(", "),
-  }}
->
-  {materiales.map((material) => (
-    <MenuItem key={material.id} value={material.nombre_mat}>
-      <Checkbox checked={selectedMateriales.includes(material.nombre_mat)} />
-      <ListItemText primary={material.nombre_mat} />
-    </MenuItem>
-  ))}
-</TextField>
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button
                   type="submit"
                   color="success"
                   variant="contained"
-                  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
+                //  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
                 >
-                  Crear Material
+                  Crear Trabajador
                 </Button>
                 <Button
                   type="button"
@@ -244,18 +251,16 @@ const FormObra = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  nombre_mat: yup.string().required("campo requerido"),
-  tipo_mat: yup.string().required("campo requerido"),
-  cant_mat: yup.string().required("campo requerido"),
-  unidad_mat: yup.string().required("campo requerido"),
-  precio_unitario: yup.string().required("campo requerido"),
+  cliente: yup.string().required("campo requerido"),
+  variante: yup.string().required("campo requerido"),
+  material: yup.string().required("campo requerido"),
+  estado: yup.string().required("campo requerido"),
 });
 const initialValues = {
-  nombre_mat: "",
-  tipo_mat: "",
-  cant_mat: "",
-  unidad_mat: "",
-  precio_unitario: "",
+  cliente: "",
+  variante: "",
+  material: "",
+  estado: "",
 };
 
 export default FormObra;

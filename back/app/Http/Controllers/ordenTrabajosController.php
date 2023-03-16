@@ -25,7 +25,7 @@ class ordenTrabajosController extends Controller
             return response()->json(['error' => 'Cliente no encontrado'], 404);
         }
 
-        $variante = variantes::where('id', $request->valor)->select('id')->first();
+        $variante = variantes::where('id', $request->variante)->select('id')->first();
         if (!$variante) {
             // handle the case where the direccion is not found
             return response()->json(['error' => 'Variante no encontrada'], 404);
@@ -44,7 +44,7 @@ class ordenTrabajosController extends Controller
 
         ordenTrabajos::create([
             'cliente' => $cliente->id, 
-            'valor' => $variante->id, //foranea de variante
+            'variante' => $variante->id, //foranea de variante
             'material' => $material->id, //foranea de material
             'estado' => $estado->id, //foranea de estado
         ]);
