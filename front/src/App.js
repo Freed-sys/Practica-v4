@@ -17,6 +17,8 @@ import Clientes from "./scenes/clientes";
 import FormCli from "./scenes/formClientes";
 import FormTra from "./scenes/formTrabajadores";
 import FormObra from "./scenes/formObras";
+import FormVar from "./scenes/formVariantes";
+import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -42,6 +44,8 @@ function App() {
             <Route path="/cliente/new" element={<FormCli />} />
             <Route path="/trabajador/new" element={<FormTra />} />
             <Route path="/obra/new" element={<FormObra />} />
+            <Route path="/variante/new" element={<FormVar />} />
+            <Route path="/pdfOrden" element={<OrdenPDF />} />
             
           </Routes>
         </div>

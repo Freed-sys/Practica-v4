@@ -25,13 +25,11 @@ class CreateOrdenTrabajosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('cliente');
             $table->unsignedBigInteger('variante');
-            $table->unsignedBigInteger('material');
             $table->unsignedBigInteger('estado');
             $table->timestamps();
 
             $table->foreign('cliente')->references('id')->on('cliente');
             $table->foreign('variante')->references('id')->on('variantes');
-            $table->foreign('material')->references('id')->on('inventarios');
             $table->foreign('estado')->references('id')->on('estados');
   
           

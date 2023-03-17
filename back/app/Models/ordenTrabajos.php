@@ -15,10 +15,9 @@ class ordenTrabajos extends Model
 
     protected $fillable=[
         'cliente', //foranea de cliente
-        'variante', //foranea de variante
-        'material', //foranea de material
+        'variante', //foranea de inventarios
         'estado', //estado
-        'id_trabajador', //foranea de trabajador
+
     ];
 
     public function clientes(){
@@ -30,20 +29,11 @@ class ordenTrabajos extends Model
         return $this->belongsTo(variantes::class, 'variante', 'id');
     }
 
-    public function material(){
-        return $this->hasMany(inventarios::class, 'material', 'id');
-    }
 
     public function estado(){
         return $this->belongsTo(estados::class, 'estado', 'id');
     }
 
-    public function trabajo(){
-        return $this->belongsTo(trabajadores::class, 'id_trabajador', 'id');
-    }
 
-    public function cliente(){
-        return $this->hasMany(cliente::class, 'id', 'cod_orden');
-    }
 
 }

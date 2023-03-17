@@ -11,7 +11,7 @@ class VarianteController extends Controller
 {
     public function crearVari(Request $request)
     {
-        $materiales = inventarios::where('id', $request->obra)->select('id')->first();
+        $materiales = inventarios::where('id', $request->material)->select('id')->first();
         if (!$materiales) {
             // handle the case where the direccion is not found
             return response()->json(['error' => 'Material no encontrado'], 404);
@@ -23,7 +23,6 @@ class VarianteController extends Controller
             'ancho_variante' => $request['ancho_variante'],
             'material' => $materiales->id, //material será otra tabla
             'valor' => $request['valor'],
-            'observaciones' => $request['observaciones']
         ]);
 
         // return a success response
