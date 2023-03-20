@@ -25,6 +25,8 @@ const FormObra = () => {
   const [clientes, setClientes] = useState([]); //los estados siempre en plural
   const [valores, setValores] = useState([]);
   const [variantes, setVariantes] = useState([]);
+  const [materiales, setMateriales] = useState([]);
+  const [selectedMateriales, setSelectedMateriales] = useState([]);
   const [estados, setEstados] = useState([]);
 
   useEffect(() => {
@@ -49,6 +51,16 @@ const FormObra = () => {
   }, []);
   useEffect(() => {
     axios
+      .get("http://localhost:8000/api/mostrarInv")
+      .then((response) => {
+        setMateriales(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    axios
       .get("http://localhost:8000/api/listarEstado")
       .then((response) => {
         setEstados(response.data);
@@ -60,12 +72,10 @@ const FormObra = () => {
 
   const handleFormSubmit = (values) => {
     console.log(values);
+    values.materiales = selectedMateriales;
+    console.log(selectedMateriales);
     axios
-      .post("http://localhost:8000/api/creaOrden", values, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post("http://localhost:8000/api/crearOrden", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);
@@ -77,6 +87,10 @@ const FormObra = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleSelectedMaterialesChange = (event) => {
+    setSelectedMateriales(event.target.value)
+    console.log(event.target.value);
   };
 
   const handleResetForm = (resetForm) => {
@@ -115,7 +129,7 @@ const FormObra = () => {
                   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
-                {clientes.length === 0 ? null : (
+                {clientes == [] ? null : (
                   <TextField
                     fullWidth
                     select
@@ -130,7 +144,7 @@ const FormObra = () => {
                     sx={{ gridColumn: "span 2" }}
                   >
                     {clientes.map((cliente) => (
-                      <MenuItem key={cliente.id} value={cliente.id}>
+                      <MenuItem key={cliente.id} value={cliente.nombre_cliente}>
                         {cliente.nombre_cliente}
                       </MenuItem>
                     ))}
@@ -163,6 +177,28 @@ const FormObra = () => {
                   fullWidth
                   select
                   variant="filled"
+                  label="Materiales"
+                  value={selectedMateriales}
+                  onChange={handleSelectedMaterialesChange}
+                  name="materiales"
+                  error={!!touched.materiales && !!errors.materiales}
+                  helperText={touched.materiales && errors.materiales}
+                  sx={{ gridColumn: "span 2" }}
+                  SelectProps={{
+                    multiple: true,
+                    renderValue: (selected) => selected.join(", "),
+                  }}
+                >
+                  {materiales.map((material, indice) => (
+                    <MenuItem key={indice} value={material.nombre_mat}>
+                      <ListItemText primary={material.nombre_mat} />
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  select
+                  variant="filled"
                   label="Estado"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -170,7 +206,7 @@ const FormObra = () => {
                   name="estado"
                   error={!!touched.estado && !!errors.estado}
                   helperText={touched.estado && errors.estado}
-                  sx={{ gridColumn: "span 4" }}
+                  sx={{ gridColumn: "span 2" }}
                 >
                   {estados.map(
                     (
@@ -188,7 +224,7 @@ const FormObra = () => {
                   type="submit"
                   color="success"
                   variant="contained"
-                  //         disabled={Object.keys(errors).length !== 0}
+         //         disabled={Object.keys(errors).length !== 0}
                 >
                   Crear Orden
                 </Button>
@@ -216,11 +252,13 @@ const FormObra = () => {
 const checkoutSchema = yup.object().shape({
   cliente: yup.string().required("campo requerido"),
   variante: yup.string().required("campo requerido"),
+  selectedMateriales: yup.string().required("campo requerido"),
   estado: yup.string().required("campo requerido"),
 });
 const initialValues = {
   cliente: "",
   variante: "",
+  selectedMateriales: "",
   estado: "",
 };
 

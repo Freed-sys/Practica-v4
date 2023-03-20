@@ -20,6 +20,7 @@ class variantes extends Model
         'ancho_variante',
         'material', //material será otra tabla
         'valor',
+        'observaciones' 
     ];
 
 public function materiales(){

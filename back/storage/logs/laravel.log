@@ -2367,6 +2367,7 @@
 #46 C:\\xampp\\htdocs\\Practica-v4\\back\\server.php(21): require_once('C:\\\\xampp\\\\htdocs...')
 #47 {main}
 "} 
+<<<<<<< HEAD
 [2023-03-17 15:25:26] local.ERROR: No arguments expected for "migrate" command, got "fresh". {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): No arguments expected for \"migrate\" command, got \"fresh\". at C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Input\\ArgvInput.php:193)
 [stacktrace]
 #0 C:\\xampp\\htdocs\\Practica-v4\\back\\vendor\\symfony\\console\\Input\\ArgvInput.php(86): Symfony\\Component\\Console\\Input\\ArgvInput->parseArgument('fresh')
@@ -4087,3 +4088,5 @@ Did you mean one of these?
 #4 C:\\xampp\\htdocs\\Practica-v4\\back\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #5 {main}
 "} 
+=======
+>>>>>>> parent of 23dc6dc (Generar PDF)

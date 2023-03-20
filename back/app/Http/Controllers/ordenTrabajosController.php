@@ -32,6 +32,10 @@ class ordenTrabajosController extends Controller
         }
 
 
+        $material = inventarios::where('id', $request->material)->select('id')->first();
+        if (!$material) {
+            return response()->json(['error' => 'Material no encontrado'], 404);
+        }
 
         $estado = estados::where('id', $request->estado)->select('id')->first();
         if (!$estado) {
@@ -39,8 +43,9 @@ class ordenTrabajosController extends Controller
         }
 
         ordenTrabajos::create([
-            'cliente' => $cliente->id,
+            'cliente' => $cliente->id, 
             'variante' => $variante->id, //foranea de variante
+            'material' => $material->id, //foranea de material
             'estado' => $estado->id, //foranea de estado
         ]);
 
@@ -65,17 +70,21 @@ class ordenTrabajosController extends Controller
         return response()->json('Elemento eliminado correctamente');
     }
 
-    public function getOrdenList()
-    {
-
+    public function getOrdenList(){
+    
         $ordenes = DB::table('OrdenTrabajos')
-            ->join('cliente', 'OrdenTrabajos.cliente', '=', 'cliente.id')
-            ->join('variantes', 'OrdenTrabajos.variante', '=', 'variantes.id')
+                ->join('variantes', 'OrdenTrabajos.valor', '=', 'variantes.id')
+                ->join('casas', 'OrdenTrabajos.casa', '=', 'casas.id')
+                ->join('materiales', 'OrdenTrabajos.material', '=', 'materiales.id')
+                ->join('estados', 'OrdenTrabajos.estado', '=', 'estados.id')
+                ->select('variantes.valor', 'casas.tipo', 'materiales.nombre_material', 'estados.name')
+                ->get();
 
-            ->join('estados', 'OrdenTrabajos.estado', '=', 'estados.id')
-            ->select('cliente.nombre_cliente', 'variantes.nombre_variante', 'estados.name')
-            ->get();
+    return $ordenes;
 
-        return $ordenes;
-    }
+    
+ 
+}
+
+ 
 }
