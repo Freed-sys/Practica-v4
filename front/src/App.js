@@ -17,15 +17,10 @@ import Clientes from "./scenes/clientes";
 import FormCli from "./scenes/formClientes";
 import FormTra from "./scenes/formTrabajadores";
 import FormObra from "./scenes/formObras";
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 import Login from "./scenes/login/SignIn";
-=======
->>>>>>> parent of 23dc6dc (Generar PDF)
-=======
->>>>>>> parent of 23dc6dc (Generar PDF)
 
 function App() {
   const [theme, colorMode] = useMode();
