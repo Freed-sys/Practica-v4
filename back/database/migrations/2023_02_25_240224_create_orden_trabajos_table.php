@@ -13,14 +13,7 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function up()
     {
-        Schema::create('casas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('tipo');
-            $table->string('observaciones');
-            $table->timestamps();
 
-            $table->foreign('tipo')->references('id')->on('variantes');
-        });
 
         Schema::create('estados', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -31,17 +24,14 @@ class CreateOrdenTrabajosTable extends Migration
         Schema::create('ordenTrabajos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('cliente');
-            $table->unsignedBigInteger('valor');
-            $table->unsignedBigInteger('casa');
-            $table->unsignedBigInteger('material');
+            $table->unsignedBigInteger('variante');
             $table->unsignedBigInteger('estado');
             $table->timestamps();
 
             $table->foreign('cliente')->references('id')->on('cliente');
-            $table->foreign('valor')->references('id')->on('variantes');
-            $table->foreign('material')->references('id')->on('inventarios');
+            $table->foreign('variante')->references('id')->on('variantes');
             $table->foreign('estado')->references('id')->on('estados');
-            $table->foreign('casa')->references('id')->on('casas');
+  
           
     
         });
@@ -54,7 +44,6 @@ class CreateOrdenTrabajosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('casas');
         Schema::dropIfExists('estados');
         Schema::dropIfExists('ordenTrabajos');
         
