@@ -1,14 +1,14 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ComunasController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UmedidaController;
 use App\Http\Controllers\CasasController;
 use App\Http\Controllers\EstadosController;
-use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ordenTrabajosController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\TrabajadorController;
@@ -58,4 +58,18 @@ Route::post('/var/editar/{id}', [VarianteController::class, 'editar']);
 Route::post('/var/borrar/{id}', [VarianteController::class, 'borrar']);
 Route::get('/mostrarVar', [VarianteController::class, 'getVariantesList']);
 Route::get('/listarVariantes',[VarianteController::class, 'listaDropdown']);
-Route::post('/crearMaterial', [MaterialController::class, 'create']);
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/logout', function (Request $request) {
+        $request->user()->tokens()->delete();
+        return response()->json([
+            'message' => 'Sesión cerrada correctamente'
+        ]);
+    });
+});
+
