@@ -19,6 +19,7 @@ import FormTra from "./scenes/formTrabajadores";
 import FormObra from "./scenes/formObras";
 import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
+import Login from "./scenes/login/SignIn";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -34,6 +35,7 @@ function App() {
 
         <div className="container">
           <Routes>
+            <Route path="/login" element={<Login />}  />
             <Route path="/" element={<Dashboard />} />
             <Route path="/inventario" element={<Inventario />} />
             <Route path="/personal" element={<Personal />} />
