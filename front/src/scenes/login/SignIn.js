@@ -23,7 +23,7 @@ const Login = () => {
     event.preventDefault();
 
     axios
-      .post("/login", {
+      .post("http://localhost:8000/api/login", {
         email: email,
         password: password,
       })
