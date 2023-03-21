@@ -4,86 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function register(Request $request)
     {
-        $users = User::all();
-
-        return response()->json($users);
-    }
-
-    public function show($id)
-    {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
-        }
-
-        return response()->json($user);
-    }
-
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string|confirmed'
         ]);
 
-        $user = new User;
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = bcrypt($validatedData['password']);
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role ?? 'user'
+        ]);
+
         $user->save();
 
         return response()->json([
-            'message' => 'Usuario creado correctamente',
-            'user' => $user
+            'message' => 'Usuario registrado exitosamente'
         ], 201);
     }
 
-    public function update(Request $request, $id)
+    public function login(Request $request)
     {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        $credentials = $request->only('email', 'password');
+    
+        if (Auth::attempt($credentials)) {
+            $user = $request->user();
+            $token = $user->createToken('token-name')->plainTextToken;
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'Bearer'
+            ]);
         }
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'min:6'
-        ]);
-
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-
-        if (isset($validatedData['password'])) {
-            $user->password = bcrypt($validatedData['password']);
-        }
-
-        $user->save();
-
-        return response()->json([
-            'message' => 'Usuario actualizado correctamente',
-            'user' => $user
-        ]);
+    
+        return response()->json(['error' => 'Credenciales inválidas'], 401);
     }
+    
 
-    public function destroy($id)
-    {
-        $user = User::find($id);
-
-        if (!$user) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
-        }
-
-        $user->delete();
-
-        return response()->json(['message' => 'Usuario eliminado correctamente']);
-    }
 }
