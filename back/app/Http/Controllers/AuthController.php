@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class AuthController extends Controller
 {
@@ -14,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login' , 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -29,6 +34,8 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        return $this->respondWithToken($token);
     }
 
     /**
@@ -81,24 +88,24 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|unique:users',
+            'name' => 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
-            'password_confirmation' => 'required|string|min:6',
+            'password_confirmation' => 'required|string|min:6|same:password',
+            
         ]);
 
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
 
-       if($validator->fails()){
-        return response()->json($validator->errors()->toJson(), 400);
-       }
-       $user = User::create(array_merge(
+        $user = User::create(array_merge(
             $validator->validate(),
             ['password' => bcrypt($request->password)]
-       ));
-
-       return response()->json([
+        ));
+        return response()->json([
             'message' => 'Usuario Creado',
             'user' => $user
-       ], 201);
+        ], 201);
     }
 }

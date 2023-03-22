@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventarioController;
@@ -58,18 +58,7 @@ Route::post('/var/editar/{id}', [VarianteController::class, 'editar']);
 Route::post('/var/borrar/{id}', [VarianteController::class, 'borrar']);
 Route::get('/mostrarVar', [VarianteController::class, 'getVariantesList']);
 Route::get('/listarVariantes',[VarianteController::class, 'listaDropdown']);
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::post('/logout', function (Request $request) {
-        $request->user()->tokens()->delete();
-        return response()->json([
-            'message' => 'Sesión cerrada correctamente'
-        ]);
-    });
-});
-
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/me', [AuthController::class, 'me']);
