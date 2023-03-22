@@ -1,103 +1,95 @@
-import { React, useState, useRef } from "react";
-import {
-  Grid,
-  Paper,
-  Avatar,
-  TextField,
-  Button,
-  Typography,
-  Link,
-} from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import LockIcon from "@mui/icons-material/Lock";
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, Button } from "@material-ui/core";
 import axios from "axios";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    axios
-      .post("http://localhost:8000/api/login", {
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        // redirigir al usuario a la página principal o al panel de control
-      })
-      .catch((error) => {
-        console.error(error);
-        // mostrar un mensaje de error al usuario
-      });
-  };
-
-  const paperStyle = {
-    padding: 20,
-    height: "70vh",
-    width: 280,
-    margin: "20px auto",
-  };
-  const avatarStyle = { backgroundColor: "#7a5433" };
-  const btnstyle = {
-    margin: "8px 0",
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     backgroundColor: "#7a5433",
-    color: "white",
-  };
-  return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align="center">
-          <Avatar style={avatarStyle}>
-            <LockIcon />
-          </Avatar>
-          <h2>Iniciar Sesión</h2>
-        </Grid>
-        <form onSubmit={handleLogin}>
-          <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-          <TextField
-            label="Email"
-            placeholder="Ingrese e-mail"
-            variant="outlined"
-            fullWidth
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <div style={{ margin: "20px" }} />
-          <TextField
-            label="Contraseña"
-            placeholder="Ingrese su contraseña"
-            type="password"
-            variant="outlined"
-            fullWidth
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+    padding: theme.spacing(2),
+    borderRadius: "10px",
+  },
+  textField: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+  submitButton: {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    color: "#7a5433",
+    "&:hover": {
+      backgroundColor: "#f1f1f1",
+    },
+  },
+}));
 
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="Recuérdame"
-          />
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            style={btnstyle}
-            fullWidth
-          >
-            Ingresar
-          </Button>
-        </form>
-      </Paper>
-    </Grid>
+const api = axios.create({
+  baseURL: "http://localhost:8000/api",
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+function handleLogin(event) {
+  event.preventDefault();
+  const email = event.target.email.value;
+  const password = event.target.password.value;
+  const tokenElement = document.querySelector('meta[name="csrf-token"]');
+  const token = tokenElement ? tokenElement.getAttribute("content") : null;
+  if (!token) {
+    console.error("Token CSRF no encontrado.");
+    return;
+  }
+  api
+    .post(
+      "/login",
+      { email, password },
+      { headers: { "X-CSRF-TOKEN": token }, mode: "cors" }
+    )
+    .then((response) => {
+      localStorage.setItem("token", response.data.token);
+      window.location.href = "/dashboard";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+
+function Login() {
+  const classes = useStyles();
+
+  return (
+    <form className={classes.form} onSubmit={handleLogin}>
+      <TextField
+        label="Email"
+        variant="filled"
+        name="email"
+        className={classes.textField}
+      />
+      <TextField
+        label="Password"
+        variant="filled"
+        type="password"
+        name="password"
+        className={classes.textField}
+      />
+      <Button
+        variant="contained"
+        className={classes.submitButton}
+        type="submit"
+      >
+        Login
+      </Button>
+    </form>
   );
-};
+}
 
 export default Login;
