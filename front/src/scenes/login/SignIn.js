@@ -1,95 +1,156 @@
+import React, { useState, useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockIcon from "@mui/icons-material/Lock";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "#7a5433",
-    padding: theme.spacing(2),
-    borderRadius: "10px",
-  },
-  textField: {
-    width: "100%",
-    marginBottom: theme.spacing(2),
-  },
-  submitButton: {
-    width: "100%",
-    backgroundColor: "#ffffff",
-    color: "#7a5433",
-    "&:hover": {
-      backgroundColor: "#f1f1f1",
-    },
-  },
-}));
+import Collapse from "@material-ui/core/Collapse";
 
-const api = axios.create({
-  baseURL: "http://localhost:8000/api",
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-function handleLogin(event) {
-  event.preventDefault();
-  const email = event.target.email.value;
-  const password = event.target.password.value;
-  const tokenElement = document.querySelector('meta[name="csrf-token"]');
-  const token = tokenElement ? tokenElement.getAttribute("content") : null;
-  if (!token) {
-    console.error("Token CSRF no encontrado.");
-    return;
-  }
-  api
-    .post(
-      "/login",
-      { email, password },
-      { headers: { "X-CSRF-TOKEN": token }, mode: "cors" }
-    )
-    .then((response) => {
-      localStorage.setItem("token", response.data.token);
-      window.location.href = "/dashboard";
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-
-function Login() {
-  const classes = useStyles();
-
+function Copyright() {
   return (
-    <form className={classes.form} onSubmit={handleLogin}>
-      <TextField
-        label="Email"
-        variant="filled"
-        name="email"
-        className={classes.textField}
-      />
-      <TextField
-        label="Password"
-        variant="filled"
-        type="password"
-        name="password"
-        className={classes.textField}
-      />
-      <Button
-        variant="contained"
-        className={classes.submitButton}
-        type="submit"
-      >
-        Login
-      </Button>
-    </form>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
   );
 }
 
-export default Login;
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const SignIn = ({}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [modoregistro, setModoregistro] = useState(false);
+
+  const onSubmit = (data) => {
+    console.log(data.email);
+    axios
+      .post("/api/login", {
+        mail: data.email,
+        pass: data.password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.mensaje == "correcto") {
+          localStorage.setItem("TOKEN_APP", response.data.token);
+          window.location = "/menu";
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.status == 401) {
+            let motivo = err.response.data.mensaje;
+            alert(`No autorizado:${motivo}`);
+          }
+          console.log(err.response.data.mensaje);
+        } else if (err.request) {
+          // client never received a response, or request never left
+        } else {
+          // anything else
+        }
+      });
+  };
+
+  const classes = useStyles();
+
+  const registro = () => {
+    setModoregistro(true);
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={classes.form}
+          noValidate
+        >
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            {...register("email", { required: true })}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            error={Boolean(errors.password)}
+            helperText={errors.password?.message}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+        </form>
+      </div>
+
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
+  );
+};
+
+export default SignIn;
