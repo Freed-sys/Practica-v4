@@ -14,21 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import instancia from "../../index";
 
 import Collapse from "@material-ui/core/Collapse";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#7a5433",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -59,11 +47,11 @@ const SignIn = ({}) => {
   const [modoregistro, setModoregistro] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data.email);
-    axios
+    console.log(data);
+    instancia
       .post("/api/login", {
-        mail: data.email,
-        pass: data.password,
+        email: data.email,
+        password: data.password,
       })
       .then((response) => {
         console.log(response.data);
@@ -101,7 +89,7 @@ const SignIn = ({}) => {
           <LockIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          ¡Bienvenido!
         </Typography>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -114,7 +102,7 @@ const SignIn = ({}) => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email"
             name="email"
             autoComplete="email"
             autoFocus
@@ -126,29 +114,26 @@ const SignIn = ({}) => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Contraseña"
             type="password"
             id="password"
             autoComplete="current-password"
             error={Boolean(errors.password)}
             helperText={errors.password?.message}
+            {...register("password", { required: true })}
           />
-
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            style={{ backgroundColor: "#7a5433" }}
           >
-            Sign In
+            Ingresar
           </Button>
         </form>
       </div>
-
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 };

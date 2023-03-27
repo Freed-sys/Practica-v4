@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -29,6 +30,7 @@ class AuthController extends Controller
      */
     public function login()
     {
+       try {
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
@@ -36,6 +38,9 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+       } catch (\Exception $th) {
+        Log::info($th);
+       }
     }
 
     /**
