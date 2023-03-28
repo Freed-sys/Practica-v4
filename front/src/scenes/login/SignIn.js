@@ -19,6 +19,7 @@ import Dashboard from "../dashboard";
 import Collapse from "@material-ui/core/Collapse";
 import { atom, useAtom} from "jotai";
 import  {setToken,getToken,deleteToken} from "../../helpers/usuario";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,19 +53,19 @@ const SignIn = ({}) => {
     formState: { errors },
   } = useForm();
   const [modoregistro, setModoregistro] = useState(false);
-
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     clienteAxios
-      .post("/api/login", {
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data) {
-          setToken(response.data.access_token);
-        }
-      })
+    .post("/api/login", {
+      email: data.email,
+      password: data.password,
+    })
+    .then((response) => {
+      if (response.data) {
+        setToken(response.data.access_token);
+        navigate("/"); // Redirigir al usuario al dashboard
+      }
+    })
       .catch((err) => {
         if (err.response) {
           if (err.response.status === 401) {

@@ -75,3 +75,33 @@ body{
 dashboardGrid{
     display: flex;
 }
+
+.logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.session_out {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .session_out {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    padding: 10px;
+    text-align: right;
+  }
+}
+
+  

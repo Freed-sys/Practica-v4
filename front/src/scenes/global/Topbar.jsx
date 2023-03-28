@@ -1,54 +1,52 @@
-import { Box, IconButton, useTheme} from "@mui/material";
+import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
-import InputBase from '@mui/material/InputBase';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import Person4OutlinedIcon from '@mui/icons-material/Person4Outlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
+import InputBase from "@mui/material/InputBase";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import Button from "@material-ui/core/Button";
+import clienteAxios from "../../helpers/clienteAxios";
+import { setToken, getToken, deleteToken } from "../../helpers/usuario";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 
 const Topbar = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const colorMode = useContext(ColorModeContext);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate();
 
-    return (
-        <Box display="flex" justifyContent="space-between" p={2}>
-            {/*barra busqueda */}
-            <Box 
-            display="flex" 
-            backgroundColor={colors.green[400]} 
-            borderRadius="3px">
-                <InputBase sx={{ml: 2, flex: 1}} placeholder="search " />
-                <IconButton type="button" sx={{p: 1}} >
-                    <SearchOutlinedIcon />
-                </IconButton>
-            </Box>
+  const handleLogout = () => {
+    clienteAxios
+      .post("/api/logout")
+      .then(() => {
+        deleteToken();
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-            {/*iconos*/}
-            <Box display="flex">
-                {/*<IconButton onClick={colorMode.toggleColorMode} >
-                    {theme.palette.mode === 'dark' ?(
-                        <DarkModeOutlinedIcon />
-                    ) : (
-                        <LightModeOutlinedIcon />
-                    ) }
-                </IconButton>
-                    */}
-                <IconButton>
-                    <NotificationsActiveOutlinedIcon />
-                </IconButton>
-                <IconButton>
-                    <SettingsOutlinedIcon />
-                </IconButton>
-                <IconButton>
-                    <Person4OutlinedIcon />
-                </IconButton>
-            </Box>
-        </Box>
-    )
+  return (
+    <div className="logo">
+      {/*barra busqueda */}
+
+      <img src="https://i.postimg.cc/YqwzWnxh/79b1e621-7037-4257-ba5b-132dc001973a-2.jpg" alt="Logo" />
+
+      <div className="session_out">
+    
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            style={{ backgroundColor: "#7a5433" }}
+            onClick={handleLogout}
+          >
+            Cerrar Sesión
+          </Button>
+
+      </div>
+    </div>
+  );
 };
 export default Topbar;
