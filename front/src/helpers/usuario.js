@@ -2,7 +2,6 @@ const TOKEN_KEY = 'access_token';
 
 const setToken = (access_token) => {
     localStorage.setItem(TOKEN_KEY, access_token);
-    console.log(typeof access_token);
 }
 
 const getToken = () => {

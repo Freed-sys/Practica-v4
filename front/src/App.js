@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
@@ -21,6 +21,7 @@ import FormObra from "./scenes/formObras";
 import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 import Login from "./scenes/login/SignIn";
+import { getToken } from "./helpers/usuario";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -28,6 +29,14 @@ function App() {
 
   // Estado para comprobar si el usuario ha iniciado sesión
   const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Verificar si el usuario ha iniciado sesión
+    const token = getToken();
+    if (token) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
