@@ -14,9 +14,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import instancia from "../../index";
-
+import clienteAxios from "../../helpers/clienteAxios";
+import Dashboard from "../dashboard";
 import Collapse from "@material-ui/core/Collapse";
+import { atom, useAtom} from "jotai";
+import  {setToken,getToken,deleteToken} from "../../helpers/usuario";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+const tokenAtom = atom(null);
+
+
+
 const SignIn = ({}) => {
   const {
     register,
@@ -47,22 +54,20 @@ const SignIn = ({}) => {
   const [modoregistro, setModoregistro] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
-    instancia
+    clienteAxios
       .post("/api/login", {
         email: data.email,
         password: data.password,
       })
       .then((response) => {
         console.log(response.data);
-        if (response.data.mensaje == "correcto") {
-          localStorage.setItem("TOKEN_APP", response.data.token);
-          window.location = "/menu";
+        if (response.data) {
+          setToken(response.data.access_token);
         }
       })
       .catch((err) => {
         if (err.response) {
-          if (err.response.status == 401) {
+          if (err.response.status === 401) {
             let motivo = err.response.data.mensaje;
             alert(`No autorizado:${motivo}`);
           }
@@ -74,12 +79,14 @@ const SignIn = ({}) => {
         }
       });
   };
+  
 
   const classes = useStyles();
 
   const registro = () => {
     setModoregistro(true);
   };
+
 
   return (
     <Container component="main" maxWidth="xs">

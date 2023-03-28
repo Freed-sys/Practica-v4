@@ -26,44 +26,44 @@ function App() {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // state para saber si el usuario ha iniciado sesión
-
-  function handleLogin() {
-    setIsLoggedIn(true); // actualiza el state para indicar que el usuario ha iniciado sesión exitosamente
-  }
+  // Estado para comprobar si el usuario ha iniciado sesión
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      
-      <Topbar />
-      <div className="App">
-        {isLoggedIn ? ( // si el usuario ha iniciado sesión, mostrar el contenido de la aplicación
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        {/* Verificar si el usuario ha iniciado sesión */}
+        {loggedIn ? (
           <>
-            <div className="side1">
-              <Sidebarr />
-            </div>
-            <div className="container">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/inventario" element={<Inventario />} />
-                <Route path="/personal" element={<Personal />} />
-                <Route path="/newMat" element={<Form />} />
-                <Route path="/obras" element={<Obras />} />
-                <Route path="/clientes" element={<Clientes />} />
-                <Route path="/materialNew" element={<FormUM />} />
-                <Route path="/cliente/new" element={<FormCli />} />
-                <Route path="/trabajador/new" element={<FormTra />} />
-                <Route path="/obra/new" element={<FormObra />} />
-                <Route path="/variante/new" element={<FormVar />} />
-                <Route path="/pdfOrden" element={<OrdenPDF />} />
-                <Route path="*" element={<Navigate to="/" />} /> {/* Si se introduce una ruta no válida, redirigir al dashboard */}
-              </Routes>
+            <Topbar />
+            <div className="App">
+              <div className="side1">
+                <Sidebarr />
+              </div>
+              <div className="container">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/inventario" element={<Inventario />} />
+                  <Route path="/personal" element={<Personal />} />
+                  <Route path="/newMat" element={<Form />} />
+                  <Route path="/obras" element={<Obras />} />
+                  <Route path="/clientes" element={<Clientes />} />
+                  <Route path="/materialNew" element={<FormUM />} />
+                  <Route path="/cliente/new" element={<FormCli />} />
+                  <Route path="/trabajador/new" element={<FormTra />} />
+                  <Route path="/obra/new" element={<FormObra />} />
+                  <Route path="/variante/new" element={<FormVar />} />
+                  <Route path="/pdfOrden" element={<OrdenPDF />} />
+                  <Route path="*" element={<Navigate to="/" />} /> {/* Si se introduce una ruta no válida, redirigir al dashboard */}
+                </Routes>
+              </div>
             </div>
           </>
-        ) : ( // si el usuario no ha iniciado sesión, mostrar el formulario de login
-          <Login onLogin={handleLogin} />
+        ) : (
+          <Login setLoggedIn={setLoggedIn} />
         )}
-      </div>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
