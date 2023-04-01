@@ -99,7 +99,7 @@ const Clientes = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
-          {params.row.telefono_cliente}
+          + {params.row.telefono_cliente}
         </Typography>
       ),
     },
