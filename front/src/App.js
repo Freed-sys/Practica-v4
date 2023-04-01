@@ -22,6 +22,8 @@ import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 import Login from "./scenes/login/SignIn";
 import { getToken } from "./helpers/usuario";
+import { Skeleton } from "@mui/material";
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -29,6 +31,8 @@ function App() {
 
   // Estado para comprobar si el usuario ha iniciado sesión
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     // Verificar si el usuario ha iniciado sesión
