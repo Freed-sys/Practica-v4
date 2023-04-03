@@ -36,7 +36,32 @@ const Clientes = () => {
       });
   }, []);
 
+  const handleDeleteClick = (params) => {
+    if (params.row && params.row.id) {
+      const id = params.row.id;
+      clienteAxios
+        .post(`/api/cliente/borrar/${id}`)
+        .then((response) => {
+          // eliminar el elemento de la tabla en el estado
+          setCliente(cliente.filter((row) => row.id !== params.row.id));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
   const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 1,
+      cellClassName: "id-column--cell",
+      valueGetter: (params) => params.row.id,
+      renderCell: (params) => (
+        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
+      ),
+    },
     {
       field: "rut_cliente",
       headerName: "Rut Cliente",
@@ -125,7 +150,11 @@ const Clientes = () => {
           <Button variant="contained" color="primary">
             Editar
           </Button>
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDeleteClick(params)}
+          >
             Eliminar
           </Button>
         </>
