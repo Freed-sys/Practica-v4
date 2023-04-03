@@ -73,7 +73,7 @@ class ordenTrabajosController extends Controller
             ->join('variantes', 'OrdenTrabajos.variante', '=', 'variantes.id')
 
             ->join('estados', 'OrdenTrabajos.estado', '=', 'estados.id')
-            ->select('cliente.nombre_cliente','cliente.apellidos_cliente', 'variantes.nombre_variante', 'estados.name')
+            ->select('ordenTrabajos.id', 'cliente.nombre_cliente','cliente.apellidos_cliente', 'variantes.nombre_variante', 'estados.name')
             ->get();
 
         return $ordenes;
