@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/crearInv', [InventarioController::class, 'crearItem']);
 Route::get('/mostrarInv', [InventarioController::class, 'getMateriallList']);
 Route::post('/inventario/editar/{id}', [InventarioController::class, 'editar']);
-Route::post('/inventario/borrar/{id}', [InventarioController::class, 'borrar']);
+Route::delete('/inventario/borrar/{id}', [InventarioController::class, 'borrar']);
 Route::post('/crearUni',[UmedidaController::class, 'create']);
 Route::get('/listarUni',[UmedidaController::class, 'listaDropdown']);
 Route::get('/listarCasa', [ CasasController::class, 'getCasaslList']);
