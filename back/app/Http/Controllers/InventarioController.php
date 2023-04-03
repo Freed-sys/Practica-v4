@@ -22,7 +22,7 @@ class InventarioController extends Controller
 
         $materialList = DB::table('inventarios')
         ->join('umedidas', 'inventarios.unidad_mat', '=', 'umedidas.id')
-        ->select('inventarios.nombre_mat','inventarios.tipo_mat','umedidas.abreviatura as unidad_mat', 'inventarios.cant_mat', 'inventarios.precio_unitario')
+        ->select('inventarios.id', 'inventarios.nombre_mat','inventarios.tipo_mat','umedidas.abreviatura as unidad_mat', 'inventarios.cant_mat', 'inventarios.precio_unitario')
         ->get();
     
     return response()->json($materialList);

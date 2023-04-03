@@ -20,11 +20,13 @@ const Inventario = () => {
       .get("/api/mostrarInv")
       .then((response) => {
         if (Array.isArray(response.data)) {
-          const inventario = response.data.map((element, index) => ({
+          console.log(response.data.id);
+          const inventario = response.data.map((element) => ({
             ...element,
-            id: index + 1, // add a unique id for each row
+            id: element.id, // add the ID field using the value of the _id field
             total: element.precio_unitario * element.cant_mat,
-          }));
+          })
+          );
           const total = inventario.reduce(
             (accumulator, currentValue) => accumulator + currentValue.total,
             0
@@ -32,7 +34,7 @@ const Inventario = () => {
           setInventario([
             ...inventario,
             {
-              id: "total",
+              id: "",
               nombre_mat: "",
               tipo_mat: "",
               cant_mat: "",
@@ -48,6 +50,7 @@ const Inventario = () => {
         console.error(error);
       });
   }, []);
+  
   
 
   const [selectedRow, setSelectedRow] = useState(null);
@@ -67,6 +70,18 @@ const Inventario = () => {
   };
 
   const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 1,
+      cellClassName: "id-column--cell",
+      valueGetter: (params) => params.row.id,
+      renderCell: (params) => (
+        <Typography color={colors.brown[100]}>
+          {params.row.id}
+        </Typography>
+      ),
+    },
     {
       field: "nombre_mat",
       headerName: "Nombre Material",
