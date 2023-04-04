@@ -7,13 +7,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
+import EditInv from "../formInventario/editInventario";
 
 const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+    const [open, setOpen] = useState(false);
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
+  const [selectedRowData, setSelectedRowData] = useState(null);
+
 
   useEffect(() => {
     clienteAxios
@@ -25,8 +29,7 @@ const Inventario = () => {
             ...element,
             id: element.id, // add the ID field using the value of the _id field
             total: element.precio_unitario * element.cant_mat,
-          })
-          );
+          }));
           const total = inventario.reduce(
             (accumulator, currentValue) => accumulator + currentValue.total,
             0
@@ -50,8 +53,6 @@ const Inventario = () => {
         console.error(error);
       });
   }, []);
-  
-  
 
   const [selectedRow, setSelectedRow] = useState(null);
   const handleDeleteClick = (params) => {
@@ -69,6 +70,11 @@ const Inventario = () => {
     }
   };
 
+  const handleEditClick = (params) => {
+    setSelectedRowData(params.row);
+    setOpen(true);
+  };
+
   const columns = [
     {
       field: "id",
@@ -77,9 +83,7 @@ const Inventario = () => {
       cellClassName: "id-column--cell",
       valueGetter: (params) => params.row.id,
       renderCell: (params) => (
-        <Typography color={colors.brown[100]}>
-          {params.row.id}
-        </Typography>
+        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
       ),
     },
     {
@@ -128,96 +132,97 @@ const Inventario = () => {
       flex: 1,
       cellCLassName: "name-column--cell",
       renderCell: (params) => (
-      <Typography color={colors.brown[100]}>
-      {" "}
-      $ {params.row.precio_unitario}
-      </Typography>
+        <Typography color={colors.brown[100]}>
+          {" "}
+          $ {params.row.precio_unitario}
+        </Typography>
       ),
-      },
-      {
+    },
+    {
       field: "total",
       headerName: "Total",
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (params) =>
-      params.row.id === "total" ? (
-      <Typography color={colors.brown[100]}>
-      $ {params.row.total}
-      </Typography>
-      ) : null,
-      },
-      {
+        params.row.id === "total" ? (
+          <Typography color={colors.brown[100]}>
+            $ {params.row.total}
+          </Typography>
+        ) : null,
+    },
+    {
       field: "acciones",
       headerName: "Acciones",
       flex: 1,
       sortable: false,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-      <>
-      <Button variant="contained" color="primary">
-      Editar
-      </Button>
-      <Button
-      variant="contained"
-      color="secondary"
-      onClick={() => handleDeleteClick(params)}
-      >
-      Eliminar
-      </Button>
-      </>
+        <>
+            <Button variant="contained" color="primary" onClick={handleEditClick}>
+            Editar
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDeleteClick(params)}
+          >
+            Eliminar
+          </Button>
+        </>
       ),
-      },
-      ];
-      
-      return (
-      <Box m="30px" display="grid">
+    },
+  ];
+
+  return (
+    <Box m="30px" display="grid">
       <Header title="Inventario " subtitle="Maneja el inventario desde aquí" />
       <Box
-      m="40px 0 60px 0"
-      height="75vh"
-      sx={{
-      "& .MuiDataGrid-root": {
-      border: "none",
-      },
-      "& .MuiDataGrid-cell": {
-      borderBottom: "none",
-      },
-      "& .name-column--cell": {
-      color: colors.green[400],
-      },
-      "& .MuiDataGrid-columnHeaders": {
-      backgroundColor: colors.brown[900],
-      borderBottom: "none",
-      },
-      "& .MuiDataGrid-virtualScroller": {
-      backgroundColor: colors.green[900],
-      },
-      "& .MuiDataGrid-footerContainer": {
-      borderTop: "none",
-      backgroundColor: colors.green[800],
-      },
-      }}
+        m="40px 0 60px 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.green[400],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.brown[900],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.green[900],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.green[800],
+          },
+        }}
       >
-      <DataGrid
-      rows={inventario}
-      columns={columns}
-      pageSize={10}
-      rowsPerPageOptions={[10, 20, 50]}
-      checkboxSelection
-      onSelectionModelChange={(newSelection) => {
-      setSelectedRow(
-      newSelection.selection.length > 0
-      ? newSelection.selection[0]
-      : null
-      );
-      }}
-      components={{
-      Toolbar: GridToolbar,
-      }}
-      />
+        <DataGrid
+          rows={inventario}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10, 20, 50]}
+          checkboxSelection
+          onSelectionModelChange={(newSelection) => {
+            setSelectedRow(
+              newSelection.selection.length > 0
+                ? newSelection.selection[0]
+                : null
+            );
+          }}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+        />
+         <EditInv open={open} onClose={() => setOpen(false)} selectedRowData={selectedRowData} />
       </Box>
-      </Box>
-      );
-      };
-      
-      export default Inventario;
+    </Box>
+  );
+};
+
+export default Inventario;

@@ -4,6 +4,17 @@
 
 }
 
+.FormMat{
+    background-color: #976f43;   
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+}
+.Formulario{
+    color: #18110a;
+}
+
 .container{
     display: flex;
     flex-direction: column;
@@ -102,6 +113,9 @@ dashboardGrid{
     padding: 10px;
     text-align: right;
   }
+
+
+  
 }
 
   

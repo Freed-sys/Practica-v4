@@ -53,7 +53,7 @@ const Form = () => {
 
   return (
     <div className="FormMat">
-      <Header title="Crear Trabajador" subtitle="Crear un nuevo Trabajador" />
+      <Header title="Crear Material" subtitle="Crear un nuevo Material" />
       <div className="Formulario">
         <Formik
           onSubmit={handleFormSubmit}
