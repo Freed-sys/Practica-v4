@@ -14,6 +14,7 @@ import "../global/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import clienteAxios from "../../helpers/clienteAxios";
 
 const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -21,8 +22,8 @@ const FormCli = () => {
   const [regiones, setRegiones] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/listarRegion")
+    clienteAxios
+      .get("/api/listarRegion")
       .then((response) => {
         setRegiones(response.data);
       })
@@ -32,8 +33,8 @@ const FormCli = () => {
   }, []);
 
   const handleFormSubmit = (values) => {
-    axios
-      .post("http://localhost:8000/api/crearCliente", values)
+    clienteAxios
+      .post("/api/crearCliente", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);

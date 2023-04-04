@@ -5,15 +5,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import "../global/App.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import clienteAxios from "../../helpers/clienteAxios";
 
 const FormUM = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
 
   const handleFormSubmit = (values) => {
-    axios
-      .post("http://localhost:8000/api/crearUni", values)
+    clienteAxios
+      .post("/api/crearUni", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);

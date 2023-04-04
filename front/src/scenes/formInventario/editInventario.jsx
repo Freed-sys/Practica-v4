@@ -14,7 +14,7 @@ import {
   import { useEffect, useState } from "react";
   import axios from "axios";
   import { Link } from "react-router-dom";
-
+import clienteAxios from "../../helpers/clienteAxios";
 
   
   const EditInv = () => {
@@ -23,8 +23,8 @@ import {
     const [umedidas, setUmedidas] = useState([]);
   
     useEffect(() => {
-      axios
-        .get("http://localhost:8000/api/listarUni")
+      clienteAxios
+        .get("/api/listarUni")
         .then((response) => {
           setUmedidas(response.data);
         })
@@ -34,8 +34,8 @@ import {
     }, []);
   
     const handleFormSubmit = (values) => {
-        axios
-          .post("http://localhost:8000/api/crearInv", values)
+        clienteAxios
+          .post(`api/inventario/editar/${id}`, values)
           .then((response) => {
             console.log(response.data);
             setOpen(true);

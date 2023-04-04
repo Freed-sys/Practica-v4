@@ -20,6 +20,7 @@ import "../global/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import clienteAxios from "../../helpers/clienteAxios";
 
 const FormVar = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -28,8 +29,8 @@ const FormVar = () => {
   const [selectedMateriales, setSelectedMateriales] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/mostrarInv")
+    clienteAxios
+      .get("api/mostrarInv")
       .then((response) => {
         setMateriales(response.data);
         console.log(response);
@@ -43,8 +44,8 @@ const FormVar = () => {
     console.log(values);
     values.materiales = selectedMateriales;
     console.log(selectedMateriales);
-    axios
-      .post("http://localhost:8000/api/crearVari", values)
+    clienteAxios
+      .post("/api/crearVari", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);
