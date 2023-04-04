@@ -13,6 +13,9 @@ import {
   import "../global/App.css";
   import { useEffect, useState } from "react";
   import axios from "axios";
+  import { Link } from "react-router-dom";
+
+
   
   const EditInv = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -53,7 +56,7 @@ import {
   
     return (
       <div className="FormMat">
-        <Header title="Crear Material" subtitle="Crear un nuevo Material" />
+        <Header title="Editar Material" subtitle="Editar un Material" />
         <div className="Formulario">
           <Formik
             onSubmit={handleFormSubmit}
@@ -177,13 +180,23 @@ import {
                   >
                     Limpiar campos
                   </Button>
+                  
                 </Box>
+                
               </form>
             )}
           </Formik>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Elemento creado correctamente</DialogTitle>
           </Dialog>
+          <div className="Boton">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/inventario`}
+        >
+          Volver atrás
+        </Button>
+      </div>
         </div>
       </div>
     );

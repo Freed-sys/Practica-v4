@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import clienteAxios from "../../helpers/clienteAxios";
 import { setToken, getToken, deleteToken } from "../../helpers/usuario";
 import { BrowserRouter, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -41,6 +42,8 @@ const Topbar = () => {
             color="primary"
             style={{ backgroundColor: "#7a5433" }}
             onClick={handleLogout}
+            component={Link}
+        to={`/`}
           >
             Cerrar Sesión
           </Button>
