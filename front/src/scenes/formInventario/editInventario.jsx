@@ -35,7 +35,7 @@ import clienteAxios from "../../helpers/clienteAxios";
   
     const handleFormSubmit = (values) => {
         clienteAxios
-          .post(`api/inventario/editar/${id}`, values)
+          .post(`api/inventario/editar/${id}`, values) //La variable ID no existe
           .then((response) => {
             console.log(response.data);
             setOpen(true);

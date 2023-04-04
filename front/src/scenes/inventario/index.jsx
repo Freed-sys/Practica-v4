@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [data, setData] = useState(null); // establecemos null como valor inicial
+  
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
@@ -54,10 +54,6 @@ const Inventario = () => {
       });
   }, []);
 
-  const handleData = (response) => {
-    console.log(response.data);
-    setData(data); // actualizamos el estado con la nueva información
-  }
 
   const [selectedRow, setSelectedRow] = useState(null);
   const handleDeleteClick = (params) => {
