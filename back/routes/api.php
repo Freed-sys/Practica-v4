@@ -47,7 +47,7 @@ Route::post('/crearEst', [EstadosController::class, 'crearItem']);
 Route::post('/creaOrden',[ordenTrabajosController::class, 'crearOrden']);
 Route::get('/mostrarOrden', [ordenTrabajosController::class, 'getOrdenList']);
 Route::post('/ordenTra/editar/{id}', [ordenTrabajosController::class, 'editar']);
-Route::post('/ordenTra/borrar/{id}', [ordenTrabajosController::class, 'borrar']);
+Route::delete('/ordenTra/borrar/{id}', [ordenTrabajosController::class, 'borrar']);
 Route::get('/listarRegion',[RegionController::class, 'getRegiones']);
 Route::get('/mostrarTra', [TrabajadorController::class, 'getTrabajadoresList']);
 Route::post('/creaTrabajo' , [TrabajadorController::class, 'crearTra']);

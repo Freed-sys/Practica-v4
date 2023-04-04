@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Form from "../formInventario";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
+import { Link } from "react-router-dom";
 
 {
   /*estamos rellenando con datos falsos, rellenar con listarMaterial y función map */
@@ -28,7 +29,7 @@ const Obras = () => {
       .then((response) => {
         const obrasConIds = response.data.map((obra, index) => ({
           ...obra,
-          id: index + 1,
+          id: obra.id,
         }));
         setObra(obrasConIds);
       })
@@ -37,14 +38,14 @@ const Obras = () => {
       });
   }, []);
 
+  const [selectedRow, setSelectedRow] = useState(null);
   const handleDeleteClick = (params) => {
+    console.log(params.row.id);
     if (params.row && params.row.id) {
       const id = params.row.id;
-  
-      // Eliminar el elemento principal
       clienteAxios
-        .post(`/api/ordenTra/borrar/${id}`)
-        .then(() => {
+        .delete(`/api/ordenTra/borrar/${id}`)
+        .then((response) => {
           // eliminar el elemento de la tabla en el estado
           setObra(obra.filter((row) => row.id !== params.row.id));
         })
@@ -53,6 +54,7 @@ const Obras = () => {
         });
     }
   };
+
   
 
   const columns = [
@@ -164,11 +166,24 @@ const Obras = () => {
         <DataGrid
           rows={obra}
           columns={columns}
-          components={{ Toolbar: GridToolbar }}
+          pageSize={10}
+          rowsPerPageOptions={[10, 20, 50]}
+          onSelectionModelChange={(newSelection) => {
+            setSelectedRow(
+              newSelection.selection.length > 0
+                ? newSelection.selection[0]
+                : null
+            );
+          }}
+          components={{
+            Toolbar: GridToolbar,
+          }}
         />
       </Box>
       <div className="Boton">
-        <Button type="submit" color="secondary" variant="contained">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/obra/new`}>
           Crear Obra
         </Button>
       </div>
