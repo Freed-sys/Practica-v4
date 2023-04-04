@@ -13,10 +13,8 @@ import {
   import "../global/App.css";
   import { useEffect, useState } from "react";
   import axios from "axios";
-  import { useParams } from 'react-router-dom';
   
   const EditInv = () => {
-    const { id } = useParams();
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [open, setOpen] = useState(false);
     const [umedidas, setUmedidas] = useState([]);
@@ -55,7 +53,7 @@ import {
   
     return (
       <div className="FormMat">
-        <Header title="Editar Material" subtitle="Editar un Material" />
+        <Header title="Crear Material" subtitle="Crear un nuevo Material" />
         <div className="Formulario">
           <Formik
             onSubmit={handleFormSubmit}
@@ -91,7 +89,7 @@ import {
                     name="nombre_mat"
                     error={!!touched.nombre_mat && !!errors.nombre_mat}
                     helperText={touched.nombre_mat && errors.nombre_mat}
-                    sx={{ gridColumn: "span 2"}}
+                    sx={{ gridColumn: "span 2" }}
                   />
                   <TextField
                     fullWidth
@@ -168,7 +166,7 @@ import {
                     variant="contained"
                     disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
                   >
-                    Editar Material
+                    Crear Material
                   </Button>
                   <Button
                     type="button"

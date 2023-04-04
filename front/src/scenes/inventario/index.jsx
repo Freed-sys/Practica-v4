@@ -72,7 +72,6 @@ const Inventario = () => {
   };
 
 
-
   const columns = [
     {
       field: "id",
@@ -210,7 +209,6 @@ const Inventario = () => {
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10, 20, 50]}
-          checkboxSelection
           onSelectionModelChange={(newSelection) => {
             setSelectedRow(
               newSelection.selection.length > 0
@@ -222,12 +220,15 @@ const Inventario = () => {
             Toolbar: GridToolbar,
           }}
         />
-        <EditInv
-          open={open}
-          onClose={() => setOpen(false)}
-          selectedRowData={selectedRowData}
-        />
       </Box>
+      <div className="Boton">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/newMat`}
+        >
+          Crear Material
+        </Button>
+      </div>
     </Box>
   );
 };
