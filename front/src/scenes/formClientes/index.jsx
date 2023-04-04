@@ -13,7 +13,7 @@ import Header from "../../components/Header";
 import "../global/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { validate as validateRut } from "validar-rut";
+import { Link } from "react-router-dom";
 
 const FormCli = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -252,6 +252,14 @@ const FormCli = () => {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Elemento creado correctamente</DialogTitle>
         </Dialog>
+        <div className="Boton">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/clientes`}
+        >
+          Volver atrás
+        </Button>
+      </div>
       </div>
     </div>
   );

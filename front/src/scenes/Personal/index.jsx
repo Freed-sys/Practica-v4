@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import clienteAxios from "../../helpers/clienteAxios";
-
+import { Link } from "react-router-dom";
 {
   /*estamos rellenando con datos falsos, rellenar con listarMaterial y función ma
   p */
@@ -172,6 +172,14 @@ const Personal = () => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
+      <div className="Boton">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/trabajador/new`}
+        >
+          Crear Trabajador
+        </Button>
+      </div>
     </Box>
   );
 };

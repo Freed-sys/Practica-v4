@@ -10,6 +10,7 @@ import Form from "../formInventario";
 import { useEffect, useState } from "react";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
+import { Link } from "react-router-dom";
 
 {
   /*estamos rellenando con datos falsos, rellenar con listarMaterial y función map */
@@ -101,9 +102,7 @@ const Clientes = () => {
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <Typography color={colors.brown[100]}>
-          {params.row.comuna}
-        </Typography>
+        <Typography color={colors.brown[100]}>{params.row.comuna}</Typography>
       ),
     },
     {
@@ -134,9 +133,7 @@ const Clientes = () => {
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <Typography color={colors.brown[100]}>
-          {params.row.email}
-        </Typography>
+        <Typography color={colors.brown[100]}>{params.row.email}</Typography>
       ),
     },
     {
@@ -161,7 +158,7 @@ const Clientes = () => {
       ),
     },
   ];
-  
+
   return (
     <Box m="30px" display="grid">
       <Header title="Clientes " subtitle="Revisa Clientes desde aquí" />
@@ -198,7 +195,13 @@ const Clientes = () => {
         />
       </Box>
       <div className="Boton">
-        <Button type="submit" color="secondary" variant="contained">
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          component={Link}
+          to={`/cliente/new`}
+        >
           Crear Nuevo Cliente
         </Button>
       </div>

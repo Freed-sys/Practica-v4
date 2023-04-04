@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [open, setOpen] = useState(false);
+  const [data, setData] = useState(null); // establecemos null como valor inicial
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
@@ -25,7 +25,6 @@ const Inventario = () => {
       .get("/api/mostrarInv")
       .then((response) => {
         if (Array.isArray(response.data)) {
-          console.log(response.data.id);
           const inventario = response.data.map((element) => ({
             ...element,
             id: element.id, // add the ID field using the value of the _id field
@@ -54,6 +53,11 @@ const Inventario = () => {
         console.error(error);
       });
   }, []);
+
+  const handleData = (response) => {
+    console.log(response.data);
+    setData(data); // actualizamos el estado con la nueva información
+  }
 
   const [selectedRow, setSelectedRow] = useState(null);
   const handleDeleteClick = (params) => {
@@ -160,6 +164,7 @@ const Inventario = () => {
             color="primary"
             component={Link}
             to={`/inventario/editar/`}
+            onClick={() => handleData()}
           >
             Editar
           </Button>
