@@ -8,16 +8,17 @@ import { useEffect, useState } from "react";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
 import EditInv from "../formInventario/editInventario";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
   const [selectedRowData, setSelectedRowData] = useState(null);
-
 
   useEffect(() => {
     clienteAxios
@@ -70,10 +71,7 @@ const Inventario = () => {
     }
   };
 
-  const handleEditClick = (params) => {
-    setSelectedRowData(params.row);
-    setOpen(true);
-  };
+
 
   const columns = [
     {
@@ -158,7 +156,12 @@ const Inventario = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <>
-            <Button variant="contained" color="primary" onClick={handleEditClick}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={`/inventario/editar/`}
+          >
             Editar
           </Button>
           <Button
@@ -219,7 +222,11 @@ const Inventario = () => {
             Toolbar: GridToolbar,
           }}
         />
-         <EditInv open={open} onClose={() => setOpen(false)} selectedRowData={selectedRowData} />
+        <EditInv
+          open={open}
+          onClose={() => setOpen(false)}
+          selectedRowData={selectedRowData}
+        />
       </Box>
     </Box>
   );

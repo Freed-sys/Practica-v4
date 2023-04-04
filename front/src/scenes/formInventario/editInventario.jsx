@@ -13,8 +13,10 @@ import {
   import "../global/App.css";
   import { useEffect, useState } from "react";
   import axios from "axios";
+  import { useParams } from 'react-router-dom';
   
   const EditInv = () => {
+    const { id } = useParams();
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [open, setOpen] = useState(false);
     const [umedidas, setUmedidas] = useState([]);
@@ -166,7 +168,7 @@ import {
                     variant="contained"
                     disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
                   >
-                    Crear Material
+                    Editar Material
                   </Button>
                   <Button
                     type="button"
