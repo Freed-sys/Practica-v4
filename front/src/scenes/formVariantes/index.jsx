@@ -10,9 +10,10 @@ import {
   InputLabel,
   FormGroup,
   Skeleton,
+  Select,
 } from "@mui/material";
 import { ListItemText } from "@material-ui/core";
-import { Formik } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -21,12 +22,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import clienteAxios from "../../helpers/clienteAxios";
+import Chip from "@mui/material/Chip";
+import Autocomplete from "@mui/material/Autocomplete";
+import Stack from "@mui/material/Stack";
 
 const FormVar = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
   const [materiales, setMateriales] = useState([]);
   const [selectedMateriales, setSelectedMateriales] = useState([]);
+  const [fieldValue, setFieldValue] = useState([]);
 
   useEffect(() => {
     clienteAxios
@@ -42,37 +47,35 @@ const FormVar = () => {
 
   const handleFormSubmit = (values) => {
     console.log(values);
-    values.materiales = selectedMateriales;
-    console.log(selectedMateriales);
+    const materialesString = selectedMateriales.join(", ");
     clienteAxios
-      .post("/api/crearVari", values)
+      .post("/api/crearVari", { ...values, materiales: materialesString })
       .then((response) => {
         console.log(response.data);
         setOpen(true);
+        values.materiales = materialesString;
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleSelectedMaterialesChange = (event) => {
-    setSelectedMateriales(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleResetForm = (resetForm) => {
     resetForm({ values: initialValues });
   };
-
+  const handleMaterialSelect = (event, value) => {
+    setSelectedMateriales(value);
+  };
+ 
   const initialValues = {
     nombre_variante: "",
     desc_variante: "",
     largo_variante: "",
     ancho_variante: "",
-    material: materiales.length > 0 ? materiales[0].id : "",
+    material: [],
     valor: "",
   };
   /*acá comienza el form */
@@ -97,6 +100,7 @@ const FormVar = () => {
             handleChange,
             handleSubmit,
             resetForm,
+            handleMaterialSelect,
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
@@ -109,25 +113,105 @@ const FormVar = () => {
               >
                 <TextField
                   fullWidth
-                  select
                   variant="filled"
-                  label="Tipo Casa"
+                  type="text"
+                  label="Nombre Variante"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.material || ""}
-                  name="material"
-                  error={!!touched.material && !!errors.material}
-                  helperText={touched.material && errors.material}
+                  value={values.nombre_variante}
+                  name="nombre_variante"
+                  error={!!touched.nombre_variante && !!errors.nombre_variante}
+                  helperText={touched.nombre_variante && errors.nombre_variante}
                   sx={{ gridColumn: "span 2" }}
-                >
-                  {React.Children.toArray(
-                    materiales.map((material) => (
-                      <MenuItem key={material.id} value={material.id}>
-                        {material.nombre_mat}
-                      </MenuItem>
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Descripción Variante"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.desc_variante}
+                  name="desc_variante"
+                  error={!!touched.desc_variante && !!errors.desc_variante}
+                  helperText={touched.desc_variante && errors.desc_variante}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Largo (En metros cuadrados)"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.largo_variante}
+                  name="largo_variante"
+                  error={!!touched.largo_variante && !!errors.largo_variante}
+                  helperText={touched.largo_variante && errors.largo_variante}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Ancho (En Metros Cuadrados)"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.ancho_variante}
+                  name="ancho_variante"
+                  error={!!touched.ancho_variante && !!errors.ancho_variante}
+                  helperText={touched.ancho_variante && errors.ancho_variante}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <Autocomplete
+                  multiple
+                  id="tags-filled"
+                  options={materiales.map((material) => material.nombre_mat)}
+                  defaultValue={[]}
+                  freeSolo
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                      onChange={handleMaterialSelect}
+                        variant="outlined"
+                        label={option}
+                        {...getTagProps({ index })}
+                      />
                     ))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="filled"
+                      label="Material(es)"
+                      placeholder="Seleccione o agregue materiales"
+                      error={!!touched.material && !!errors.material}
+                      helperText={touched.material && errors.material}
+                    />
                   )}
-                </TextField>
+                  onBlur={handleBlur}
+                  onChange={(event, value) => {
+                    setSelectedMateriales("material", value);
+                    handleChange(event);
+                  }}
+                  value={values.material}
+                  name="material"
+                  sx={{ gridColumn: "span 2" }}
+                />
+
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Valor (en CLP)"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.valor}
+                  name="valor"
+                  error={!!touched.valor && !!errors.valor}
+                  helperText={touched.valor && errors.valor}
+                  sx={{ gridColumn: "span 2" }}
+                />
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
                 <Button
@@ -167,6 +251,5 @@ const checkoutSchema = yup.object().shape({
   material: yup.string().required("campo requerido"),
   valor: yup.string().required("campo requerido"),
 });
-
 
 export default FormVar;
