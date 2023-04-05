@@ -56,8 +56,14 @@ class VarianteController extends Controller
     {
 
         $variantes = DB::table('variantes')
-        ->select( 'nombre_variante', DB::raw('GROUP_CONCAT(DISTINCT desc_variante SEPARATOR ", ") as desc_variante'), DB::raw('GROUP_CONCAT(DISTINCT largo_variante SEPARATOR ", ") as largo_variante'), DB::raw('GROUP_CONCAT(DISTINCT ancho_variante SEPARATOR ", ") as ancho_variante'), DB::raw('GROUP_CONCAT(DISTINCT material SEPARATOR ", ") as material'), DB::raw('GROUP_CONCAT(DISTINCT valor SEPARATOR ", ") as valor'))
-        ->groupBy('nombre_variante')
+        ->select('variantes.nombre_variante',
+                 DB::raw('GROUP_CONCAT(DISTINCT variantes.desc_variante SEPARATOR ", ") as desc_variante'),
+                 DB::raw('GROUP_CONCAT(DISTINCT variantes.largo_variante SEPARATOR ", ") as largo_variante'),
+                 DB::raw('GROUP_CONCAT(DISTINCT variantes.ancho_variante SEPARATOR ", ") as ancho_variante'),
+                 DB::raw('GROUP_CONCAT(DISTINCT inventarios.nombre_mat SEPARATOR ", ") as material'),
+                 DB::raw('GROUP_CONCAT(DISTINCT variantes.valor SEPARATOR ", ") as valor'))
+        ->join('inventarios', 'inventarios.id', '=', 'variantes.material')
+        ->groupBy('variantes.nombre_variante')
         ->get();
 
 return response()->json($variantes);
@@ -68,4 +74,6 @@ return response()->json($variantes);
         $regiones = variantes::select('id', 'nombre_variante')->get();
         return response()->json($regiones);
     }
+
+
 }
