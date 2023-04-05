@@ -48,13 +48,10 @@ class VarianteController extends Controller
         return response()->json('Elemento actualizado correctamente');
     }
     public function borrar($nombre_variante) {
-        $variantes = variantes::where('nombre_variante', $nombre_variante)->get();
-        foreach ($variantes as $variante) {
-            $variante->delete();
-        }
+        variantes::where('nombre_variante', $nombre_variante)->delete();
         return response()->json('Elementos eliminados correctamente');
     }
-
+    
     public function getVariantesList()
     {
 

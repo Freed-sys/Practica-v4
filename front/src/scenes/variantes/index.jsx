@@ -32,13 +32,13 @@ const Variante = () => {
   }, []);
 
   const handleDeleteClick = (params) => {
-    if (params.row && params.row.id) {
-      const id = params.row.id;
+    if (params.row && params.row.nombre_variante) {
+      const nombre_variante= params.row.nombre_variante;
       clienteAxios
-        .post(`/api/var/borrar/${id}`)
+        .post(`/api/var/borrar/${nombre_variante}`)
         .then((response) => {
           // eliminar el elemento de la tabla en el estado
-          setVariante(variante.filter((row) => row.id !== params.row.id));
+          setVariante(variante.filter((row) => row.nombre_variante !== params.row.nombre_variante));
         })
         .catch((error) => {
           console.error(error);
