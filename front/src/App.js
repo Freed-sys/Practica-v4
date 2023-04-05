@@ -24,6 +24,7 @@ import Login from "./scenes/login/SignIn";
 import EditInv from "./scenes/formInventario/editInventario";
 import { getToken } from "./helpers/usuario";
 import { Skeleton } from "@mui/material";
+import Variante from "./scenes/variantes";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
                   <Route path="/newMat" element={<Form />} />
                   <Route path="/obras" element={<Obras />} />
                   <Route path="/clientes" element={<Clientes />} />
+                  <Route path="/variantes" element={<Variante />} />
                   <Route path="/materialNew" element={<FormUM />} />
                   <Route path="/cliente/new" element={<FormCli />} />
                   <Route path="/trabajador/new" element={<FormTra />} />
