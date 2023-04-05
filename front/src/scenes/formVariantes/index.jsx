@@ -53,6 +53,9 @@ const FormVar = () => {
       .then((response) => {
         console.log(response.data);
         setOpen(true);
+        const handleMaterialSelect = (event, value) => {
+          setSelectedMateriales(value);
+        };
         values.materiales = materialesString;
       })
       .catch((error) => {
@@ -66,9 +69,7 @@ const FormVar = () => {
   const handleResetForm = (resetForm) => {
     resetForm({ values: initialValues });
   };
-  const handleMaterialSelect = (event, value) => {
-    setSelectedMateriales(value);
-  };
+
  
   const initialValues = {
     nombre_variante: "",
@@ -172,7 +173,6 @@ const FormVar = () => {
                   renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
                       <Chip
-                      onChange={handleMaterialSelect}
                         variant="outlined"
                         label={option}
                         {...getTagProps({ index })}
@@ -191,7 +191,7 @@ const FormVar = () => {
                   )}
                   onBlur={handleBlur}
                   onChange={(event, value) => {
-                    setSelectedMateriales("material", value);
+                    setFieldValue("material", value);
                     handleChange(event);
                   }}
                   value={values.material}
