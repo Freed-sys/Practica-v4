@@ -160,7 +160,6 @@ const Inventario = () => {
             color="primary"
             component={Link}
             to={`/inventario/editar/`}
-            onClick={() => handleData()}
           >
             Editar
           </Button>

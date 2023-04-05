@@ -6,27 +6,37 @@ use App\Models\variantes;
 use App\Http\Controllers\Controller;
 use App\Models\inventarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VarianteController extends Controller
+
 {
     public function crearVari(Request $request)
     {
-        $materiales = inventarios::where('id', $request->material)->select('id')->first();
-        if (!$materiales) {
-            // handle the case where the direccion is not found
-            return response()->json(['error' => 'Material no encontrado'], 404);
+        // Obtener los materiales con el mismo nombre_variante
+        $materiales = inventarios::whereIn('id', explode(',', $request->material))->get();
+        if ($materiales->isEmpty()) {
+            // manejar el caso en que no se seleccionaron materiales
+            return response()->json(['error' => 'Debe seleccionar al menos un material'], 400);
         }
-        variantes::create([
-            'nombre_variante' => $request['nombre_variante'],
-            'desc_variante' => $request['desc_variante'],
-            'largo_variante' => $request['largo_variante'],
-            'ancho_variante' => $request['ancho_variante'],
-            'material' => $materiales->id, //material será otra tabla
-            'valor' => $request['valor'],
-        ]);
-
-        // return a success response
-        return response()->json(['mensaje' => 'Elemento creado correctamente']);
+    
+        // Crear las variantes para cada material
+        $variantes = [];
+        foreach ($materiales as $material) {
+            $variantes[] = [
+                'nombre_variante' => $request['nombre_variante'],
+                'desc_variante' => $request['desc_variante'],
+                'largo_variante' => $request['largo_variante'],
+                'ancho_variante' => $request['ancho_variante'],
+                'material' => $material->id,
+                'valor' => $request['valor'],
+            ];
+        }
+        
+        variantes::insert($variantes);
+    
+        // retornar una respuesta exitosa
+        return response()->json(['mensaje' => 'Elemento(s) creado(s) correctamente']);
     }
 
 
@@ -37,18 +47,23 @@ class VarianteController extends Controller
         $orden->save();
         return response()->json('Elemento actualizado correctamente');
     }
-    public function borrar($id)
-    {
-        $orden  = variantes::findOrFail($id);
-        $orden->delete();
-        return response()->json('Elemento eliminado correctamente');
+    public function borrar($nombre_variante) {
+        $variantes = variantes::where('nombre_variante', $nombre_variante)->get();
+        foreach ($variantes as $variante) {
+            $variante->delete();
+        }
+        return response()->json('Elementos eliminados correctamente');
     }
 
     public function getVariantesList()
     {
 
-        $materialls = variantes::orderBy('id', 'DESC')->get();
-        return response()->json($materialls);
+        $variantes = DB::table('variantes')
+        ->select( 'nombre_variante', DB::raw('GROUP_CONCAT(DISTINCT desc_variante SEPARATOR ", ") as desc_variante'), DB::raw('GROUP_CONCAT(DISTINCT largo_variante SEPARATOR ", ") as largo_variante'), DB::raw('GROUP_CONCAT(DISTINCT ancho_variante SEPARATOR ", ") as ancho_variante'), DB::raw('GROUP_CONCAT(DISTINCT material SEPARATOR ", ") as material'), DB::raw('GROUP_CONCAT(DISTINCT valor SEPARATOR ", ") as valor'))
+        ->groupBy('nombre_variante')
+        ->get();
+
+return response()->json($variantes);
     }
 
     public function listaDropdown()

@@ -55,7 +55,7 @@ Route::post('/tra/editar/{id}', [TrabajadorController::class, 'editar']);
 Route::post('/tra/borrar/{id}', [TrabajadorController::class, 'borrar']);
 Route::post('/crearVari', [VarianteController::class, 'crearVari']);
 Route::post('/var/editar/{id}', [VarianteController::class, 'editar']);
-Route::post('/var/borrar/{id}', [VarianteController::class, 'borrar']);
+Route::post('/var/borrar/{nombre_variante}', [VarianteController::class, 'borrar']);
 Route::get('/mostrarVar', [VarianteController::class, 'getVariantesList']);
 Route::get('/listarVariantes',[VarianteController::class, 'listaDropdown']);
 Route::post('/register', [AuthController::class, 'register']);

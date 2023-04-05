@@ -22,7 +22,9 @@ const Variante = () => {
     clienteAxios
       .get("/api/mostrarVar")
       .then((response) => {
-        setVariante(response.data);
+        // Add a unique ID property to each object in the array
+        const data = response.data.map((item, index) => ({...item, id: index + 1}));
+        setVariante(data);
       })
       .catch((error) => {
         console.error(error);
@@ -69,7 +71,7 @@ const Variante = () => {
     {
       field: "desc_variante",
       headerName: "Descripción",
-      flex: 1,
+      flex: 3,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>{params.row.desc_variante}</Typography>
@@ -122,7 +124,7 @@ const Variante = () => {
     {
       field: "acciones",
       headerName: "Acciones",
-      flex: 1,
+      flex: 2,
       sortable: false,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
