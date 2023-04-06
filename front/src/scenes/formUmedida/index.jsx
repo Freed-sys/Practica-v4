@@ -4,7 +4,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import "../global/App.css";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import clienteAxios from "../../helpers/clienteAxios";
 
 const FormUM = () => {

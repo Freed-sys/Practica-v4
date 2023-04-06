@@ -1,67 +1,51 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  MenuItem,
-  TextField,
-  Checkbox,
-  FormControl,
-  InputLabel,
-  FormGroup,
-  Skeleton,
-  Select,
-} from "@mui/material";
-import { ListItemText } from "@material-ui/core";
-import { Formik, Form, Field } from "formik";
+import { Box, Button, Dialog, DialogTitle, TextField } from "@mui/material";
+import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import "../global/App.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import React from "react";
 import clienteAxios from "../../helpers/clienteAxios";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
 
 const FormVar = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
   const [materiales, setMateriales] = useState([]);
-  const [selectedMateriales, setSelectedMateriales] = useState([]);
-  const [fieldValue, setFieldValue] = useState([]);
 
   useEffect(() => {
     clienteAxios
       .get("api/mostrarInv")
-      .then((response) => {
-        setMateriales(response.data);
-        console.log(response);
+      .then((response) => {      
+        const opcion = response.data.map((item) =>{
+          return { "id": item.id, "label": item.nombre_mat}
+        })
+        console.log(opcion);
+        setMateriales(opcion);
       })
       .catch((error) => {
         console.log(error);
       });
+
   }, []);
+
 
   const handleFormSubmit = (values) => {
     console.log(values);
-    const materialesString = selectedMateriales.join(", ");
-    clienteAxios
-      .post("/api/crearVari", { ...values, materiales: materialesString })
-      .then((response) => {
-        console.log(response.data);
-        setOpen(true);
-        const handleMaterialSelect = (event, value) => {
-          setSelectedMateriales(value);
-        };
-        values.materiales = materialesString;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // const materialesString = selectedMateriales.join(", ");
+    // clienteAxios
+    //   .post("/api/crearVari", { ...values, materiales: materialesString })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     setOpen(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -70,7 +54,6 @@ const FormVar = () => {
     resetForm({ values: initialValues });
   };
 
- 
   const initialValues = {
     nombre_variante: "",
     desc_variante: "",
@@ -89,7 +72,9 @@ const FormVar = () => {
       />
       <div className="Formulario">
         <Formik
-          onSubmit={handleFormSubmit}
+          onSubmit={(values,{ setSue }) => {
+            console.log(values, setSue);
+          }}
           initialValues={initialValues}
           validationSchema={checkoutSchema}
         >
@@ -101,7 +86,7 @@ const FormVar = () => {
             handleChange,
             handleSubmit,
             resetForm,
-            handleMaterialSelect,
+            setFieldValue,
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
@@ -165,38 +150,32 @@ const FormVar = () => {
                   sx={{ gridColumn: "span 2" }}
                 />
                 <Autocomplete
+                onChange={(event, value) => setFieldValue("material", value) }
                   multiple
                   id="tags-filled"
-                  options={materiales.map((material) => material.nombre_mat)}
+                  options={materiales}
                   defaultValue={[]}
                   freeSolo
-                  renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
+                  name="material"
+                  renderTags={(values, getTagProps) =>
+                    {console.log(values);
+                       return values.map((option, index) => (
                       <Chip
                         variant="outlined"
-                        label={option}
+                        label={option.label}
                         {...getTagProps({ index })}
                       />
-                    ))
+                    ))}
                   }
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       variant="filled"
                       label="Material(es)"
-                      placeholder="Seleccione o agregue materiales"
-                      error={!!touched.material && !!errors.material}
-                      helperText={touched.material && errors.material}
+                      placeholder="Material(es)"
+                      sx={{ gridColumn: "span 4" }}
                     />
                   )}
-                  onBlur={handleBlur}
-                  onChange={(event, value) => {
-                    setFieldValue("material", value);
-                    handleChange(event);
-                  }}
-                  value={values.material}
-                  name="material"
-                  sx={{ gridColumn: "span 2" }}
                 />
 
                 <TextField
@@ -218,9 +197,9 @@ const FormVar = () => {
                   type="submit"
                   color="success"
                   variant="contained"
-                  //         disabled={Object.keys(errors).length !== 0}
+                  //  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
                 >
-                  Crear Orden
+                  Crear Material
                 </Button>
                 <Button
                   type="button"
@@ -248,7 +227,7 @@ const checkoutSchema = yup.object().shape({
   desc_variante: yup.string().required("campo requerido"),
   largo_variante: yup.string().required("campo requerido"),
   ancho_variante: yup.string().required("campo requerido"),
-  material: yup.string().required("campo requerido"),
+  // material: yup.string().required("campo requerido"),
   valor: yup.string().required("campo requerido"),
 });
 
