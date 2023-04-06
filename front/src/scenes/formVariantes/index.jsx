@@ -18,32 +18,37 @@ const FormVar = () => {
   useEffect(() => {
     clienteAxios
       .get("api/mostrarInv")
-      .then((response) => {      
-        const opcion = response.data.map((item) =>{
-          return { "id": item.id, "label": item.nombre_mat}
-        })
+      .then((response) => {
+        const opcion = response.data.map((item) => {
+          return { id: item.id, label: item.nombre_mat };
+        });
         console.log(opcion);
         setMateriales(opcion);
       })
       .catch((error) => {
         console.log(error);
       });
-
   }, []);
 
-
   const handleFormSubmit = (values) => {
-    console.log(values);
-    // const materialesString = selectedMateriales.join(", ");
-    // clienteAxios
-    //   .post("/api/crearVari", { ...values, materiales: materialesString })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     setOpen(true);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    const data = {
+      nombre_variante: values.nombre_variante,
+      desc_variante: values.desc_variante,
+      largo_variante: Number(values.largo_variante),
+      ancho_variante: Number(values.ancho_variante),
+      material: values.material,
+      valor: values.valor,
+    };
+  
+    clienteAxios
+      .post("/api/crearVari", data)
+      .then((response) => {
+        console.log(response.data);
+        setOpen(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleClose = () => {
@@ -72,7 +77,7 @@ const FormVar = () => {
       />
       <div className="Formulario">
         <Formik
-          onSubmit={(values,{ setSue }) => {
+          onSubmit={(values, { setSue }) => {
             console.log(values, setSue);
           }}
           initialValues={initialValues}
@@ -150,7 +155,7 @@ const FormVar = () => {
                   sx={{ gridColumn: "span 2" }}
                 />
                 <Autocomplete
-                onChange={(event, value) => setFieldValue("material", value) }
+                  onChange={(event, value) => setFieldValue("material", value)}
                   multiple
                   id="tags-filled"
                   options={materiales}
@@ -158,14 +163,13 @@ const FormVar = () => {
                   freeSolo
                   name="material"
                   renderTags={(values, getTagProps) =>
-                    {console.log(values);
-                       return values.map((option, index) => (
+                    values.map((option, index) => (
                       <Chip
                         variant="outlined"
                         label={option.label}
                         {...getTagProps({ index })}
                       />
-                    ))}
+                    ))
                   }
                   renderInput={(params) => (
                     <TextField
@@ -227,7 +231,7 @@ const checkoutSchema = yup.object().shape({
   desc_variante: yup.string().required("campo requerido"),
   largo_variante: yup.string().required("campo requerido"),
   ancho_variante: yup.string().required("campo requerido"),
-  // material: yup.string().required("campo requerido"),
+   // material: yup.string().required("campo requerido"),
   valor: yup.string().required("campo requerido"),
 });
 
