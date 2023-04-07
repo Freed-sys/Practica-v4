@@ -13,13 +13,17 @@ class VarianteController extends Controller
 {
     public function crearVari(Request $request)
     {
-        // Obtener los materiales con el mismo nombre_variante
-        $materiales = inventarios::whereIn('id', explode(',', $request->material))->get();
+        // Convertir los valores de material en números
+        $materiales_ids = array_map('intval', $request->material);
+        
+        // Obtener los materiales con los ids seleccionados
+        $materiales = inventarios::whereIn('id', $materiales_ids)->get();
+        
         if ($materiales->isEmpty()) {
             // manejar el caso en que no se seleccionaron materiales
             return response()->json(['error' => 'Debe seleccionar al menos un material'], 400);
         }
-    
+        
         // Crear las variantes para cada material
         $variantes = [];
         foreach ($materiales as $material) {
@@ -34,11 +38,10 @@ class VarianteController extends Controller
         }
         
         variantes::insert($variantes);
-    
+        
         // retornar una respuesta exitosa
         return response()->json(['mensaje' => 'Elemento(s) creado(s) correctamente']);
     }
-
 
     public function editar($id, Request $request)
     {

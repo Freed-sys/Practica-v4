@@ -31,17 +31,8 @@ const FormVar = () => {
   }, []);
 
   const handleFormSubmit = (values) => {
-    const data = {
-      nombre_variante: values.nombre_variante,
-      desc_variante: values.desc_variante,
-      largo_variante: Number(values.largo_variante),
-      ancho_variante: Number(values.ancho_variante),
-      material: values.material,
-      valor: values.valor,
-    };
-  
     clienteAxios
-      .post("/api/crearVari", data)
+      .post("/api/crearVari", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);
@@ -77,9 +68,7 @@ const FormVar = () => {
       />
       <div className="Formulario">
         <Formik
-          onSubmit={(values, { setSue }) => {
-            console.log(values, setSue);
-          }}
+          onSubmit={handleFormSubmit}
           initialValues={initialValues}
           validationSchema={checkoutSchema}
         >
