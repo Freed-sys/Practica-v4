@@ -143,33 +143,38 @@ const FormVar = () => {
                   helperText={touched.ancho_variante && errors.ancho_variante}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <Autocomplete
-                  onChange={(event, value) => setFieldValue("material", value)}
-                  multiple
-                  id="tags-filled"
-                  options={materiales}
-                  defaultValue={[]}
-                  freeSolo
-                  name="material"
-                  renderTags={(values, getTagProps) =>
-                    values.map((option, index) => (
-                      <Chip
-                        variant="outlined"
-                        label={option.label}
-                        {...getTagProps({ index })}
-                      />
-                    ))
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      variant="filled"
-                      label="Material(es)"
-                      placeholder="Material(es)"
-                      sx={{ gridColumn: "span 4" }}
-                    />
-                  )}
-                />
+               <Autocomplete
+    onChange={(event, value) => {
+        // Obtener un array de las ids de los materiales seleccionados
+        const materialIds = value.map((material) => material.id);
+        // Asignar el array de ids al campo "material"
+        setFieldValue("material", materialIds);
+    }}
+    multiple
+    id="tags-filled"
+    options={materiales}
+    defaultValue={[]}
+    freeSolo
+    name="material"
+    renderTags={(values, getTagProps) =>
+        values.map((option, index) => (
+            <Chip
+                variant="outlined"
+                label={option.label}
+                {...getTagProps({ index })}
+            />
+        ))
+    }
+    renderInput={(params) => (
+        <TextField
+            {...params}
+            variant="filled"
+            label="Material(es)"
+            placeholder="Material(es)"
+            sx={{ gridColumn: "span 4" }}
+        />
+    )}
+/>
 
                 <TextField
                   fullWidth
