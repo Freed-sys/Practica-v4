@@ -9,6 +9,7 @@ import React from "react";
 import clienteAxios from "../../helpers/clienteAxios";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
+import { Link } from "react-router-dom";
 
 const FormVar = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -197,7 +198,7 @@ const FormVar = () => {
                   variant="contained"
                   //  disabled={Object.keys(errors).length !== 0} // Deshabilita el botón si hay errores de validación
                 >
-                  Crear Material
+                  Crear Variante
                 </Button>
                 <Button
                   type="button"
@@ -215,6 +216,14 @@ const FormVar = () => {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Elemento creado correctamente</DialogTitle>
         </Dialog>
+        <div className="Boton">
+        <Button type="submit" color="secondary" variant="contained"
+        component={Link}
+        to={`/variantes`}
+        >
+          Volver atrás
+        </Button>
+      </div>
       </div>
     </div>
   );

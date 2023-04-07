@@ -60,7 +60,7 @@ const Variante = () => {
     {
       field: "nombre_variante",
       headerName: "Nombre",
-      flex: 1,
+      flex: 4,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -71,7 +71,7 @@ const Variante = () => {
     {
       field: "desc_variante",
       headerName: "Descripción",
-      flex: 3,
+      flex: 5,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>{params.row.desc_variante}</Typography>
@@ -100,7 +100,7 @@ const Variante = () => {
     {
       field: "material",
       headerName: "Materiales",
-      flex: 1,
+      flex: 6,
       cellCLassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -112,7 +112,7 @@ const Variante = () => {
     {
         field: "valor",
         headerName: "Precio",
-        flex: 1,
+        flex: 4,
         cellCLassName: "name-column--cell",
         renderCell: (params) => (
           <Typography color={colors.brown[100]}>
@@ -129,14 +129,6 @@ const Variante = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <>
-          <Button
-            variant="contained"
-            color="primary"
-            component={Link}
-            to={`/inventario/editar/`}
-          >
-            Editar
-          </Button>
           <Button
             variant="contained"
             color="secondary"
@@ -192,7 +184,7 @@ const Variante = () => {
       <div className="Boton">
         <Button type="submit" color="secondary" variant="contained"
         component={Link}
-        to={`/trabajador/new`}
+        to={`/variante/new`}
         >
           Crear Variante
         </Button>
