@@ -134,25 +134,28 @@ const Inventario = () => {
       sortable: false,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <>
-          <Button
-            variant="contained"
-            color="primary"
-            component={Link}
-            to={`/inventario/editar/`}
-          >
-            Editar
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => handleDeleteClick(params)}
-          >
-            Eliminar
-          </Button>
-        </>
+        params.row.id === "total" ? null : (
+          <>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to={`/inventario/editar/`}
+            >
+              Editar
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleDeleteClick(params)}
+            >
+              Eliminar
+            </Button>
+          </>
+        )
       ),
     },
+    
   ];
 
   return (
