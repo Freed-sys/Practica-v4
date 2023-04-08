@@ -8,13 +8,13 @@ import {  useState } from "react";
 import clienteAxios from "../../helpers/clienteAxios";
 import { Link } from "react-router-dom";
 
-const FormUM = () => {
+const FormEstado = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
 
   const handleFormSubmit = (values) => {
     clienteAxios
-      .post("/api/crearUni", values)
+      .post("api/crearEst", values)
       .then((response) => {
         console.log(response.data);
         setOpen(true);
@@ -36,8 +36,8 @@ const FormUM = () => {
   return (
     <div className="FormMat">
       <Header
-        title="Crear Unidad de Medida"
-        subtitle="Crear una nueva Unidad de Medida"
+        title="Crear Estado"
+        subtitle="Crear un nuevo estado para las obras"
       />
       <div className="Formulario">
         <Formik
@@ -67,27 +67,14 @@ const FormUM = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Nombre Unidad"
+                  label="Nombre Estado"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.nombre}
-                  name="nombre"
-                  error={!!touched.nombre && !!errors.nombre}
-                  helperText={touched.nombre && errors.nombre}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Abreviatura"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.abreviatura}
-                  name="abreviatura"
-                  error={!!touched.abreviatura && !!errors.abreviatura}
-                  helperText={touched.abreviatura && errors.abreviatura}
-                  sx={{ gridColumn: "span 2" }}
+                  value={values.name}
+                  name="name"
+                  error={!!touched.name && !!errors.name}
+                  helperText={touched.name && errors.name}
+                  sx={{ gridColumn: "span 4" }}
                 />
               </Box>
               <Box display="flex" justifyContent="end" mt="20px">
@@ -129,12 +116,12 @@ const FormUM = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  nombre: yup.string().required("campo requerido"),
-  abreviatura: yup.string().required("campo requerido"),
+  name: yup.string().required("campo requerido"),
+
 });
 const initialValues = {
-  nombre: "",
-  abreviatura: "",
+  name: "",
+
 };
 
-export default FormUM;
+export default FormEstado;
