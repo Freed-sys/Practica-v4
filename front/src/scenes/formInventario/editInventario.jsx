@@ -67,7 +67,7 @@ const EditInv = () => {
 
   return (
     <div className="FormMat">
-      <Header title="Editar Material" subtitle="Crear un nuevo Material" />
+      <Header title="Editar Material" subtitle="Edita un Material" />
       <div className="Formulario">
         <Formik
           onSubmit={handleFormSubmit}

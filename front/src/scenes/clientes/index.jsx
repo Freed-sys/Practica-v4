@@ -144,9 +144,7 @@ const Clientes = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <>
-          <Button variant="contained" color="primary">
-            Editar
-          </Button>
+          
           <Button
             variant="contained"
             color="secondary"
@@ -201,9 +199,16 @@ const Clientes = () => {
           variant="contained"
           component={Link}
           to={`/cliente/new`}
+          style={{marginRight: "25px"}}
         >
           Crear Nuevo Cliente
         </Button>
+
+        <Button variant="contained" color="primary"
+        component={Link}
+        to={`/cliente/edit`}>
+            Editar Cliente
+          </Button>
       </div>
     </Box>
   );
