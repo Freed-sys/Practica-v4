@@ -112,7 +112,7 @@ import {
                 >
                   {editars.map((editar) => (
                     <MenuItem key={editar.id} value={editar.id}>
-                      {editar.nombre_cliente}
+                      {`${editar.nombre_cliente} ${editar.apellidos_cliente}`}
                     </MenuItem>
                   ))}
                 </TextField>

@@ -96,7 +96,7 @@ import clienteAxios from "../../helpers/clienteAxios";
                   fullWidth
                   select
                   variant="filled"
-                  label="Cliente"
+                  label="Trabajador"
                   onBlur={handleBlur}
                   onChange={(e) => {
                     handleChange(e);
@@ -111,7 +111,7 @@ import clienteAxios from "../../helpers/clienteAxios";
                 >
                   {editars.map((editar) => (
                     <MenuItem key={editar.id} value={editar.id}>
-                      {editar.nombre_tra}
+                     {`${editar.nombre_tra} ${editar.apellidos_tra}`}
                     </MenuItem>
                   ))}
                 </TextField>
