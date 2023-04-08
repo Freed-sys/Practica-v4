@@ -46,16 +46,6 @@ const Personal = () => {
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-      cellClassName: "id-column--cell",
-      valueGetter: (params) => params.row.id,
-      renderCell: (params) => (
-        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
-      ),
-    },
-    {
       field: "rut_tra",
       headerName: "Rut Trabajador",
       flex: 1,
@@ -116,9 +106,6 @@ const Personal = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <>
-          <Button variant="contained" color="primary">
-            Editar
-          </Button>
           <Button
             variant="contained"
             color="secondary"
@@ -173,11 +160,24 @@ const Personal = () => {
         />
       </Box>
       <div className="Boton">
-        <Button type="submit" color="secondary" variant="contained"
-        component={Link}
-        to={`/trabajador/new`}
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          component={Link}
+          to={`/trabajador/new`}
+          style={{ marginRight: "25px" }}
         >
           Crear Trabajador
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to={`/trabajador/edit`}
+        >
+          Editar Trabajador
         </Button>
       </div>
     </Box>

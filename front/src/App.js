@@ -26,6 +26,7 @@ import { Skeleton } from "@mui/material";
 import Variante from "./scenes/variantes";
 import EditInv from "./scenes/formInventario/editInventario";
 import EditCli from "./scenes/formClientes/editClientes";
+import EditTra from "./scenes/formTrabajadores/editTrabajadores";
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
                   <Route path="/materialNew" element={<FormUM />} />
                   <Route path="/cliente/new" element={<FormCli />} />
                   <Route path="/trabajador/new" element={<FormTra />} />
+                  <Route path="/trabajador/edit" element={<EditTra />} />
                   <Route path="/obra/new" element={<FormObra />} />
                   <Route path="/variante/new" element={<FormVar />} />
                   <Route path="/pdfOrden" element={<OrdenPDF />} />
