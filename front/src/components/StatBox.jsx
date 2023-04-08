@@ -14,14 +14,14 @@ const StatBox = ({ title, subtitle, icon}) => {
           <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ color: colors.gray[100] }}
+            sx={{ color: colors.brown[500] }}
           >
             {title}
           </Typography>
         </Box>
       </Box>
       <Box display="flex" justifyContent="space-between" mt="2px">
-        <Typography variant="h5" sx={{ color: colors.gray[500] }}>
+        <Typography variant="h5" sx={{ color: colors.gray[900] }}>
           {subtitle}
         </Typography>
       </Box>
