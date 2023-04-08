@@ -55,8 +55,6 @@ const Obras = () => {
     }
   };
 
-  
-
   const columns = [
     {
       field: "id",
@@ -85,7 +83,9 @@ const Obras = () => {
       flex: 1,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
-        <Typography color={colors.gray[100]}>{params.row.apellidos_cliente}</Typography>
+        <Typography color={colors.gray[100]}>
+          {params.row.apellidos_cliente}
+        </Typography>
       ),
     },
     {
@@ -116,9 +116,6 @@ const Obras = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <>
-          <Button variant="contained" color="primary">
-            Editar
-          </Button>
           <Button
             variant="contained"
             color="secondary"
@@ -181,10 +178,24 @@ const Obras = () => {
         />
       </Box>
       <div className="Boton">
-        <Button type="submit" color="secondary" variant="contained"
-        component={Link}
-        to={`/obra/new`}>
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          component={Link}
+          to={`/obra/new`}
+          style={{ marginRight: "25px" }}
+        >
           Crear Obra
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to={`/obra/edit`}
+        >
+          Editar Obra
         </Button>
       </div>
     </Box>

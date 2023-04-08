@@ -5,19 +5,14 @@ import {
   DialogTitle,
   MenuItem,
   TextField,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Skeleton,
 } from "@mui/material";
-import { ListItemText } from "@material-ui/core";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import "../global/App.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import clienteAxios from "../../helpers/clienteAxios";
 import { Link } from "react-router-dom";
 
 
@@ -26,13 +21,12 @@ const FormObra = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [open, setOpen] = useState(false);
   const [clientes, setClientes] = useState([]); //los estados siempre en plural
-  const [valores, setValores] = useState([]);
   const [variantes, setVariantes] = useState([]);
   const [estados, setEstados] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/listarCliente")
+    clienteAxios
+      .get("/api/listarCliente")
       .then((response) => {
         setClientes(response.data);
       })
@@ -41,8 +35,8 @@ const FormObra = () => {
       });
   }, []);
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/listarVariantes")
+    clienteAxios
+      .get("/api/listarVariantes")
       .then((response) => {
         setVariantes(response.data);
       })
@@ -51,8 +45,8 @@ const FormObra = () => {
       });
   }, []);
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/listarEstado")
+    clienteAxios
+      .get("/api/listarEstado")
       .then((response) => {
         setEstados(response.data);
       })
@@ -63,8 +57,8 @@ const FormObra = () => {
 
   const handleFormSubmit = (values) => {
     console.log(values);
-    axios
-      .post("http://localhost:8000/api/creaOrden", values, {
+    clienteAxios
+      .post("/api/creaOrden", values, {
         headers: {
           "Content-Type": "application/json",
         },

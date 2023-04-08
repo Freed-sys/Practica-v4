@@ -27,6 +27,7 @@ import Variante from "./scenes/variantes";
 import EditInv from "./scenes/formInventario/editInventario";
 import EditCli from "./scenes/formClientes/editClientes";
 import EditTra from "./scenes/formTrabajadores/editTrabajadores";
+import EditObra from "./scenes/formObras/editObra";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
                   <Route path="/trabajador/new" element={<FormTra />} />
                   <Route path="/trabajador/edit" element={<EditTra />} />
                   <Route path="/obra/new" element={<FormObra />} />
+                  <Route path="/obra/edit" element={<EditObra />} />
                   <Route path="/variante/new" element={<FormVar />} />
                   <Route path="/pdfOrden" element={<OrdenPDF />} />
                   <Route path="*" element={<Navigate to="/" />} /> {/* Si se introduce una ruta no válida, redirigir al dashboard */}
