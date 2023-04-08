@@ -9,7 +9,7 @@ import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
 import EditInv from "../formInventario/editInventario";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+
 
 const Inventario = () => {
   const theme = useTheme();
@@ -18,7 +18,7 @@ const Inventario = () => {
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
-  const [selectedRowData, setSelectedRowData] = useState(null);
+
 
   useEffect(() => {
     clienteAxios
@@ -27,26 +27,11 @@ const Inventario = () => {
         if (Array.isArray(response.data)) {
           const inventario = response.data.map((element) => ({
             ...element,
-            id: element.id, // add the ID field using the value of the _id field
+            id: element.id,
             total: element.precio_unitario * element.cant_mat,
           }));
-          const total = inventario.reduce(
-            (accumulator, currentValue) => accumulator + currentValue.total,
-            0
-          );
-          setInventario([
-            ...inventario,
-            {
-              id: "",
-              nombre_mat: "",
-              tipo_mat: "",
-              cant_mat: "",
-              unidad_mat: "",
-              precio_unitario: "",
-              total: total,
-            },
-          ]);
-          setTotal(total);
+          setInventario([...inventario, { id: "total", total: inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0) }]);
+          setTotal(inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0));
         }
       })
       .catch((error) => {
@@ -74,16 +59,6 @@ const Inventario = () => {
 
   const columns = [
     {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-      cellClassName: "id-column--cell",
-      valueGetter: (params) => params.row.id,
-      renderCell: (params) => (
-        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
-      ),
-    },
-    {
       field: "nombre_mat",
       headerName: "Nombre Material",
       flex: 1,
@@ -105,8 +80,8 @@ const Inventario = () => {
     },
     {
       field: "cant_mat",
-      headerName: "Cantidad Material",
-      flex: 1,
+      headerName: "Cantidad",
+      flex: 0.5,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>{params.row.cant_mat}</Typography>
@@ -114,8 +89,8 @@ const Inventario = () => {
     },
     {
       field: "unidad_mat",
-      headerName: "Unidad de Medida",
-      flex: 1,
+      headerName: "Unidad",
+      flex: 0.25,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -126,26 +101,31 @@ const Inventario = () => {
     {
       field: "precio_unitario",
       headerName: "Precio",
-      flex: 1,
-      cellCLassName: "name-column--cell",
-      renderCell: (params) => (
-        <Typography color={colors.brown[100]}>
-          {" "}
-          $ {params.row.precio_unitario}
-        </Typography>
-      ),
+      flex: 0.6,
+      cellClassName: "name-column--cell",
+      renderCell: (params) =>
+        params.row.id === "total" ? (
+          <Typography color={colors.brown[100]}>
+            {params.row.precio_unitario}
+          </Typography>
+        ) : (
+          <Typography>
+            $ {params.row.precio_unitario}
+          </Typography>
+        ),
     },
     {
       field: "total",
       headerName: "Total",
       flex: 1,
       cellClassName: "name-column--cell",
-      renderCell: (params) =>
-        params.row.id === "total" ? (
-          <Typography color={colors.brown[100]}>
-            $ {params.row.total}
-          </Typography>
-        ) : null,
+      renderCell: (params) => {
+        if (params.row.id === "total") {
+          return <Typography color={colors.brown[100]}>$ {total}</Typography>;
+        } else {
+          return <Typography> {params.value}</Typography>;
+        }
+      },
     },
     {
       field: "acciones",
@@ -216,6 +196,7 @@ const Inventario = () => {
                 : null
             );
           }}
+          
           components={{
             Toolbar: GridToolbar,
           }}

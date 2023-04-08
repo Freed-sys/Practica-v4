@@ -12,7 +12,6 @@ import {
   import Header from "../../components/Header";
   import "../global/App.css";
   import { useEffect, useState } from "react";
-  import axios from "axios";
   import { Link } from "react-router-dom";
 import clienteAxios from "../../helpers/clienteAxios";
 
