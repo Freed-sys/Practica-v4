@@ -53,20 +53,11 @@ const Clientes = () => {
   };
 
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-      cellClassName: "id-column--cell",
-      valueGetter: (params) => params.row.id,
-      renderCell: (params) => (
-        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
-      ),
-    },
+
     {
       field: "rut_cliente",
       headerName: "Rut Cliente",
-      flex: 1,
+      flex: 1.2,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -88,7 +79,7 @@ const Clientes = () => {
     {
       field: "apellidos_cliente",
       headerName: "Apellidos",
-      flex: 1,
+      flex: 1.5,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -99,7 +90,7 @@ const Clientes = () => {
     {
       field: "comuna",
       headerName: "Comuna",
-      flex: 1,
+      flex: 0.75,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>{params.row.comuna}</Typography>
@@ -108,7 +99,7 @@ const Clientes = () => {
     {
       field: "direccion_cliente",
       headerName: "Dirección",
-      flex: 1,
+      flex: 3,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>
@@ -130,7 +121,7 @@ const Clientes = () => {
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: 2,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.brown[100]}>{params.row.email}</Typography>
