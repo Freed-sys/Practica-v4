@@ -18,7 +18,9 @@ const Inventario = () => {
 
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
-
+  const [selectedInventario, setSelectedInventario] = useState(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  
 
   useEffect(() => {
     clienteAxios
@@ -56,6 +58,11 @@ const Inventario = () => {
     }
   };
 
+  const handleEditClick = (params) => {
+    setSelectedInventario(params.row);
+    setEditModalOpen(true);
+  };
+  
 
   const columns = [
     {
@@ -140,7 +147,7 @@ const Inventario = () => {
               variant="contained"
               color="primary"
               component={Link}
-              to={`/inventario/editar/`}
+              to={`/inventario/edit`}
             >
               Editar
             </Button>

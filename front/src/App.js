@@ -21,10 +21,10 @@ import FormObra from "./scenes/formObras";
 import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 import Login from "./scenes/login/SignIn";
-import EditInv from "./scenes/formInventario/editInventario";
 import { getToken } from "./helpers/usuario";
 import { Skeleton } from "@mui/material";
 import Variante from "./scenes/variantes";
+import EditModal from "./scenes/formInventario/editInventario";
 
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/inventario" element={<Inventario />} />
-                  <Route path="/inventario/editar/" element={<EditInv />} />
+                  <Route path="/inventario/edit" element={<EditModal />} />
                   <Route path="/personal" element={<Personal />} />
                   <Route path="/newMat" element={<Form />} />
                   <Route path="/obras" element={<Obras />} />
