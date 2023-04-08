@@ -43,6 +43,9 @@ const Inventario = () => {
 
 
   const [selectedRow, setSelectedRow] = useState(null);
+
+
+
   const handleDeleteClick = (params) => {
     if (params.row && params.row.id) {
       const id = params.row.id;
@@ -58,11 +61,6 @@ const Inventario = () => {
     }
   };
 
-  const handleEditClick = (params) => {
-    setSelectedInventario(params.row);
-    setEditModalOpen(true);
-  };
-  
 
   const columns = [
     {
@@ -142,15 +140,7 @@ const Inventario = () => {
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         params.row.id === "total" ? null : (
-          <>
-            <Button
-              variant="contained"
-              color="primary"
-              component={Link}
-              to={`/inventario/edit`}
-            >
-              Editar
-            </Button>
+          <>            
             <Button
               variant="contained"
               color="secondary"
@@ -213,13 +203,23 @@ const Inventario = () => {
         />
       </Box>
       <div className="Boton">
-        <Button type="submit" color="secondary" variant="contained"
-        component={Link}
-        to={`/newMat`}
-        >
-          Crear Material
-        </Button>
-      </div>
+  <Button type="submit" color="secondary" variant="contained"
+  component={Link}
+  to={`/newMat`}
+  style={{marginRight: "25px"}}
+  >
+    Crear Material
+  </Button>
+  <Button
+    variant="contained"
+    color="primary"
+    component={Link}
+    to={`/inventario/edit`}
+  >
+    Editar Material
+  </Button>
+</div>
+
     </Box>
   );
 };
