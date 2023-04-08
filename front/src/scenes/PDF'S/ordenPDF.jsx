@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import clienteAxios from "../../helpers/clienteAxios";
 import jsPDF from "jspdf";
 
 function OrdenPDF() {
   const [orden, setOrden] = useState();
 
   const handleGenerarPDF = () => {
-    axios
-      .get("http://localhost:8000/api/mostrarOrden")
+    clienteAxios
+      .get("/api/mostrarOrden")
       .then((response) => {
         setOrden(response.data);
+        console.log(orden);
       })
       .catch((error) => console.error(error));
   };
@@ -30,7 +31,7 @@ function OrdenPDF() {
       let startY = 40;
   
       const ordenesText = orden.map((o, i) => {
-        const cliente = o.nombre_cliente || 'N/A';
+        const cliente = o.nombre_cliente && o.apellidos_cliente ? `${o.nombre_cliente} ${o.apellidos_cliente}` : 'N/A';
         const variante = o.nombre_variante || 'N/A';
         const estado = o.name || 'N/A';
         const text = `Orden ${i+1}:`;

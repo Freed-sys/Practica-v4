@@ -2,25 +2,15 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import Form from "../formInventario";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
-import EditInv from "../formInventario/editInventario";
 import { Link } from "react-router-dom";
-
-
 const Inventario = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  
-
   const [inventario, setInventario] = useState([]);
   const [total, setTotal] = useState(0);
-  const [selectedInventario, setSelectedInventario] = useState(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  
 
   useEffect(() => {
     clienteAxios
