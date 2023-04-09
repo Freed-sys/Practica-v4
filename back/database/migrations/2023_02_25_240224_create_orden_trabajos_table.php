@@ -26,6 +26,7 @@ class CreateOrdenTrabajosTable extends Migration
             $table->unsignedBigInteger('cliente');
             $table->unsignedBigInteger('variante');
             $table->unsignedBigInteger('estado');
+            $table->string('observaciones');
             $table->timestamps();
 
             $table->foreign('cliente')->references('id')->on('cliente');

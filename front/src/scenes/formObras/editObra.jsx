@@ -25,6 +25,7 @@ import {
     const [estados, setEstados] = useState([]);
     const [selectedOrdenId, setSelectedOrdenId] = useState('');
     const [editars, setEditars] = useState([]);
+    const [observaciones, setObservaciones] = useState([]);
   
     useEffect(() => {
         clienteAxios
@@ -214,6 +215,19 @@ import {
                       )
                     )}
                   </TextField>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Observaciones"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.observaciones}
+                    name="observaciones"
+                    error={!!touched.observaciones && !!errors.observaciones}
+                    helperText={touched.observaciones && errors.observaciones}
+                    sx={{ gridColumn: "span 4" }}
+                  />
                 </Box>
                 <Box display="flex" justifyContent="end" mt="20px">
                   <Button
@@ -262,6 +276,7 @@ import {
     cliente: "",
     variante: "",
     estado: "",
+    observaciones: "",
   };
   
   export default EditObra;

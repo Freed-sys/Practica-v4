@@ -42,6 +42,7 @@ class ordenTrabajosController extends Controller
             'cliente' => $cliente->id,
             'variante' => $variante->id, //foranea de variante
             'estado' => $estado->id, //foranea de estado
+            'observaciones' =>$request['observaciones'],
         ]);
 
         // return a success response
@@ -73,7 +74,7 @@ class ordenTrabajosController extends Controller
             ->join('variantes', 'OrdenTrabajos.variante', '=', 'variantes.id')
 
             ->join('estados', 'OrdenTrabajos.estado', '=', 'estados.id')
-            ->select('ordenTrabajos.id', 'cliente.nombre_cliente','cliente.apellidos_cliente', 'variantes.nombre_variante', 'estados.name')
+            ->select('ordenTrabajos.id', 'cliente.nombre_cliente','cliente.apellidos_cliente', 'variantes.nombre_variante', 'estados.name' , 'ordenTrabajos.observaciones')
             ->get();
 
         return $ordenes;

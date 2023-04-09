@@ -1,21 +1,15 @@
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/dataExample";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import Form from "../formInventario";
 import "../global/App.css";
 import clienteAxios from "../../helpers/clienteAxios";
 import { Link } from "react-router-dom";
 
-{
+
   /*estamos rellenando con datos falsos, rellenar con listarMaterial y función map */
-}
+
 
 const Obras = () => {
   const theme = useTheme();
@@ -30,8 +24,10 @@ const Obras = () => {
         const obrasConIds = response.data.map((obra, index) => ({
           ...obra,
           id: obra.id,
+          observaciones: obra.observaciones 
         }));
         setObra(obrasConIds);
+        console.log(obra);
       })
       .catch((error) => {
         console.error(error);
@@ -56,16 +52,6 @@ const Obras = () => {
   };
 
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      flex: 1,
-      cellClassName: "id-column--cell",
-      valueGetter: (params) => params.row.id,
-      renderCell: (params) => (
-        <Typography color={colors.brown[100]}>{params.row.id}</Typography>
-      ),
-    },
     {
       field: "nombre_cliente",
       headerName: "Cliente",
@@ -101,17 +87,26 @@ const Obras = () => {
     },
     {
       field: "estado",
-      headerName: "Estado Obra",
-      flex: 1,
+      headerName: "Estado",
+      flex: 0.5,
       cellClassName: "name-column--cell",
       renderCell: (params) => (
         <Typography color={colors.gray[100]}>{params.row.name}</Typography>
       ),
     },
     {
+      field: "observaciones",
+      headerName: "Observaciones",
+      flex: 3,
+      cellClassName: "name-column--cell",
+      renderCell: (params) => (
+        <Typography color={colors.gray[100]}>{params.row.observaciones}</Typography>
+      ),
+    },
+    {
       field: "acciones",
       headerName: "Acciones",
-      flex: 1,
+      flex: 0.5,
       sortable: false,
       cellClassName: "name-column--cell",
       renderCell: (params) => (

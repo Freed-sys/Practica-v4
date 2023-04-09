@@ -34,6 +34,7 @@ function OrdenPDF() {
         const cliente = o.nombre_cliente && o.apellidos_cliente ? `${o.nombre_cliente} ${o.apellidos_cliente}` : 'N/A';
         const variante = o.nombre_variante || 'N/A';
         const estado = o.name || 'N/A';
+        const observaciones = o.observaciones || 'N/A';
         const text = `Orden ${i+1}:`;
         const lines = doc.splitTextToSize(text, doc.internal.pageSize.width - 20);
         const height = lines.length * doc.internal.getFontSize();
@@ -49,6 +50,8 @@ function OrdenPDF() {
         doc.text(`Variante: ${variante}`, 30, startY);
         startY += 10;
         doc.text(`Estado: ${estado}`, 30, startY);
+        startY += 10;
+        doc.text(`Observaciones: ${observaciones}`, 30, startY);
         startY += 15;
 
           // Agregar línea separadora

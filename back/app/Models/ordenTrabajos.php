@@ -17,6 +17,7 @@ class ordenTrabajos extends Model
         'cliente', //foranea de cliente
         'variante', //foranea de inventarios
         'estado', //estado
+        'observaciones', //observacion
 
     ];
 
