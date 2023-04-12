@@ -28,6 +28,8 @@ import EditTra from "./scenes/formTrabajadores/editTrabajadores";
 import EditObra from "./scenes/formObras/editObra";
 import FormEstado from "./scenes/formEstado";
 import Register from "./scenes/dashboard/register";
+import { AuthProvider } from "./helpers/authContext";
+
 
 
 function App() {
@@ -47,6 +49,7 @@ function App() {
   }, []);
 
   return (
+    <AuthProvider>
     <ColorModeContext.Provider value={colorMode}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
@@ -89,6 +92,7 @@ function App() {
         )}
       </ThemeProvider>
     </ColorModeContext.Provider>
+    </AuthProvider>
   );
 }
 
