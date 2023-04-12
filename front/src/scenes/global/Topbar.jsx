@@ -27,10 +27,13 @@ const Topbar = () => {
       });
   };
 
+  const handleClearStorage = () => {
+    localStorage.clear();
+  };
+
   return (
     <div className="logo">
       {/*barra busqueda */}
-
       <img
         src="https://i.postimg.cc/YqwzWnxh/79b1e621-7037-4257-ba5b-132dc001973a-2.jpg"
         alt="Logo"
@@ -42,7 +45,10 @@ const Topbar = () => {
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#7a5433" }}
-          onClick={handleLogout}
+          onClick={() => {
+            handleLogout();
+            handleClearStorage();
+          }}
           component={Link}
           to={`/`}
         >
@@ -52,4 +58,5 @@ const Topbar = () => {
     </div>
   );
 };
+
 export default Topbar;
