@@ -4,7 +4,6 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import Topbar from "./scenes/global/Topbar";
 import Inventario from "./scenes/inventario";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import Personal from "./scenes/Personal";
 import Form from "./scenes/formInventario";
 import FormUM from "./scenes/formUmedida";
@@ -22,13 +21,13 @@ import FormVar from "./scenes/formVariantes";
 import OrdenPDF from "./scenes/PDF'S/ordenPDF";
 import Login from "./scenes/login/SignIn";
 import { getToken } from "./helpers/usuario";
-import { Skeleton } from "@mui/material";
 import Variante from "./scenes/variantes";
 import EditInv from "./scenes/formInventario/editInventario";
 import EditCli from "./scenes/formClientes/editClientes";
 import EditTra from "./scenes/formTrabajadores/editTrabajadores";
 import EditObra from "./scenes/formObras/editObra";
 import FormEstado from "./scenes/formEstado";
+import Register from "./scenes/dashboard/register";
 
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
 
   // Estado para comprobar si el usuario ha iniciado sesión
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -80,6 +78,7 @@ function App() {
                   <Route path="/variante/new" element={<FormVar />} />
                   <Route path="/pdfOrden" element={<OrdenPDF />} />
                   <Route path="/estado/new" element={<FormEstado />} />
+                  <Route path="/registrar/new" element={<Register />} />
                   <Route path="*" element={<Navigate to="/" />} /> {/* Si se introduce una ruta no válida, redirigir al dashboard */}
                 </Routes>
               </div>

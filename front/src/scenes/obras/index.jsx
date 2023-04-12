@@ -192,6 +192,17 @@ const Obras = () => {
         >
           Editar Obra
         </Button>
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          component={Link}
+          to={`/pdfOrden`}
+          style={{ marginLeft: "25px" }}
+        >
+          Generar PDF
+        </Button>
+        
       </div>
     </Box>
   );

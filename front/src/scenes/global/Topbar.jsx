@@ -31,23 +31,23 @@ const Topbar = () => {
     <div className="logo">
       {/*barra busqueda */}
 
-      <img src="https://i.postimg.cc/YqwzWnxh/79b1e621-7037-4257-ba5b-132dc001973a-2.jpg" alt="Logo" />
-
+      <img
+        src="https://i.postimg.cc/YqwzWnxh/79b1e621-7037-4257-ba5b-132dc001973a-2.jpg"
+        alt="Logo"
+      />
       <div className="session_out">
-    
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            style={{ backgroundColor: "#7a5433" }}
-            onClick={handleLogout}
-            component={Link}
-        to={`/`}
-          >
-            Cerrar Sesión
-          </Button>
-
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          style={{ backgroundColor: "#7a5433" }}
+          onClick={handleLogout}
+          component={Link}
+          to={`/`}
+        >
+          Cerrar Sesión
+        </Button>
       </div>
     </div>
   );

@@ -99,25 +99,41 @@ dashboardGrid{
 }
 
 @media screen and (max-width: 600px) {
-  .logo {
-    flex-direction: column;
-    align-items: flex-start;
+    .logo {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .session_out {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background-color: #fff;
+      padding: 10px;
+      text-align: right;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+    
+    .new_user {
+      margin-right: auto;
+      margin-left: 20px;
+    }
+    
+    .session_container {
+      display: flex;
+      padding: 10px 0;
+    }
   }
   
-  .session_out {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    background-color: #fff;
-    padding: 10px;
-    text-align: right;
-  }
+  
 
 .DashboardButton{
     margin-top: 30%;
 }
   
-}
+
+  
 
   

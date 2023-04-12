@@ -10,10 +10,13 @@ function OrdenPDF() {
       .get("/api/mostrarOrden")
       .then((response) => {
         setOrden(response.data);
-        console.log(orden);
       })
       .catch((error) => console.error(error));
   };
+
+  useEffect(() => {
+    handleGenerarPDF();
+  }, []);
 
   useEffect(() => {
     if (orden) {
@@ -63,11 +66,10 @@ function OrdenPDF() {
       doc.save('orden_trabajo.pdf');
     }
   }, [orden]);
-  
 
   return (
     <div>
-      <button onClick={handleGenerarPDF}>Generar PDF</button>
+      <h1>Generando PDF...</h1>
     </div>
   );
 }
