@@ -6,21 +6,21 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Button from "@material-ui/core/Button";
 import clienteAxios from "../../helpers/clienteAxios";
 import { setToken, getToken, deleteToken } from "../../helpers/usuario";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../helpers/authContext"; // importar el authContext
 import { Link } from "react-router-dom";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const navigate = useNavigate();
+  const { logout } = useContext(AuthContext); // obtener la función logout del authContext
 
   const handleLogout = () => {
     clienteAxios
       .post("/api/logout")
       .then(() => {
         deleteToken();
-        navigate("/login");
+        logout(); // llamar a la función logout del authContext
       })
       .catch((error) => {
         console.log(error);
