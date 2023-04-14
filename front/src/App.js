@@ -36,7 +36,7 @@ function App() {
   const colors = tokens(theme.palette.mode);
 
   return (
-<AuthProvider>
+    <AuthProvider>
       <ColorModeContext.Provider value={colorMode}>
         <CssBaseline />
         <ThemeProvider theme={theme}>
@@ -46,48 +46,31 @@ function App() {
               <Sidebarr />
             </div>
             <div className="container">
-            <Routes>
-            <Route path="/" element={<PrivateRoutes />}>
-            <Route path="/inventario" element={<Inventario />} />
-            <Route path="/inventario/edit" element={<EditInv />} />
-            <Route path="/personal" element={<Personal />} />
-            <Route path="/newMat" element={<Form />} />
-            <Route path="/obras" element={<Obras />} />
-            <Route path="/clientes" element={<Clientes />} />
-            <Route path="/cliente/edit" element={<EditCli />} />
-            <Route path="/variantes" element={<Variante />} />
-            <Route path="/materialNew" element={<FormUM />} />
-            <Route path="/cliente/new" element={<FormCli />} />
-            <Route path="/trabajador/new" element={<FormTra />} />
-            <Route path="/trabajador/edit" element={<EditTra />} />
-            <Route path="/obra/new" element={<FormObra />} />
-            <Route path="/obra/edit" element={<EditObra />} />
-             <Route path="/variante/new" element={<FormVar />} />
-             <Route path="/pdfOrden" element={<OrdenPDF />} />
-             <Route path="/estado/new" element={<FormEstado />} />               
-             <Route path="/registrar/new" element={<Register />} />
-              <Route path="/" element={<Dashboard />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-          </Routes>
-
-
-              {/* <Routes>
-                
-               
-                
-                
-                
-
-            
-              
-
-              
-                
-            
-               
-              </Routes> */}
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<PrivateRoutes />}>
+                  <Route path="/inventario" element={<Inventario />} />
+                  <Route path="/inventario/edit" element={<EditInv />} />
+                  <Route path="/personal" element={<Personal />} />
+                  <Route path="/newMat" element={<Form />} />
+                  <Route path="/obras" element={<Obras />} />
+                  <Route path="/clientes" element={<Clientes />} />
+                  <Route path="/cliente/edit" element={<EditCli />} />
+                  <Route path="/variantes" element={<Variante />} />
+                  <Route path="/materialNew" element={<FormUM />} />
+                  <Route path="/cliente/new" element={<FormCli />} />
+                  <Route path="/trabajador/new" element={<FormTra />} />
+                  <Route path="/trabajador/edit" element={<EditTra />} />
+                  <Route path="/obra/new" element={<FormObra />} />
+                  <Route path="/obra/edit" element={<EditObra />} />
+                  <Route path="/variante/new" element={<FormVar />} />
+                  <Route path="/pdfOrden" element={<OrdenPDF />} />
+                  <Route path="/estado/new" element={<FormEstado />} />               
+                  <Route path="/registrar/new" element={<Register />} />
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Route>
+              </Routes>
             </div>
           </div>
         </ThemeProvider>

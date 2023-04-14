@@ -16,6 +16,7 @@
 }
 
 .container{
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -26,7 +27,7 @@ body{
 }
 
 .Sidebarr{
-    height: 1000px;
+    height: 100%;
     width: 250px;
     background-color: #7a5433;
     padding: 20px;

@@ -67,7 +67,7 @@ import clienteAxios from "../../helpers/clienteAxios";
   
     return (
       <div className="FormMat">
-        <Header title="Crear Trabajador" subtitle="Crear un nuevo Trabajador" />
+        <Header title="Editar Trabajador" subtitle="Editar a un Trabajador" />
         <div className="Formulario">
           <Formik
             onSubmit = {handleFormSubmit}
