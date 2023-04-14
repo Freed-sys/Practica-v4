@@ -1,35 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react';
+import { Navigate, Outlet, Route } from 'react-router-dom';
+import { AuthContext } from '../helpers/authContext';
 import { getToken } from '../helpers/usuario';
-import {  Route, Navigate } from "react-router-dom";
 
-function PrivateRoute({Component, ...rest}) {
+function PrivateRoutes() {
+  const { auth } = useContext(AuthContext);
+  const token = getToken();
   
-    const [loggedIn, setLoggedIn] = useState(false);
-
-
- useEffect(() => {
-
-    const token = getToken();
-    if (token) {
-      setLoggedIn(true);
-    }
- },[])
-
-//if (isLoading) return <h1>Loading...</h1>;
-
- return (
-        <Route {...rest}
-          render={(props) =>
-            loggedIn ? (
-              <Component {...props} />
-            ) : (
-                <Navigate to="/login" replace />
-            )
-          }
-        />
-      )
-
- 
+  return (
+    token ? <Outlet /> : <Navigate to="/login" />
+  );
 }
 
-export default PrivateRoute;
+export default PrivateRoutes;
