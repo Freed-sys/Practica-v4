@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getToken } from '../helpers/usuario';
-import {  Route } from "react-router-dom";
-import SignIn from '../scenes/login/SignIn';
+import {  Route, Navigate } from "react-router-dom";
 
 function PrivateRoute({Component, ...rest}) {
   
@@ -24,7 +23,7 @@ function PrivateRoute({Component, ...rest}) {
             loggedIn ? (
               <Component {...props} />
             ) : (
-                <SignIn setLoggedIn={false}/>
+                <Navigate to="/login" replace />
             )
           }
         />

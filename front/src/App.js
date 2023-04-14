@@ -54,7 +54,6 @@ function App() {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         {/* Verificar si el usuario ha iniciado sesión */}
-        {loggedIn ? (
           <>
             <Topbar />
             <div className="App">
@@ -83,14 +82,12 @@ function App() {
                   <Route path="/pdfOrden" element={<OrdenPDF />} />
                   <Route path="/estado/new" element={<FormEstado />} />
                   <Route path="/registrar/new" element={<Register />} />
+                    <Route path="/login" element={<Login  />} />
                   <Route path="*" element={<Navigate to="/" />} /> {/* Si se introduce una ruta no válida, redirigir al dashboard */}
                 </Routes>
               </div>
             </div>
           </>
-        ) : (
-          <Login setLoggedIn={setLoggedIn} />
-        )}
       </ThemeProvider>
     </ColorModeContext.Provider>
     </AuthProvider>
