@@ -28,25 +28,25 @@ import EditTra from "./scenes/formTrabajadores/editTrabajadores";
 import EditObra from "./scenes/formObras/editObra";
 import FormEstado from "./scenes/formEstado";
 import Register from "./scenes/dashboard/register";
-import { AuthProvider,  } from "./helpers/authContext";
+import { AuthProvider  } from "./helpers/authContext";
 
-
+import PrivateRoute from "./context/PrivateRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
 
   // Estado para comprobar si el usuario ha iniciado sesión
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
 
-  useEffect(() => {
+  // useEffect(() => {
     // Verificar si el usuario ha iniciado sesión
-    const token = getToken();
-    if (token) {
-      setLoggedIn(true);
-    }
-  }, []);
+     // const token = getToken();
+  //   if (token) {
+      // setLoggedIn(true);
+  //   }
+  // }, []);
 
   return (
     <AuthProvider>
@@ -71,7 +71,8 @@ function App() {
                   <Route path="/obras" element={<Obras />} />
                   <Route path="/clientes" element={<Clientes />} />
                   <Route path="/cliente/edit" element={<EditCli />} />
-                  <Route path="/variantes" element={<Variante />} />
+                  {/* <Route path="/variantes" element={<Variante />} /> */}
+                  <PrivateRoute path="/variantes" Component={<Variante/>}/>
                   <Route path="/materialNew" element={<FormUM />} />
                   <Route path="/cliente/new" element={<FormCli />} />
                   <Route path="/trabajador/new" element={<FormTra />} />
