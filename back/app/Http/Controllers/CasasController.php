@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\variantes;
 use App\Models\casas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,74 +15,49 @@ class CasasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function getCasaslList(){
+    
+            $materialls = casas::orderBy('id', 'DESC')->get();
+            return response()->json($materialls);
+
+        
+     
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+  /** Crear Casa */
+
+    public function crearCasa(Request $request)
     {
-        //
+        $variante= variantes::where('id', $request->tipo)->select('id')->get();
+        //return $medida;
+        $casa = casas::create([
+           'desc_casa' => $request['desc_casa'],
+            'tipo' => $variante['id'],
+            'observaciones' => $request['observaciones'],
+
+        ]);
+        return response()->json(["mensaje"=>'Elemento creado correctamente ']);
+    
+ }
+
+    /*editar item*/
+
+
+    public function editar($id, Request $request)
+    {
+        $casa = casas::findOrFail($id);
+        $casa->fill($request->all());
+        $casa->save();
+        return response()->json('Elemento actualizado correctamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\casas  $casas
-     * @return \Illuminate\Http\Response
-     */
-    public function show(casas $casas)
+    public function borrar($id, Request $request)
     {
-        //
+        $casa = casas::findOrFail($id);
+        $casa->delete();
+        return response()->json('Elemento eliminado correctamente');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\casas  $casas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(casas $casas)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\casas  $casas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, casas $casas)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\casas  $casas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(casas $casas)
-    {
-        //
-    }
+    
 }

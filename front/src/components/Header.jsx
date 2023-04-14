@@ -1,5 +1,6 @@
-import { Typography, Box, useTheme } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { tokens } from "../theme";
+import { useTheme } from '@mui/material/styles';
 
 const Header = ({ title, subtitle }) => {
   const theme = useTheme();
@@ -8,13 +9,13 @@ const Header = ({ title, subtitle }) => {
     <Box mb="30px">
       <Typography
         variant="h2"
-        color={colors.gray[100]}
+        color={colors.gray[900]}
         fontWeight="bold"
         sx={{ m: "0 0 5px 0" }}
       >
         {title}
       </Typography>
-      <Typography variant="h5" color={colors.brown[400]}>
+      <Typography variant="h5" color={colors.gray[900]}>
         {subtitle}
       </Typography>
     </Box>

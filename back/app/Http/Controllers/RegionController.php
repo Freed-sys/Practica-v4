@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\region;
+use App\Models\Region;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,9 +13,10 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getRegiones()
     {
-        //
+        $regiones = Region::select('id', 'nombre')->get();
+        return response()->json($regiones);
     }
 
     /**
@@ -42,10 +43,10 @@ class RegionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\region  $region
+     * @param  \App\Models\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function show(region $region)
+    public function show(Region $region)
     {
         //
     }
@@ -53,10 +54,10 @@ class RegionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\region  $region
+     * @param  \App\Models\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function edit(region $region)
+    public function edit(Region $region)
     {
         //
     }
@@ -65,10 +66,10 @@ class RegionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\region  $region
+     * @param  \App\Models\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, region $region)
+    public function update(Request $request, Region $region)
     {
         //
     }
@@ -76,10 +77,10 @@ class RegionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\region  $region
+     * @param  \App\Models\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function destroy(region $region)
+    public function destroy(Region $region)
     {
         //
     }

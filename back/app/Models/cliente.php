@@ -14,15 +14,19 @@ class cliente extends Model
     public $timestamps = false;
     protected $fillable = [
         'rut_cliente',
-        'nombre_ciente',
-        'apellidos_cliente',
+        'nombre_cliente',
+        'apellidos_cliente',    
+        'region_id', //foranea de region 
+        'comuna',
         'direccion_cliente',
+        'num_casa',
         'telefono_cliente',
-        'cod_orden',
+        'email'
     ];
 
-public function direccion(){
-    return $this->belongsToMany(direcciones::class, 'direccion_cliente', 'id' );
+
+public function region(){
+    return $this->belongsTo(Region::class, 'region_id', 'id' );
 }
 
 }

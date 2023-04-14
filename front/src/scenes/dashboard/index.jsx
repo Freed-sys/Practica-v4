@@ -1,20 +1,57 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, useTheme, Button } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/dataExample";
 import PersonIcon from "@mui/icons-material/Person";
 import StatBox from "../../components/StatBox";
-import { palette } from "@mui/system";
-import DownloadIcon from "@mui/icons-material/Download";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import { mockDataPerson } from "../../data/dataPersonEx";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import clienteAxios from "../../helpers/clienteAxios";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
+import "../global/App.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../global/App.css";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [inventarios, setInventarios] = useState([]);
+  const [personal, setPersonal] = useState([]);
+  const [obras, setObras] = useState([]);
+
+  useEffect(() => {
+    clienteAxios
+      .get("api/mostrarTra")
+      .then((response) => {
+        setPersonal(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    clienteAxios
+      .get("api/mostrarOrden")
+      .then((response) => {
+        setObras(response.data);
+        console.log(obras);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    clienteAxios
+      .get("/api/mostrarInv")
+      .then((response) => {
+        setInventarios(response.data);
+        console.log(response.data); // Agregar console.log aquí
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Box m="20px">
@@ -24,22 +61,6 @@ const Dashboard = () => {
           subtitle="Bienvenido a Casas Antilhue"
         />
       </div>
-      <Box>
-        <Button
-          sx={{
-            backgroundColor: colors.brown[700],
-            color: colors.gray[100],
-            fontSize: "14px",
-            padding: "10px",
-            fontWeight: "bold",
-            fontFamily: "Roboto",
-            marginBottom: "2%",
-          }}
-        >
-          <DownloadIcon sx={{ mr: "10px" }} />
-          Descargar Resumen
-        </Button>
-      </Box>
       {/* GRID  Y CHARTS*/}
       <div className="dashboardGrid">
         <Box
@@ -59,7 +80,7 @@ const Dashboard = () => {
           >
             {/* RELLENAR CON DATOS MATERIALES BDD */}
             <StatBox
-              title="3"
+              title={inventarios.length}
               subtitle="Materiales Activos"
               icon={
                 <InventoryIcon
@@ -79,7 +100,7 @@ const Dashboard = () => {
             >
               {/* RELLENAR CON DATOS MATERIALES BDD */}
               <StatBox
-                title="10"
+                title={personal.length}
                 subtitle="Personal Activo"
                 icon={
                   <PersonIcon
@@ -99,7 +120,7 @@ const Dashboard = () => {
               >
                 {/* RELLENAR CON DATOS MATERIALES BDD */}
                 <StatBox
-                  title="20"
+                  title={obras.length}
                   subtitle="Obras Activas"
                   icon={
                     <HomeRepairServiceIcon
@@ -115,7 +136,31 @@ const Dashboard = () => {
           </Box>
         </Box>
       </div>
+      
+      <div className="DashboardButton">
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            component={Link}
+            to={`/materialNew`}
+            style={{ marginRight: "25px" }}
+          >
+            Crear Unidad de medida
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to={`/estado/new`}
+            style={{ marginRight: "25px" }}
+          >
+            Crear Estado
+          </Button>
+         
+        </div>
     </Box>
+    
   );
 };
 

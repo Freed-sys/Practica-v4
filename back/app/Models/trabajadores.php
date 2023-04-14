@@ -16,17 +16,16 @@ class trabajadores extends Model
         'rut_tra',
         'nombre_tra',
         'apellidos_tra',
-        'obra',  //foranea de orden trabajos
-        'direccion_tra', //foranea de direccion
-        'tel_tra'
+        'region_id', //foranea de region
+        'comuna',
+        'direccion_tra', 
+        'num_calle',
+        'tel_tra',
+        'email',
     ];
 
     public function obra(){
-        return $this->belongsTo(ordenTrabajos::class, 'obra', 'id');
-    }
-
-    public function direccion(){
-        return $this->belongsToMany(direcciones::class, 'direccion_tra', 'id');
+        return $this->hasOne(ordenTrabajos::class, 'id', 'id_trabajador');
     }
 
 }

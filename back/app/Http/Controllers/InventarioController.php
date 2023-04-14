@@ -7,6 +7,7 @@ use App\Models\umedidas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Log;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -18,27 +19,28 @@ class InventarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getMateriallList(){
-        try{
-            $materialls = inventarios::orderBy('id', 'DESC')->get();
-            return response()->json($materialls);
 
-        }
-        catch(Exception $e){
+        $materialList = DB::table('inventarios')
+        ->join('umedidas', 'inventarios.unidad_mat', '=', 'umedidas.id')
+        ->select('inventarios.id', 'inventarios.nombre_mat','inventarios.tipo_mat','umedidas.abreviatura as unidad_mat', 'inventarios.cant_mat', 'inventarios.precio_unitario')
+        ->get();
+    
+    return response()->json($materialList);
+        
 
-            Log::error($e);
-        }
     }
 
    /*crear item*/
      
    public function crearItem(Request $request)
    {
-           $medida= umedidas::where('id', $request->tipo_mat)->select('id')->first();
+           $medida= umedidas::where('id', $request->unidad_mat)->select('id')->first();
            //return $medida;
-           $inventario = inventarios::create([
+           inventarios::create([
               'nombre_mat' => $request['nombre_mat'],
-               'tipo_mat' => $medida['id'],
+               'tipo_mat' => $request['tipo_mat'],
                'cant_mat' => $request['cant_mat'],
+               'unidad_mat' => $medida->id,
                'precio_unitario' => $request['precio_unitario']
            ]);
            return response()->json(["mensaje"=>'Elemento creado correctamente ']);

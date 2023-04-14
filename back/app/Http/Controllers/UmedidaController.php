@@ -25,8 +25,7 @@ class UmedidaController extends Controller
      */
     public function create(Request $request)
     {
-        $umedida = new umedidas();
-        $umedida = umedidas::create([
+       umedidas::create([
             'nombre' => $request['nombre'],
              'abreviatura' => $request['abreviatura'],
          ]);
@@ -36,60 +35,9 @@ class UmedidaController extends Controller
 
     public function listaDropdown()
     {
-        $umedidas = umedidas::all();
-        $options = [];
-        foreach ($umedidas as $umedida) {
-            $options[] = [
-                'value' => $umedida->id,
-                'label' => $umedida->nombre,
-            ];
-        }
-        return response()->json([
-            'options' => $options,
-        ]);
+        $regiones = umedidas::select('id', 'nombre')->get();
+        return response()->json($regiones);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Umedida $umedida)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Umedida  $umedida
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Umedida $umedida)
-    {
-        //
-    }
+    
+   
 }
